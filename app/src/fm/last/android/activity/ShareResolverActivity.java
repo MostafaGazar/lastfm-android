@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import android.app.ListActivity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +36,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 
@@ -45,7 +45,7 @@ import fm.last.android.R;
  * which there is more than one matching activity, allowing the user to decide
  * which to go to. It is not normally used directly by application developers.
  */
-public class ShareResolverActivity extends ListActivity {
+public class ShareResolverActivity extends BaseListActivity {
 	private ResolveListAdapter mAdapter;
 	private PackageManager mPm;
 

@@ -7,14 +7,14 @@
 package fm.last.android.activity;
 
 import android.content.Context;
+import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.preference.DialogPreference;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.LinearLayout;
 
 
 public class SeekBarPreference extends DialogPreference implements SeekBar.OnSeekBarChangeListener

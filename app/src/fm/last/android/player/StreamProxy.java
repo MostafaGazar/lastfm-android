@@ -15,7 +15,16 @@
 package fm.last.android.player;
 
 
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.StringTokenizer;
 
 import org.apache.http.Header;
 import org.apache.http.HttpRequest;
@@ -46,16 +55,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.CharArrayBuffer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.StringTokenizer;
+import android.util.Log;
 
 public class StreamProxy implements Runnable {
   private static final String LOG_TAG = StreamProxy.class.getName();

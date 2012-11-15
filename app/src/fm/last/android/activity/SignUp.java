@@ -20,7 +20,6 @@
  ***************************************************************************/
 package fm.last.android.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +28,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.utils.AsyncTaskEx;
@@ -36,7 +36,7 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.WSError;
 
-public class SignUp extends Activity {
+public class SignUp extends BaseActivity {
 	protected Button mSignUpButton;
 	protected Session mSession;
 	protected TextView mUsername;

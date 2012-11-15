@@ -1,5 +1,8 @@
 package fm.last.android;
 
+import java.io.IOException;
+import java.io.Serializable;
+
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -8,10 +11,6 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.text.TextUtils;
-
-import java.io.IOException;
-import java.io.Serializable;
-
 import fm.last.api.Album;
 import fm.last.api.Artist;
 import fm.last.api.LastFmServer;

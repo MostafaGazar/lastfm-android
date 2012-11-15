@@ -5,11 +5,6 @@ package fm.last.android.widget;
 
 import java.net.URL;
 
-import fm.last.android.R;
-import fm.last.android.activity.Profile;
-import fm.last.android.utils.AsyncTaskEx;
-import fm.last.api.User;
-import fm.last.util.UrlUtil;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,6 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
+import fm.last.android.R;
+import fm.last.android.activity.Profile;
+import fm.last.android.utils.AsyncTaskEx;
+import fm.last.api.User;
+import fm.last.util.UrlUtil;
 
 /**
  * @author sam

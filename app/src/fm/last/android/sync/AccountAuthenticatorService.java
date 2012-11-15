@@ -3,12 +3,6 @@
  */
 package fm.last.android.sync;
 
-import fm.last.android.LastFMApplication;
-import fm.last.android.LastFm;
-import fm.last.android.R;
-import fm.last.android.activity.AccountAccessPrompt;
-import fm.last.android.activity.AccountFailActivity;
-import fm.last.api.MD5;
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
@@ -25,6 +19,12 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
+import fm.last.android.LastFMApplication;
+import fm.last.android.LastFm;
+import fm.last.android.R;
+import fm.last.android.activity.AccountAccessPrompt;
+import fm.last.android.activity.AccountFailActivity;
+import fm.last.api.MD5;
 
 /**
  * @author sam

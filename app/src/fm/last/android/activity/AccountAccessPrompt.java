@@ -5,24 +5,24 @@ package fm.last.android.activity;
 
 import java.io.IOException;
 
+import android.accounts.AccountAuthenticatorResponse;
+import android.accounts.AccountManager;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+import fm.last.android.BaseActivity;
 import fm.last.android.R;
 import fm.last.api.LastFmServer;
 import fm.last.api.LastFmServerFactory;
 import fm.last.api.Session;
-import android.accounts.AccountAuthenticatorResponse;
-import android.accounts.AccountManager;
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 /**
  * @author sam
  *
  */
-public class AccountAccessPrompt extends Activity {
+public class AccountAccessPrompt extends BaseActivity {
 	AccountAuthenticatorResponse response;
 	
 	@Override

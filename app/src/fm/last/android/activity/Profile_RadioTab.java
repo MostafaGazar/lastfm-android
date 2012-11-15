@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -35,12 +34,12 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import fm.last.android.utils.AsyncTaskEx;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.ListView;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.R;
@@ -49,6 +48,7 @@ import fm.last.android.adapter.SeparatedListAdapter;
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
+import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.Station;
@@ -56,7 +56,7 @@ import fm.last.api.Tasteometer;
 import fm.last.api.User;
 import fm.last.api.WSError;
 
-public class Profile_RadioTab extends ListActivity {
+public class Profile_RadioTab extends BaseListActivity {
 
 	private SeparatedListAdapter mMainAdapter;
 	private LastFMStreamAdapter mMyStationsAdapter;

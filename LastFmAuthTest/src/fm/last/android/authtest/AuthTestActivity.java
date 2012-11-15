@@ -43,8 +43,8 @@ public class AuthTestActivity extends Activity {
 	        if(accounts.length > 0) {
 	        	Bundle options = new Bundle();
 	        	//This is a test key. Register your own at http://www.last.fm/api
-	        	options.putString("api_key", "8a733e4c0a9f0df84cc745446b6b2f10");
-	        	options.putString("api_secret", "750d8398452da9ac008ade1015404f96");
+	        	options.putString("api_key", "3acdcba3d71ced7b641f97eddbb3d025");
+	        	options.putString("api_secret", "faf6fb6935f9836dfb55a6d0a0235e99");
 	        	am.getAuthToken(accounts[0], "", options, AuthTestActivity.this, new AccountManagerCallback<Bundle>() {
 					public void run(AccountManagerFuture<Bundle> arg0) {
 						try {

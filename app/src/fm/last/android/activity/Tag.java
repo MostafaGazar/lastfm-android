@@ -23,28 +23,30 @@ package fm.last.android.activity;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TabHost.OnTabChangeListener;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.adapter.TagListAdapter;
@@ -60,7 +62,7 @@ import fm.last.api.WSError;
  * 
  * @author Lukasz Wisniewski
  */
-public class Tag extends Activity {
+public class Tag extends BaseActivity {
 	String mArtist;
 	String mTrack;
 
@@ -410,7 +412,7 @@ public class Tag extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.tag, menu);
 		return super.onCreateOptionsMenu(menu);
 	}

@@ -15,14 +15,14 @@
  */
 package fm.last.android.player;
 
-import android.content.Context;
-import android.media.AudioManager;
-import android.util.Log;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+
+import android.content.Context;
+import android.media.AudioManager;
+import android.util.Log;
 
 public class MusicPlayerFocusHelper {
     private static final String TAG = "MusicPlayerFocusHelper";

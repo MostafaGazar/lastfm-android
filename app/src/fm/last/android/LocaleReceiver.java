@@ -3,12 +3,12 @@
  */
 package fm.last.android;
 
-import fm.last.android.player.RadioPlayerService;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import fm.last.android.player.RadioPlayerService;
 
 /**
  * @author sam

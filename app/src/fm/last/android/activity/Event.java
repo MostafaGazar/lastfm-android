@@ -24,7 +24,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.utils.AsyncTaskEx;
@@ -43,7 +43,7 @@ import fm.last.api.ImageUrl;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
 
-public class Event extends Activity {
+public class Event extends BaseActivity {
 
 	private TextView mTitle;
 	private TextView mArtists;

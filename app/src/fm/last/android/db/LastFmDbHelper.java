@@ -1,8 +1,8 @@
 package fm.last.android.db;
 
-import fm.last.android.LastFMApplication;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import fm.last.android.LastFMApplication;
 
 public class LastFmDbHelper extends SQLiteOpenHelper 
 {

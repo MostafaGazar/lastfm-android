@@ -16,13 +16,13 @@
 
 package fm.last.android.player;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import android.app.PendingIntent;
 import android.graphics.Bitmap;
 import android.os.Looper;
 import android.util.Log;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 /**
  * RemoteControlClient enables exposing information meant to be consumed by remote controls capable

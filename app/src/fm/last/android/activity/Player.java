@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.concurrent.RejectedExecutionException;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -34,7 +33,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
-import fm.last.android.utils.AsyncTaskEx;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -42,31 +40,35 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import fm.last.android.Amazon;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
+import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.widget.AdArea;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.Station;
 import fm.last.api.WSError;
 
-public class Player extends Activity {
+public class Player extends BaseActivity {
 
 	private ImageButton mLoveButton;
 	private ImageButton mBanButton;
@@ -226,7 +228,7 @@ public class Player extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.player, menu);
 		return super.onCreateOptionsMenu(menu);
 	}

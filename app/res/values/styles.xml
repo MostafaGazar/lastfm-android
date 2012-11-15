@@ -1,60 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="NavBar">
-		<item name="android:layout_width">fill_parent</item>
-		<item name="android:layout_alignParentTop">true</item>
-		<item name="android:layout_alignParentLeft">true</item>
-		<item name="android:layout_height">58dip</item>
-		<item name="android:gravity">center_vertical</item>
-		<item name="android:background">@drawable/title_bar</item>
-		<item name="android:paddingLeft">7dip</item>
-		<item name="android:paddingRight">5dip</item>
-	</style>
-	<style name="NavBar_Title">
-		<item name="android:textColor">#fff</item>
-		<item name="android:textStyle">bold</item>
-		<item name="android:textSize">8pt</item>
-	</style>
-	<style name="playback_info">
-		<item name="android:textSize">12sp</item>
-		<item name="android:textColor">#fff</item>
-		<item name="android:textStyle">bold</item>
-	</style>
-	<style name="playback_time">
-		<item name="android:textSize">5pt</item>
-		<item name="android:textColor">#fff</item>
-		<item name="android:textStyle">bold</item>
-	</style>
-	<style name="playback_artwork">
-		<item name="android:layout_marginTop">10dip</item>
-		<item name="android:layout_width">300dip</item>
-		<item name="android:layout_height">300dip</item>
-	</style>
-	<style name="WidgetButton">
-		<item name="android:background">@drawable/widget_button_middle</item>
-	</style>
-	<style name="WidgetButton.Love">
-		<item name="android:src">@drawable/love</item>
-	</style>
-	<style name="WidgetButton.Ban">
-		<item name="android:src">@drawable/ban</item>
-	</style>
-	<style name="WidgetButton.Menu">
-		<item name="android:background">@drawable/widget_button_left</item>
-		<item name="android:src">@drawable/cog</item>
-	</style>
-	<style name="WidgetButton.Play">
-		<item name="android:src">@drawable/play</item>
-	</style>
-	<style name="WidgetButton.Skip">
-		<item name="android:background">@drawable/widget_button_right</item>
-		<item name="android:src">@drawable/skip</item>
-	</style>
-	<style name="NotificationText">
-      <item name="android:textColor">#000</item>
+
+    <style name="NavBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_height">58dip</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/title_bar</item>
+        <item name="android:paddingLeft">7dip</item>
+        <item name="android:paddingRight">5dip</item>
     </style>
+
+    <style name="NavBar_Title">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">8pt</item>
+    </style>
+
+    <style name="playback_info">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="playback_time">
+        <item name="android:textSize">5pt</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="playback_artwork">
+        <item name="android:layout_marginTop">10dip</item>
+        <item name="android:layout_width">300dip</item>
+        <item name="android:layout_height">300dip</item>
+    </style>
+
+    <style name="WidgetButton">
+        <item name="android:background">@drawable/widget_button_middle</item>
+    </style>
+
+    <style name="WidgetButton.Love">
+        <item name="android:src">@drawable/love</item>
+    </style>
+
+    <style name="WidgetButton.Ban">
+        <item name="android:src">@drawable/ban</item>
+    </style>
+
+    <style name="WidgetButton.Menu">
+        <item name="android:background">@drawable/widget_button_left</item>
+        <item name="android:src">@drawable/cog</item>
+    </style>
+
+    <style name="WidgetButton.Play">
+        <item name="android:src">@drawable/play</item>
+    </style>
+
+    <style name="WidgetButton.Skip">
+        <item name="android:background">@drawable/widget_button_right</item>
+        <item name="android:src">@drawable/skip</item>
+    </style>
+
+    <style name="NotificationText">
+        <item name="android:textColor">#000</item>
+    </style>
+
     <style name="NotificationTitle">
-      <item name="android:textColor">#000</item>
-      <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#000</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
 </resources>

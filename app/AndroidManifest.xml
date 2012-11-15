@@ -1,299 +1,463 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="fm.last.android" android:versionCode="62" android:versionName="1.9.9.1">
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission android:name="android.permission.READ_CONTACTS" />
-	<uses-permission android:name="android.permission.WRITE_CONTACTS" />
-	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.READ_CALENDAR" />
-	<uses-permission android:name="android.permission.WRITE_CALENDAR" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-		
-	<uses-feature android:name="android.hardware.location" android:required="false" />
-	<uses-feature android:name="android.hardware.wifi" android:required="false" />
+    package="fm.last.android"
+    android:versionCode="62"
+    android:versionName="1.9.9.1" >
 
-	<supports-screens android:smallScreens="true"
-		android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true"
-		android:anyDensity="true" />
+    <uses-sdk
+        android:minSdkVersion="3"
+        android:targetSdkVersion="16" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"/>
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
 
-	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:name="LastFMApplication" android:installLocation="internalOnly"
-		android:theme="@android:style/Theme.NoTitleBar">
-		<activity android:name="LastFm" android:configChanges="keyboardHidden">
-			<intent-filter>
-				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<receiver android:name=".LastFMMediaButtonHandler">
-			<intent-filter android:priority="32000">
-				<action android:name="android.intent.action.MEDIA_BUTTON" />
-				<action android:name="com.smartmadsoft.openwatch.command.BUTTON_FF" />
-				<action android:name="com.smartmadsoft.openwatch.command.BUTTON_PLAYPAUSE" />
-				<action android:name="android.media.AUDIO_BECOMING_NOISY" />
-			</intent-filter>
-		</receiver>
-		<activity android:name=".activity.Profile"
-			android:configChanges="keyboardHidden|orientation">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/vnd.fm.last.android.profile" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="www.last.fm" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.com" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.de" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.es" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.fr" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.it" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.jp" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.pl" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.com.br" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.ru" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.se" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="www.lastfm.com.tr" android:pathPrefix="/user/"/>
-				<data android:scheme="http" android:host="cn.last.fm" android:pathPrefix="/user/"/>
-			</intent-filter>
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name="LastFMApplication"
+        android:logo="@drawable/logo_white"
+        android:installLocation="internalOnly"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.lastfm" >
+        <activity
+            android:name="LastFm"
+            android:windowSoftInputMode="stateUnchanged"
+            android:configChanges="keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".LastFMMediaButtonHandler" >
+            <intent-filter android:priority="32000" >
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+                <action android:name="com.smartmadsoft.openwatch.command.BUTTON_FF" />
+                <action android:name="com.smartmadsoft.openwatch.command.BUTTON_PLAYPAUSE" />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".activity.Profile"
+            android:configChanges="keyboardHidden|orientation" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="vnd.android.cursor.item/vnd.fm.last.android.profile" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.last.fm"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.com"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.de"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.es"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.fr"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.it"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.jp"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.pl"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.com.br"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.ru"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.se"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.com.tr"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+                <data
+                    android:host="cn.last.fm"
+                    android:pathPrefix="/user/"
+                    android:scheme="http" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                    android:resource="@xml/searchable"/>
-		</activity>
-		<activity android:name=".activity.Profile_RadioTab"/>
-		<activity android:name=".activity.Profile_ChartsTab"/>
-		<activity android:name=".activity.Profile_EventsTab"/>
-		<activity android:name=".activity.Profile_SearchTab"/>
-        <provider android:name=".SearchProvider"
-                android:authorities="lastfm"
-                android:syncable="false" />
-		<activity android:name=".activity.Player"
-			android:configChanges="keyboardHidden" android:launchMode="singleTop">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="lastfm" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.Event"
-			android:configChanges="keyboardHidden">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.Share"
-			android:configChanges="keyboardHidden">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.Tag"
-			android:theme="@android:style/Theme.NoTitleBar">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.SignUp">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.Metadata">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.MEDIA_SEARCH" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<category android:name="android.intent.category.BROWSABLE" />
-				<data android:scheme="http" android:host="www.last.fm" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.com" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.de" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.es" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.fr" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.it" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.jp" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.pl" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.com.br" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.ru" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.se" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="www.lastfm.com.tr" android:pathPrefix="/music/"/>
-				<data android:scheme="http" android:host="cn.last.fm" android:pathPrefix="/music/"/>
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.Preferences"
-			android:configChanges="orientation|keyboardHidden">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		    <intent-filter>
-		       <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
-		       <category android:name="android.intent.category.DEFAULT" />
-		    </intent-filter>
-    		</activity>
-		<activity android:name=".activity.PopupActionActivity"
-			android:theme="@android:style/Theme.Dialog">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.TicketProviderPopup"
-			android:theme="@android:style/Theme.Dialog">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.ShareResolverActivity"
-			android:theme="@android:style/Theme.Dialog">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.Help">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.AccountFailActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-		</activity>
-		<activity android:name=".activity.AccountAccessPrompt"
-			android:theme="@android:style/Theme.Dialog">
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-   		<receiver android:name="LocaleReceiver">
-			<intent-filter>
-				<action android:name="android.intent.action.LOCALE_CHANGED"/>
-			</intent-filter>
-		</receiver>
-		<receiver android:name="RadioWidgetProvider"
-		            android:icon="@drawable/icon">
-		    <intent-filter>
-		        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-    			<action android:name="fm.last.android.widget.SKIP"/>
-    			<action android:name="fm.last.android.widget.STOP"/>
-    			<action android:name="fm.last.android.widget.ACTION"/>
-    			<action android:name="fm.last.android.widget.LOVE"/>
-    			<action android:name="fm.last.android.widget.BAN"/>
-    			<action android:name="fm.last.android.widget.UPDATE"/>
-				<action android:name="com.android.music.playstatechanged" />
-				<action android:name="com.android.music.playbackcomplete" />
-				<action android:name="com.android.music.metachanged" />
-				<action android:name="com.android.music.queuechanged" />
-				<action android:name="com.htc.music.metachanged" />
-				<action android:name="com.htc.music.playbackcomplete" />
-				<action android:name="com.htc.music.playstatechanged" />
-		    </intent-filter>
-		    <meta-data android:name="android.appwidget.provider"
-		                android:resource="@xml/radiowidget_info"
-		                />
-		</receiver>
-		<service android:name=".player.RadioPlayerService"
-			android:process=":player" android:label="@string/playerservice_label" />
-		<receiver android:name=".scrobbler.MusicIntentReceiver">
-			<intent-filter>
-				<action android:name="fm.last.android.metachanged" />
-				<action android:name="fm.last.android.playstatechanged" />
-				<action android:name="fm.last.android.playbackcomplete" />
-				<action android:name="fm.last.android.playbackpaused" />
-				<action android:name="fm.last.android.scrobbler.FLUSH" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name=".scrobbler.RatingIntentReceiver">
-			<intent-filter>
-				<action android:name="fm.last.android.LOVE" />
-				<action android:name="fm.last.android.BAN" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name=".scrobbler.AndroidMusicIntentReceiver">
-			<intent-filter>
-				<action android:name="com.android.music.playstatechanged" />
-				<action android:name="com.android.music.playbackcomplete" />
-				<action android:name="com.android.music.metachanged" />
-				<action android:name="com.android.music.queuechanged" />
-				<action android:name="com.htc.music.metachanged" />
-				<action android:name="com.htc.music.playbackcomplete" />
-				<action android:name="com.htc.music.playstatechanged" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name=".scrobbler.ScrobbleDroidIntentReceiver">
-			<intent-filter>
-				<action android:name="net.jjc1138.android.scrobbler.action.MUSIC_STATUS" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name=".scrobbler.SLSIntentReceiver">
-			<intent-filter>
-				<action android:name="com.adam.aslfms.notify.playstatechanged" />
-			</intent-filter>
-		</receiver>
-		<service android:name=".scrobbler.ScrobblerService"
-			android:process=":scrobbler" android:label="@string/scrobbler_label" />
-		<service android:name=".sync.AccountAuthenticatorService"
-			android:exported="true" android:process=":auth">
-			<intent-filter>
-				<action android:name="android.accounts.AccountAuthenticator" />
-			</intent-filter>
-			<meta-data android:name="android.accounts.AccountAuthenticator"
-				android:resource="@xml/authenticator" />
-		</service>
-		<service android:name=".sync.ContactsSyncAdapterService"
-			android:exported="true" android:process=":contacts">
-			<intent-filter>
-				<action android:name="android.content.SyncAdapter" />
-			</intent-filter>
-			<meta-data android:name="android.content.SyncAdapter"
-				android:resource="@xml/sync_contacts" />
-			<meta-data android:name="android.provider.CONTACTS_STRUCTURE"
-				android:resource="@xml/contacts" />
-		</service>
-		<service android:name=".sync.CalendarSyncAdapterService"
-			android:exported="true" android:process=":calendar">
-			<intent-filter>
-				<action android:name="android.content.SyncAdapter" />
-			</intent-filter>
-			<meta-data android:name="android.content.SyncAdapter"
-				android:resource="@xml/sync_calendar" />
-		</service>
-			</application>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".activity.Profile_RadioTab" />
+        <activity android:name=".activity.Profile_ChartsTab" />
+        <activity android:name=".activity.Profile_EventsTab" />
+        <activity android:name=".activity.Profile_SearchTab" />
+
+        <provider
+            android:name=".SearchProvider"
+            android:authorities="lastfm"
+            android:syncable="false" />
+
+        <activity
+            android:name=".activity.Player"
+            android:configChanges="keyboardHidden"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="lastfm" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Event"
+            android:configChanges="keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Share"
+            android:configChanges="keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Tag"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.SignUp"
+            android:windowSoftInputMode="stateUnchanged" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.Metadata" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_SEARCH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.last.fm"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.com"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.de"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.es"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.fr"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.it"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.jp"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.pl"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.com.br"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.ru"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.se"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="www.lastfm.com.tr"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+                <data
+                    android:host="cn.last.fm"
+                    android:pathPrefix="/music/"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Preferences"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.PopupActionActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.TicketProviderPopup"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ShareResolverActivity"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.Help" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.AccountFailActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.AccountAccessPrompt"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="LocaleReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="RadioWidgetProvider"
+            android:icon="@drawable/icon" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="fm.last.android.widget.SKIP" />
+                <action android:name="fm.last.android.widget.STOP" />
+                <action android:name="fm.last.android.widget.ACTION" />
+                <action android:name="fm.last.android.widget.LOVE" />
+                <action android:name="fm.last.android.widget.BAN" />
+                <action android:name="fm.last.android.widget.UPDATE" />
+                <action android:name="com.android.music.playstatechanged" />
+                <action android:name="com.android.music.playbackcomplete" />
+                <action android:name="com.android.music.metachanged" />
+                <action android:name="com.android.music.queuechanged" />
+                <action android:name="com.htc.music.metachanged" />
+                <action android:name="com.htc.music.playbackcomplete" />
+                <action android:name="com.htc.music.playstatechanged" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/radiowidget_info" />
+        </receiver>
+
+        <service
+            android:name=".player.RadioPlayerService"
+            android:label="@string/playerservice_label"
+            android:process=":player" />
+
+        <receiver android:name=".scrobbler.MusicIntentReceiver" >
+            <intent-filter>
+                <action android:name="fm.last.android.metachanged" />
+                <action android:name="fm.last.android.playstatechanged" />
+                <action android:name="fm.last.android.playbackcomplete" />
+                <action android:name="fm.last.android.playbackpaused" />
+                <action android:name="fm.last.android.scrobbler.FLUSH" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".scrobbler.RatingIntentReceiver" >
+            <intent-filter>
+                <action android:name="fm.last.android.LOVE" />
+                <action android:name="fm.last.android.BAN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".scrobbler.AndroidMusicIntentReceiver" >
+            <intent-filter>
+                <action android:name="com.android.music.playstatechanged" />
+                <action android:name="com.android.music.playbackcomplete" />
+                <action android:name="com.android.music.metachanged" />
+                <action android:name="com.android.music.queuechanged" />
+                <action android:name="com.htc.music.metachanged" />
+                <action android:name="com.htc.music.playbackcomplete" />
+                <action android:name="com.htc.music.playstatechanged" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".scrobbler.ScrobbleDroidIntentReceiver" >
+            <intent-filter>
+                <action android:name="net.jjc1138.android.scrobbler.action.MUSIC_STATUS" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".scrobbler.SLSIntentReceiver" >
+            <intent-filter>
+                <action android:name="com.adam.aslfms.notify.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".scrobbler.ScrobblerService"
+            android:label="@string/scrobbler_label"
+            android:process=":scrobbler" />
+        <service
+            android:name=".sync.AccountAuthenticatorService"
+            android:exported="true"
+            android:process=":auth" >
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+        <service
+            android:name=".sync.ContactsSyncAdapterService"
+            android:exported="true"
+            android:process=":contacts" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_contacts" />
+            <meta-data
+                android:name="android.provider.CONTACTS_STRUCTURE"
+                android:resource="@xml/contacts" />
+        </service>
+        <service
+            android:name=".sync.CalendarSyncAdapterService"
+            android:exported="true"
+            android:process=":calendar" >
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_calendar" />
+        </service>
+    </application>
+
 </manifest>

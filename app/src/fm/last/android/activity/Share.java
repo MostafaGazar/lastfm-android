@@ -22,22 +22,22 @@ package fm.last.android.activity;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.adapter.ListAdapter;
 import fm.last.android.adapter.ListEntry;
 import fm.last.android.adapter.NotificationAdapter;
-import fm.last.android.utils.ImageCache;
 import fm.last.android.utils.AsyncTaskEx;
+import fm.last.android.utils.ImageCache;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.User;
@@ -51,7 +51,7 @@ import fm.last.api.WSError;
  * 
  * @author Sam Steele <sam@last.fm>
  */
-public class Share extends Activity {
+public class Share extends BaseActivity {
 	private ListView mFriendsList;
 	private ListAdapter mFriendsAdapter;
 	private ImageCache mImageCache;

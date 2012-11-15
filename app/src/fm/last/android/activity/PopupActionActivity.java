@@ -5,7 +5,6 @@ package fm.last.android.activity;
 
 import java.util.ArrayList;
 
-import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import fm.last.android.Amazon;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.adapter.ListAdapter;
@@ -33,7 +33,7 @@ import fm.last.api.WSError;
  * @author sam
  * 
  */
-public class PopupActionActivity extends ListActivity {
+public class PopupActionActivity extends BaseListActivity {
 	private String mArtistName;
 	private String mTrackName;
 	private String mAlbumName;

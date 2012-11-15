@@ -20,13 +20,11 @@
  ***************************************************************************/
 package fm.last.android.activity;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -35,20 +33,23 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import fm.last.android.Amazon;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.activity.Event.EventActivityResult;
@@ -58,8 +59,8 @@ import fm.last.android.adapter.ListEntry;
 import fm.last.android.adapter.NotificationAdapter;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
-import fm.last.android.utils.ImageCache;
 import fm.last.android.utils.AsyncTaskEx;
+import fm.last.android.utils.ImageCache;
 import fm.last.api.Artist;
 import fm.last.api.Event;
 import fm.last.api.ImageUrl;
@@ -72,7 +73,7 @@ import fm.last.api.WSError;
  * @author Jono Cole <jono@last.fm>
  * 
  */
-public class Metadata extends Activity {
+public class Metadata extends BaseActivity {
 
 	private String mBio;
 	private ListAdapter mSimilarAdapter;
@@ -197,7 +198,7 @@ public class Metadata extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
+		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.player, menu);
 
 		MenuItem changeView = menu.findItem(R.id.info_menu_item);

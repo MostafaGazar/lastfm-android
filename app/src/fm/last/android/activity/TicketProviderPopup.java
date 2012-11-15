@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -16,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
+import fm.last.android.BaseListActivity;
 import fm.last.android.R;
 import fm.last.android.adapter.ListAdapter;
 import fm.last.android.adapter.ListEntry;
@@ -25,7 +25,7 @@ import fm.last.android.utils.ImageCache;
  * @author sam
  * 
  */
-public class TicketProviderPopup extends ListActivity {
+public class TicketProviderPopup extends BaseListActivity {
 	private HashMap<String, String> mTicketUrls;
 
 	@SuppressWarnings("unchecked")

@@ -8,17 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import fm.last.android.AndroidLastFmServerFactory;
-import fm.last.android.LastFMApplication;
-import fm.last.android.R;
-import fm.last.android.player.RadioPlayerService;
-import fm.last.api.Friends;
-import fm.last.api.LastFmServer;
-import fm.last.api.Track;
-import fm.last.api.User;
-import fm.last.api.WSError;
-import fm.last.util.UrlUtil;
-
 import android.accounts.Account;
 import android.accounts.OperationCanceledException;
 import android.app.Service;
@@ -29,8 +18,8 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SyncResult;
 import android.content.SharedPreferences.Editor;
+import android.content.SyncResult;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -42,7 +31,16 @@ import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.RawContacts.Entity;
-import android.util.Log;
+import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.LastFMApplication;
+import fm.last.android.R;
+import fm.last.android.player.RadioPlayerService;
+import fm.last.api.Friends;
+import fm.last.api.LastFmServer;
+import fm.last.api.Track;
+import fm.last.api.User;
+import fm.last.api.WSError;
+import fm.last.util.UrlUtil;
 
 /**
  * @author sam

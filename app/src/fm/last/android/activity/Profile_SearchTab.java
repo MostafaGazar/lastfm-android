@@ -23,7 +23,6 @@ package fm.last.android.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -32,26 +31,27 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
-import fm.last.android.utils.AsyncTaskEx;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.SearchProvider;
 import fm.last.android.adapter.ListAdapter;
 import fm.last.android.adapter.ListEntry;
+import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 
-public class Profile_SearchTab extends ListActivity implements OnClickListener, OnKeyListener {
+public class Profile_SearchTab extends BaseListActivity implements OnClickListener, OnKeyListener {
 	private EditText mSearchText;
 	private ImageButton mSearchButton;
 	private ImageButton mVoiceButton;
@@ -59,8 +59,8 @@ public class Profile_SearchTab extends ListActivity implements OnClickListener, 
 	
 	@Override
 	public void onCreate(Bundle state) {
-		super.onCreate(state);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(state);
 		setContentView(R.layout.search);
 
 		mSearchText = (EditText)findViewById(R.id.station_editbox);

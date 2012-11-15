@@ -3,10 +3,10 @@
  */
 package fm.last.android.activity;
 
-import fm.last.android.R;
 import android.accounts.AccountAuthenticatorActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+import fm.last.android.R;
 
 /**
  * @author sam

@@ -7,12 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import fm.last.android.AndroidLastFmServerFactory;
-import fm.last.android.LastFMApplication;
-import fm.last.api.Event;
-import fm.last.api.LastFmServer;
-import fm.last.api.WSError;
-
 import android.accounts.Account;
 import android.accounts.OperationCanceledException;
 import android.annotation.TargetApi;
@@ -24,8 +18,8 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SyncResult;
 import android.content.SharedPreferences.Editor;
+import android.content.SyncResult;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +31,11 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 import android.util.Log;
+import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.LastFMApplication;
+import fm.last.api.Event;
+import fm.last.api.LastFmServer;
+import fm.last.api.WSError;
 
 /**
  * @author sam

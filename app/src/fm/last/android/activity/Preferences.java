@@ -12,7 +12,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
+
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.player.RadioPlayerService;
@@ -22,7 +24,7 @@ import fm.last.android.sync.AccountAuthenticatorService;
  * @author sam
  * 
  */
-public class Preferences extends PreferenceActivity {
+public class Preferences extends SherlockPreferenceActivity {
 	private boolean shouldForceSync = false;
 	
 	@Override

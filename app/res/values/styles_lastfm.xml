@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <style name="Theme.lastfm" parent="@style/Theme.Sherlock.Light.DarkActionBar">
+        <item name="actionBarItemBackground">@drawable/selectable_background_lastfm</item>
+        <item name="popupMenuStyle">@style/lastfm_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/lastfm_DropDownListView</item>
+        <item name="actionBarTabStyle">@style/lastfm_ActionBarTabStyle</item>
+        <item name="actionDropDownStyle">@style/lastfm_DropDownNav</item>
+        <item name="actionBarStyle">@style/lastfm_solid_ActionBar</item>
+
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_lastfm</item>
+        <item name="android:popupMenuStyle">@style/lastfm_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/lastfm_DropDownListView</item>
+        <item name="android:actionBarTabStyle">@style/lastfm_ActionBarTabStyle</item>
+        <item name="android:actionDropDownStyle">@style/lastfm_DropDownNav</item>
+        <item name="android:actionBarStyle">@style/lastfm_solid_ActionBar</item>
+        <item name="android:panelBackground">@drawable/menu_hardkey_panel_lastfm</item>
+        
+                <!-- Light.DarkActionBar specific -->
+        <item name="actionBarWidgetTheme">@style/Theme.lastfm.widget</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.lastfm.widget</item>
+
+        <!-- Controls styling -->
+        <item name="android:editTextStyle">@style/EditTextTheme.lastfm</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTheme.lastfm</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxTheme.lastfm</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonTheme.lastfm</item>
+
+    <item name="android:buttonStyle">@style/ButtonTheme.lastfm</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonTheme.lastfm</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerTheme.lastfm</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerTheme.lastfm.DropDown</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemTheme.lastfm</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarTheme.lastfm</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarTheme.lastfm</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarTheme.lastfm</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigTheme.lastfm</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallTheme.lastfm</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleTheme.lastfm</item>
+
+    <item name="android:listViewStyle">@style/ListViewTheme.lastfm</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewTheme.lastfm.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemTheme.lastfm</item>
+    </style>
+
+    <style name="lastfm_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+        <item name="background">@drawable/ab_solid_lastfm</item>
+        <item name="backgroundStacked">@drawable/ab_stacked_solid_lastfm</item>
+        <item name="backgroundSplit">@drawable/ab_bottom_solid_lastfm</item>
+        <item name="progressBarStyle">@style/lastfm_ProgressBar</item>
+
+        <item name="android:background">@drawable/ab_solid_lastfm</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_lastfm</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_lastfm</item>
+        <item name="android:progressBarStyle">@style/lastfm_ProgressBar</item>
+    </style>
+
+    <style name="lastfm_transparent_ActionBar" parent="@style/Widget.Sherlock.ActionBar">
+        <item name="background">@drawable/ab_transparent_lastfm</item>
+        <item name="progressBarStyle">@style/lastfm_ProgressBar</item>
+        
+        <item name="android:background">@drawable/ab_transparent_lastfm</item>
+        <item name="android:progressBarStyle">@style/lastfm_ProgressBar</item>
+    </style>
+	
+    <style name="lastfm_PopupMenu" parent="@style/Widget.Sherlock.ListPopupWindow">	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_lastfm</item>	
+    </style>
+	
+    <style name="lastfm_DropDownListView" parent="@style/Widget.Sherlock.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_lastfm</item>
+    </style>
+
+    <style name="lastfm_ActionBarTabStyle" parent="@style/Widget.Sherlock.ActionBar.TabView">
+        <item name="background">@drawable/tab_indicator_ab_lastfm</item>
+
+        <item name="android:background">@drawable/tab_indicator_ab_lastfm</item>
+    </style>
+	
+    <style name="lastfm_DropDownNav" parent="@style/Widget.Sherlock.Spinner.DropDown.ActionBar">
+        <item name="background">@drawable/spinner_background_ab_lastfm</item>
+
+        <item name="android:background">@drawable/spinner_background_ab_lastfm</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_lastfm</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_lastfm</item>
+    </style>
+    
+    <style name="lastfm_ProgressBar" parent="@style/Widget.Sherlock.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_lastfm</item>
+    </style>
+    
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.lastfm.widget" parent="@style/Theme.Sherlock">
+        <item name="popupMenuStyle">@style/lastfm_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/lastfm_DropDownListView</item>
+        
+        <item name="android:popupMenuStyle">@style/lastfm_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/lastfm_DropDownListView</item>
+    </style>
+
+</resources>

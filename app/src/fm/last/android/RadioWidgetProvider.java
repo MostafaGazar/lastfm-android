@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import fm.last.android.utils.AsyncTaskEx;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -28,6 +27,7 @@ import fm.last.android.activity.Profile;
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
+import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Session;
 import fm.last.api.Station;
 

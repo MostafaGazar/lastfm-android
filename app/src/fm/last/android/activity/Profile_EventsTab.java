@@ -23,14 +23,12 @@ package fm.last.android.activity;
 import java.io.IOException;
 import java.util.Stack;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import fm.last.android.utils.AsyncTaskEx;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,20 +36,22 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
-import android.widget.AdapterView.OnItemClickListener;
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.activity.Event.EventActivityResult;
 import fm.last.android.adapter.EventListAdapter;
 import fm.last.android.adapter.ListAdapter;
+import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
 
-public class Profile_EventsTab extends ListActivity implements LocationListener {
+public class Profile_EventsTab extends BaseListActivity implements LocationListener {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int EVENTS_MYEVENTS = 0;
@@ -82,8 +82,8 @@ public class Profile_EventsTab extends ListActivity implements LocationListener 
 	
 	@Override
 	public void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(icicle);
 		setContentView(R.layout.events);
 
 		mUsername = getIntent().getStringExtra("user");
