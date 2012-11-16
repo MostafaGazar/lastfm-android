@@ -1,27 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lfm="http://schemas.android.com/apk/res/fm.last.android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    xmlns:lfm="http://schemas.android.com/apk/res/fm.last.android" android:background="#eee">
+    android:background="#eee"
+    android:orientation="vertical" >
+
     <fm.last.android.widget.AlbumArt
-        android:gravity="center"
-        android:layout_alignParentTop="true" android:layout_centerHorizontal="true" android:id="@+id/poster" android:layout_alignParentLeft="true" android:layout_margin="8dip" android:layout_height="75dip" android:layout_width="75dip"/>
-<TextView android:layout_below="@id/poster" android:layout_height="wrap_content" android:text="Event Name" android:layout_toRightOf="@id/poster" android:layout_alignTop="@id/poster" android:layout_width="fill_parent" android:textColor="#000" android:textStyle="bold" android:id="@+id/title" android:textSize="16sp" android:maxLines="1"></TextView>
-<TextView android:layout_height="wrap_content" android:text="Artist 1, Artist 2, Artist 3" android:layout_toRightOf="@id/poster" android:layout_width="fill_parent" android:textStyle="bold" android:textColor="#888" android:id="@+id/artists" android:layout_below="@id/title" android:textSize="14sp" android:maxLines="2"></TextView>
+        android:id="@+id/poster"
+        android:layout_width="75dip"
+        android:layout_height="75dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dip"
+        android:gravity="center" />
 
-<LinearLayout android:layout_below="@id/poster" android:layout_margin="8dip" android:background="@drawable/event_calendar_sheet" android:orientation="vertical" android:id="@+id/calendar" android:layout_height="81dip" android:layout_width="75dip"><TextView android:layout_width="fill_parent" android:id="@+id/month" android:text="Month" android:textColor="#fff" android:textStyle="bold" android:gravity="center" android:layout_height="24dip"></TextView>
-<TextView android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/day" android:text="20" android:textColor="#000" android:textStyle="bold" android:textSize="36sp" android:gravity="center"></TextView>
-</LinearLayout>
-<TextView android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="Venue Name" android:textColor="#000" android:textStyle="bold" android:layout_toRightOf="@id/calendar" android:layout_alignTop="@id/calendar" android:id="@+id/venue" android:textSize="16sp"></TextView>
-<TextView android:layout_below="@id/venue" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_toRightOf="@id/calendar" android:text="123 Fake St., NY 12345" android:textColor="#888" android:id="@+id/street" android:textSize="12sp" android:lines="1" android:singleLine="true"></TextView>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/showmap" android:layout_below="@id/street" android:layout_toRightOf="@id/calendar" android:textColor="#fff" android:textStyle="bold" android:textSize="16sp" android:background="@drawable/show_map_button" android:text="@string/event_showmap"></Button>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/buytickets" android:layout_below="@id/street" android:layout_toRightOf="@id/showmap" android:textColor="#fff" android:textStyle="bold" android:textSize="16sp" android:background="@drawable/show_map_button" android:text="@string/event_buytickets"></Button>
-<RadioGroup android:layout_below="@id/showmap" android:layout_height="wrap_content" android:layout_width="fill_parent" android:background="#fff" android:layout_marginLeft="8dip" android:layout_marginRight="8dip" android:layout_marginTop="26dip" android:id="@+id/attend"><RadioButton android:layout_height="wrap_content" android:layout_width="fill_parent" android:textColor="#000" android:id="@+id/attending" android:textStyle="bold" android:text="@string/event_attending"></RadioButton>
-<RadioButton android:layout_height="wrap_content" android:id="@+id/maybe" android:text="@string/event_maybe" android:textColor="#000" android:textStyle="bold" android:layout_width="fill_parent"></RadioButton>
-<RadioButton android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/notattending" android:text="@string/event_notattending" android:textColor="#000" android:textStyle="bold"></RadioButton>
-</RadioGroup>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/poster"
+        android:layout_below="@id/poster"
+        android:layout_toRightOf="@id/poster"
+        android:maxLines="1"
+        android:text="Event Name"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold" >
+    </TextView>
 
-<LinearLayout android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_width="wrap_content" android:layout_marginBottom="20dip"><Button android:id="@+id/cancel" android:text="@string/common_cancel" android:layout_width="130dip" android:layout_height="38dip" android:layout_marginRight="10dip" android:background="@drawable/black_button" android:textStyle="bold" android:textColor="#fff"></Button><Button android:text="@string/common_ok" android:layout_height="38dip" android:layout_width="130dip" android:layout_marginLeft="10dip" android:background="@drawable/black_button" android:textColor="#fff" android:textStyle="bold" android:id="@+id/ok"></Button>
-</LinearLayout>
+    <TextView
+        android:id="@+id/artists"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_toRightOf="@id/poster"
+        android:maxLines="2"
+        android:text="Artist 1, Artist 2, Artist 3"
+        android:textColor="#888"
+        android:textSize="14sp"
+        android:textStyle="bold" >
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/calendar"
+        android:layout_width="75dip"
+        android:layout_height="81dip"
+        android:layout_below="@id/poster"
+        android:layout_margin="8dip"
+        android:background="@drawable/event_calendar_sheet"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="fill_parent"
+            android:layout_height="24dip"
+            android:gravity="center"
+            android:text="Month"
+            android:textColor="#fff"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="20"
+            android:textColor="#000"
+            android:textSize="36sp"
+            android:textStyle="bold" >
+        </TextView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/venue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/calendar"
+        android:layout_toRightOf="@id/calendar"
+        android:text="Venue Name"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/street"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/venue"
+        android:layout_toRightOf="@id/calendar"
+        android:lines="1"
+        android:singleLine="true"
+        android:text="123 Fake St., NY 12345"
+        android:textColor="#888"
+        android:textSize="12sp" >
+    </TextView>
+
+    <Button
+        android:id="@+id/showmap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street"
+        android:layout_toRightOf="@id/calendar"
+        android:background="@drawable/show_map_button"
+        android:text="@string/event_showmap"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:textStyle="bold" >
+    </Button>
+
+    <Button
+        android:id="@+id/buytickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/street"
+        android:layout_toRightOf="@id/showmap"
+        android:background="@drawable/show_map_button"
+        android:text="@string/event_buytickets"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:textStyle="bold" >
+    </Button>
+
+    <RadioGroup
+        android:id="@+id/attend"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/showmap"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="26dip"
+        android:background="#fff" >
+
+        <RadioButton
+            android:id="@+id/attending"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/event_attending"
+            android:textColor="#000"
+            android:textStyle="bold" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/maybe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/event_maybe"
+            android:textColor="#000"
+            android:textStyle="bold" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/notattending"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/event_notattending"
+            android:textColor="#000"
+            android:textStyle="bold" >
+        </RadioButton>
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dip" >
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="130dip"
+            android:layout_height="38dip"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/black_button"
+            android:text="@string/common_cancel"
+            android:textColor="#fff"
+            android:textStyle="bold" >
+        </Button>
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="130dip"
+            android:layout_height="38dip"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/black_button"
+            android:text="@string/common_ok"
+            android:textColor="#fff"
+            android:textStyle="bold" >
+        </Button>
+    </LinearLayout>
+
 </RelativeLayout>

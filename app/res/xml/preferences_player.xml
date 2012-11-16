@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<PreferenceCategory android:title="@string/prefs_cat_player_title">
-		<CheckBoxPreference
-			android:key="highquality"
-			android:defaultValue="false"
-			android:summary="@string/prefs_highquality_summary" android:title="@string/prefs_highquality_title"/>
-		<CheckBoxPreference
-			android:key="faststreaming"
-			android:defaultValue="true"
-			android:summary="@string/prefs_faststreaming_summary" android:title="@string/prefs_faststreaming_title"/>
-		<CheckBoxPreference
-			android:key="handle_noisy"
-			android:defaultValue="true"
-			android:summary="@string/prefs_noisy_summary" android:title="@string/prefs_noisy_title"/>
-		<CheckBoxPreference
-			android:key="headset_controls"
-			android:defaultValue="true"
-			android:summary="@string/prefs_headset_controls_summary" android:title="@string/prefs_headset_controls_title"/>
-		<CheckBoxPreference
-			android:key="screen_wakelock"
-			android:defaultValue="false"
-			android:summary="@string/prefs_screen_wakelock_summary" android:title="@string/prefs_screen_wakelock_title"/>
-		<!--  <CheckBoxPreference
+    <PreferenceCategory android:title="@string/prefs_cat_player_title" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="highquality"
+            android:summary="@string/prefs_highquality_summary"
+            android:title="@string/prefs_highquality_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="faststreaming"
+            android:summary="@string/prefs_faststreaming_summary"
+            android:title="@string/prefs_faststreaming_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="handle_noisy"
+            android:summary="@string/prefs_noisy_summary"
+            android:title="@string/prefs_noisy_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="headset_controls"
+            android:summary="@string/prefs_headset_controls_summary"
+            android:title="@string/prefs_headset_controls_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="screen_wakelock"
+            android:summary="@string/prefs_screen_wakelock_summary"
+            android:title="@string/prefs_screen_wakelock_title" />
+        <!--
+              <CheckBoxPreference
 			android:key="discovery"
 			android:defaultValue="false"
-			android:summary="@string/prefs_discovery_summary" android:title="@string/prefs_discovery_title"/> -->
-	</PreferenceCategory>
+			android:summary="@string/prefs_discovery_summary" android:title="@string/prefs_discovery_title"/>
+        -->
+    </PreferenceCategory>
 
 </PreferenceScreen>

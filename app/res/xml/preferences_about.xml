@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<PreferenceCategory android:title="@string/prefs_cat_about_title">
-		<Preference
-			android:title="@string/prefs_tos_title"
-			android:key="tos"
-			/>
-		<Preference
-			android:title="@string/prefs_privacy_title"
-			android:key="privacy"
-			/>
-		<Preference
-			android:title="@string/prefs_changes_title"
-			android:key="changes"
-			/>
-		<Preference
-			android:title="@string/prefs_version_title"
-			android:key="version"
-			/>
-	</PreferenceCategory>
+    <PreferenceCategory android:title="@string/prefs_cat_about_title" >
+        <Preference
+            android:key="tos"
+            android:title="@string/prefs_tos_title" />
+        <Preference
+            android:key="privacy"
+            android:title="@string/prefs_privacy_title" />
+        <Preference
+            android:key="changes"
+            android:title="@string/prefs_changes_title" />
+        <Preference
+            android:key="version"
+            android:title="@string/prefs_version_title" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

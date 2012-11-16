@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (C) 2009 Lukasz Wisniewski <luke.cherrish@gmail.com> 
+<!--
+    Copyright (C) 2009 Lukasz Wisniewski <luke.cherrish@gmail.com> 
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,10 +15,15 @@
      limitations under the License.
 -->
 
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-		
-	<item android:id="@+id/cancel_menu_item" android:title="@string/common_cancel" android:icon="@drawable/cancel"/>
-	<item android:id="@+id/save_menu_item" android:title="@string/common_save" android:icon="@drawable/done"/>
-		
+    <item
+        android:id="@+id/cancel_menu_item"
+        android:icon="@drawable/cancel"
+        android:title="@string/common_cancel"/>
+    <item
+        android:id="@+id/save_menu_item"
+        android:icon="@drawable/done"
+        android:title="@string/common_save"/>
+
 </menu>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (C) 2009 Lukasz Wisniewski <luke.cherrish@gmail.com>
+<!--
+    Copyright (C) 2009 Lukasz Wisniewski <luke.cherrish@gmail.com>
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,30 +15,33 @@
      limitations under the License.
 -->
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="horizontal"
-	android:id="@+id/station_row"
-	android:background="@drawable/list_entry_fullwidth"
-	android:layout_margin="0dip">
-	<LinearLayout 
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:orientation="vertical"
-		android:layout_gravity="center_vertical"
-		android:layout_weight="1"
-		android:layout_marginLeft="12dip">
-		<TextView android:id="@+id/row_label"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content" 
-			android:text="Black Eyed Peas"
-			android:layout_weight="1"
-			android:layout_gravity="center"
-			android:gravity="left|center_vertical"
-			android:textSize="14sp"
-			android:textStyle="bold"
-			android:textColor="@drawable/list_entry_color"/>
-	</LinearLayout>
+    android:id="@+id/station_row"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="0dip"
+    android:background="@drawable/list_entry_fullwidth"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="12dip"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/row_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:text="Black Eyed Peas"
+            android:textColor="@drawable/list_entry_color"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </LinearLayout>

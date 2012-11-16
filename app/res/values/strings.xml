@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="app_name">Last.fm</string>
-	<string name="ACCOUNT_TYPE">fm.last.android.account</string>
 
-	<!-- all actions not specific to an activity -->
-	<string name="action_viewinfo">View Info</string>
-	<string name="action_logout">Logout</string>
-	<string name="action_settings">Settings</string>
-	<string name="action_nowplaying">Now Playing</string>
-	<string name="action_nowpaused">Now Paused</string>
-	<string name="action_amazon">Buy on Amazon</string>
-	<string name="action_share">Share</string>
-	<string name="action_tagtrack">Tag Track</string>
+    <string name="app_name">Last.fm</string>
+    <string name="ACCOUNT_TYPE">fm.last.android.account</string>
+
+    <!-- all actions not specific to an activity -->
+    <string name="action_viewinfo">View Info</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_nowplaying">Now Playing</string>
+    <string name="action_nowpaused">Now Paused</string>
+    <string name="action_amazon">Buy on Amazon</string>
+    <string name="action_share">Share</string>
+    <string name="action_tagtrack">Tag Track</string>
     <string name="action_similar">Listen to Similar Artists</string>
     <string name="action_addlibrary">Add to Library</string>
     <string name="action_tag">Tag</string>
@@ -19,103 +20,103 @@
     <string name="action_ban">Ban Track</string>
     <string name="action_help">Help</string>
     <string name="action_stop">Stop Station</string>
-	<string name="action_skip">Skip Track</string>
-	<string name="action_ontour">On Tour</string>
-	<string name="action_menu">Menu</string>
-	<string name="action_search">Artists, Tags, Users</string>
-	<string name="action_tagradio">Listen to music with this tag</string>
-	<string name="action_viewprofile">View Profile</string>
+    <string name="action_skip">Skip Track</string>
+    <string name="action_ontour">On Tour</string>
+    <string name="action_menu">Menu</string>
+    <string name="action_search">Artists, Tags, Users</string>
+    <string name="action_tagradio">Listen to music with this tag</string>
+    <string name="action_viewprofile">View Profile</string>
 
-	<!-- LastFm main activity -->
-	<string name="main_username">Username</string>
-	<string name="main_password">Password</string>
-	<string name="main_login">Log in</string>
-	<string name="main_signup">Sign up</string>
-	<string name="main_newaccount">&quot;Haven\'t got an account yet?&quot;</string>
-	<string name="main_authenticating">Authenticating</string>
-	<string name="main_forgotpassword">Forgot Password</string>
+    <!-- LastFm main activity -->
+    <string name="main_username">Username</string>
+    <string name="main_password">Password</string>
+    <string name="main_login">Log in</string>
+    <string name="main_signup">Sign up</string>
+    <string name="main_newaccount">&quot;Haven\'t got an account yet?&quot;</string>
+    <string name="main_authenticating">Authenticating</string>
+    <string name="main_forgotpassword">Forgot Password</string>
 
-	<!-- notification for new version -->
-	<string name="newversion_ticker_text">A new version of Last.fm is available</string>
-	<string name="newversion_info_title">New version available</string>
-	<string name="newversion_info_text">Click here to download the update</string>
+    <!-- notification for new version -->
+    <string name="newversion_ticker_text">A new version of Last.fm is available</string>
+    <string name="newversion_info_title">New version available</string>
+    <string name="newversion_info_text">Click here to download the update</string>
 
-	<!-- SignUp activity -->
-	<string name="signup_label">Last.fm: Sign Up</string>
-	<string name="signup_create_account">Create Account</string>
-	<string name="signup_username">Username</string>
-	<string name="signup_password">Password</string>
-	<string name="signup_email">Your email</string>
-	<string name="signup_saving">Creating Your Account</string>
+    <!-- SignUp activity -->
+    <string name="signup_label">Last.fm: Sign Up</string>
+    <string name="signup_create_account">Create Account</string>
+    <string name="signup_username">Username</string>
+    <string name="signup_password">Password</string>
+    <string name="signup_email">Your email</string>
+    <string name="signup_saving">Creating Your Account</string>
 
-	<!-- Tag activity -->
-	<string name="tag_label">Last.fm: Tag</string>
-	<string name="tagarea_hint">Enter a tag above,\nor choose one from below</string>
-	<string name="tag_hint">Type tags here, or choose from below</string>
-	<string name="tag_suggestedtags">Suggested Tags</string>
-	<string name="tag_mytags">Your Tags</string>
-	<string name="tag_loading">Loading tags</string>
-	<string name="tag_saving">Saving tags</string>
-	<string name="tag_add">Add</string>
+    <!-- Tag activity -->
+    <string name="tag_label">Last.fm: Tag</string>
+    <string name="tagarea_hint">Enter a tag above,\nor choose one from below</string>
+    <string name="tag_hint">Type tags here, or choose from below</string>
+    <string name="tag_suggestedtags">Suggested Tags</string>
+    <string name="tag_mytags">Your Tags</string>
+    <string name="tag_loading">Loading tags</string>
+    <string name="tag_saving">Saving tags</string>
+    <string name="tag_add">Add</string>
 
-	<!-- Preferences activity -->
-	<string name="prefs_label">Last.fm: Preferences</string>
-	<string name="prefs_cat_scrobbler_title">Scrobbler</string>
-	<string name="prefs_scrobble_title">Enable Scrobbling</string>
-	<string name="prefs_scrobble_percentage">Set the percentage of a track\'s playtime required to scrobble.</string>
-	<string name="prefs_scrobble_perc_title">Scrobble Percentage</string>
-	<string name="prefs_scrobble_summary">Update your Last.fm profile as you listen to music</string>
-	<string name="prefs_scrobble_music_player_title">Scrobble Android player</string>
-	<string name="prefs_scrobble_music_player_summary">Scrobble the built-in Android music player</string>
-	<string name="prefs_scrobble_sls_title">SLS support</string>
-	<string name="prefs_scrobble_sls_summary">Scrobble apps that use the Simple Last.fm Scrobbler API</string>
-	<string name="prefs_scrobble_sdroid_title">ScrobbleDroid support</string>
-	<string name="prefs_scrobble_sdroid_summary">Scrobble apps that use the ScrobbleDroid API</string>
-	<string name="prefs_scrobble_realtime_title">Scrobble in real-time</string>
-	<string name="prefs_scrobble_realtime_summary">Sends now-playing information and uploads scrobbles immediately.</string>
-	<string name="prefs_scrobble_wifi_only_title">Scrobble only on Wi-Fi</string>
-	<string name="prefs_scrobble_wifi_only_summary">Queue media player scrobbles when not connected to Wi-Fi</string>
-	<string name="prefs_cat_player_title">Player</string>
-	<string name="prefs_highquality_title">High Quality Audio</string>
-	<string name="prefs_highquality_summary">Use high quality audio over cellular networks</string>
-	<string name="prefs_faststreaming_title">Fast Streaming</string>
-	<string name="prefs_faststreaming_summary">Transfer songs quickly</string>
-	<string name="prefs_cat_about_title">About Last.fm for Android</string>
-	<string name="prefs_bugreport_title">Report a bug</string>
-	<string name="prefs_bugreport_summary">Email a bug report to Last.fm</string>
-	<string name="prefs_bugreport_send">Send</string>
-	<string name="prefs_noisy_title">Headset interruption</string>
-	<string name="prefs_noisy_summary">Stops music playback when headset is disconnected</string>
-	<string name="prefs_discovery_title">Discovery mode</string>
-	<string name="prefs_discovery_summary">Only play songs you\'ve never heard before</string>
-	<string name="prefs_tos_title">Terms of Service</string>
-	<string name="prefs_privacy_title">Privacy Policy</string>
-	<string name="prefs_version_title">Version</string>
-	<string name="prefs_cat_sync_title">Synchronization</string>
-	<string name="prefs_sync_names_title">Sync real names</string>
-	<string name="prefs_sync_names_summary">Display real names instead of usernames</string>
-	<string name="prefs_sync_icons_title">Sync avatars</string>
-	<string name="prefs_sync_icons_summary">Display contacts\' Last.fm avatars</string>
-	<string name="prefs_sync_website_title">Sync website</string>
-	<string name="prefs_sync_website_summary">Display contacts\' Last.fm profile URLs</string>
-	<string name="prefs_headset_controls_title">Headset Controls</string>
-	<string name="prefs_headset_controls_summary">Respond to headset stop and skip buttons during playback</string>
-	<string name="prefs_prebuffer_title">Pre-load next track</string>
-	<string name="prefs_prebuffer_summary">Start caching the next track while the current song is playing</string>
-	<string name="prefs_changes_title">ChangeLog</string>
-	<string name="prefs_screen_wakelock_title">Disable Auto-Lock</string>
-	<string name="prefs_screen_wakelock_summary">Keep the screen on during playback</string>
+    <!-- Preferences activity -->
+    <string name="prefs_label">Last.fm: Preferences</string>
+    <string name="prefs_cat_scrobbler_title">Scrobbler</string>
+    <string name="prefs_scrobble_title">Enable Scrobbling</string>
+    <string name="prefs_scrobble_percentage">Set the percentage of a track\'s playtime required to scrobble.</string>
+    <string name="prefs_scrobble_perc_title">Scrobble Percentage</string>
+    <string name="prefs_scrobble_summary">Update your Last.fm profile as you listen to music</string>
+    <string name="prefs_scrobble_music_player_title">Scrobble Android player</string>
+    <string name="prefs_scrobble_music_player_summary">Scrobble the built-in Android music player</string>
+    <string name="prefs_scrobble_sls_title">SLS support</string>
+    <string name="prefs_scrobble_sls_summary">Scrobble apps that use the Simple Last.fm Scrobbler API</string>
+    <string name="prefs_scrobble_sdroid_title">ScrobbleDroid support</string>
+    <string name="prefs_scrobble_sdroid_summary">Scrobble apps that use the ScrobbleDroid API</string>
+    <string name="prefs_scrobble_realtime_title">Scrobble in real-time</string>
+    <string name="prefs_scrobble_realtime_summary">Sends now-playing information and uploads scrobbles immediately.</string>
+    <string name="prefs_scrobble_wifi_only_title">Scrobble only on Wi-Fi</string>
+    <string name="prefs_scrobble_wifi_only_summary">Queue media player scrobbles when not connected to Wi-Fi</string>
+    <string name="prefs_cat_player_title">Player</string>
+    <string name="prefs_highquality_title">High Quality Audio</string>
+    <string name="prefs_highquality_summary">Use high quality audio over cellular networks</string>
+    <string name="prefs_faststreaming_title">Fast Streaming</string>
+    <string name="prefs_faststreaming_summary">Transfer songs quickly</string>
+    <string name="prefs_cat_about_title">About Last.fm for Android</string>
+    <string name="prefs_bugreport_title">Report a bug</string>
+    <string name="prefs_bugreport_summary">Email a bug report to Last.fm</string>
+    <string name="prefs_bugreport_send">Send</string>
+    <string name="prefs_noisy_title">Headset interruption</string>
+    <string name="prefs_noisy_summary">Stops music playback when headset is disconnected</string>
+    <string name="prefs_discovery_title">Discovery mode</string>
+    <string name="prefs_discovery_summary">Only play songs you\'ve never heard before</string>
+    <string name="prefs_tos_title">Terms of Service</string>
+    <string name="prefs_privacy_title">Privacy Policy</string>
+    <string name="prefs_version_title">Version</string>
+    <string name="prefs_cat_sync_title">Synchronization</string>
+    <string name="prefs_sync_names_title">Sync real names</string>
+    <string name="prefs_sync_names_summary">Display real names instead of usernames</string>
+    <string name="prefs_sync_icons_title">Sync avatars</string>
+    <string name="prefs_sync_icons_summary">Display contacts\' Last.fm avatars</string>
+    <string name="prefs_sync_website_title">Sync website</string>
+    <string name="prefs_sync_website_summary">Display contacts\' Last.fm profile URLs</string>
+    <string name="prefs_headset_controls_title">Headset Controls</string>
+    <string name="prefs_headset_controls_summary">Respond to headset stop and skip buttons during playback</string>
+    <string name="prefs_prebuffer_title">Pre-load next track</string>
+    <string name="prefs_prebuffer_summary">Start caching the next track while the current song is playing</string>
+    <string name="prefs_changes_title">ChangeLog</string>
+    <string name="prefs_screen_wakelock_title">Disable Auto-Lock</string>
+    <string name="prefs_screen_wakelock_summary">Keep the screen on during playback</string>
 
-	<!-- bugreport -->
-	<string name="bugreport_description">Please describe the bug:</string>
+    <!-- bugreport -->
+    <string name="bugreport_description">Please describe the bug:</string>
 
-	<!-- Profile activity -->
-	<string name="profile_label">Last.fm: Profile</string>
-	<string name="profile_myradio">Radio</string>
+    <!-- Profile activity -->
+    <string name="profile_label">Last.fm: Profile</string>
+    <string name="profile_myradio">Radio</string>
     <string name="profile_userradio">%1$s\'s Radio</string>
-	<string name="profile_myprofile">Profile</string>
-	<string name="profile_userprofile">%1$s\'s Profile</string>
-	<string name="profile_tracksplayed">plays</string>
+    <string name="profile_myprofile">Profile</string>
+    <string name="profile_userprofile">%1$s\'s Profile</string>
+    <string name="profile_tracksplayed">plays</string>
     <string name="profile_newstation">Start a New Station</string>
     <string name="profile_mytags">My Tags</string>
     <string name="profile_myrecs">Recommended by Last.fm</string>
@@ -135,77 +136,77 @@
     <string name="profile_usermix">%1$s\'s Mix Radio</string>
     <string name="profile_userfriends">%1$s\'s Friends</string>
     <string name="profile_myplaylists">Your Playlists</string>
-	<string name="profile_topartists">Top Artists</string>
-	<string name="profile_notopartists">No Top Artists</string>
-	<string name="profile_topalbums">Top Albums</string>
-	<string name="profile_notopalbums">No Top Albums</string>
-	<string name="profile_toptracks">Top Tracks</string>
-	<string name="profile_notoptracks">No Top Tracks</string>
-	<string name="profile_recentlyplayed">Recently Played</string>
-	<string name="profile_norecenttracks">No Recent Tracks</string>
-	<string name="profile_events">Events</string>
-	<string name="profile_myevents">My Events</string>
-	<string name="profile_events_recommended">Recommended by Last.fm</string>
-	<string name="profile_events_nearby">Events Near Me</string>
-	<string name="profile_noevents">No Upcoming Events</string>
-	<string name="profile_friends">Friends</string>
-	<string name="profile_nofriends">No Friends Retrieved</string>
-	<string name="profile_tags">Tags</string>
-	<string name="profile_notags">No Tags</string>
-	<string name="profile_selectaction">Select Action</string>
-	<string name="profile_userplays">%1$d plays since %2$te %2$tb %2$tY</string>
-	<string name="profile_loading">Loading Profile...</string>
-	<string name="profile_gender_male">male</string>
-	<string name="profile_gender_female">female</string>
-	<string name="profile_search">Search</string>
+    <string name="profile_topartists">Top Artists</string>
+    <string name="profile_notopartists">No Top Artists</string>
+    <string name="profile_topalbums">Top Albums</string>
+    <string name="profile_notopalbums">No Top Albums</string>
+    <string name="profile_toptracks">Top Tracks</string>
+    <string name="profile_notoptracks">No Top Tracks</string>
+    <string name="profile_recentlyplayed">Recently Played</string>
+    <string name="profile_norecenttracks">No Recent Tracks</string>
+    <string name="profile_events">Events</string>
+    <string name="profile_myevents">My Events</string>
+    <string name="profile_events_recommended">Recommended by Last.fm</string>
+    <string name="profile_events_nearby">Events Near Me</string>
+    <string name="profile_noevents">No Upcoming Events</string>
+    <string name="profile_friends">Friends</string>
+    <string name="profile_nofriends">No Friends Retrieved</string>
+    <string name="profile_tags">Tags</string>
+    <string name="profile_notags">No Tags</string>
+    <string name="profile_selectaction">Select Action</string>
+    <string name="profile_userplays">%1$d plays since %2$te %2$tb %2$tY</string>
+    <string name="profile_loading">Loading Profile...</string>
+    <string name="profile_gender_male">male</string>
+    <string name="profile_gender_female">female</string>
+    <string name="profile_search">Search</string>
 
-	<!-- Share activity -->
-	<string name="share_label">Last.fm: Share With A Friend</string>
-	<string name="share_trackshared">The track was shared.</string>
-	<string name="share_error">An error occurred when sharing. Please try again.</string>
-	<string name="share_nofriends">No Friends :(</string>
-	<string name="share_selectapplication">Share track using:</string>
-	<string name="share_friendslist">Friends List</string>
+    <!-- Share activity -->
+    <string name="share_label">Last.fm: Share With A Friend</string>
+    <string name="share_trackshared">The track was shared.</string>
+    <string name="share_error">An error occurred when sharing. Please try again.</string>
+    <string name="share_nofriends">No Friends :(</string>
+    <string name="share_selectapplication">Share track using:</string>
+    <string name="share_friendslist">Friends List</string>
 
-	<!-- Metadata activity -->
-	<string name="metadata_label">Last.fm: Info</string>
-	<string name="metadata_bio">Bio</string>
-	<string name="metadata_similar">Similar</string>
-	<string name="metadata_tags">Tags</string>
-	<string name="metadata_events">Events</string>
-	<string name="metadata_Fans">Fans</string>
-	<string name="metadata_nobio">Unable to fetch bio</string>
-	<string name="metadata_nosimilar">No Similar Artists</string>
-	<string name="metadata_notags">No Tags</string>
-	<string name="metadata_noevents">No Upcoming Events</string>
-	<string name="metadata_nofans">No Top Listeners</string>
-	<string name="metadata_plays">plays</string>
-	<string name="metadata_listeners">listeners</string>
-	<string name="metadata_userplays">plays in your library</string>
+    <!-- Metadata activity -->
+    <string name="metadata_label">Last.fm: Info</string>
+    <string name="metadata_bio">Bio</string>
+    <string name="metadata_similar">Similar</string>
+    <string name="metadata_tags">Tags</string>
+    <string name="metadata_events">Events</string>
+    <string name="metadata_Fans">Fans</string>
+    <string name="metadata_nobio">Unable to fetch bio</string>
+    <string name="metadata_nosimilar">No Similar Artists</string>
+    <string name="metadata_notags">No Tags</string>
+    <string name="metadata_noevents">No Upcoming Events</string>
+    <string name="metadata_nofans">No Top Listeners</string>
+    <string name="metadata_plays">plays</string>
+    <string name="metadata_listeners">listeners</string>
+    <string name="metadata_userplays">plays in your library</string>
 
-	<!-- NewStation activity -->
-	<string name="newstation_search">Search</string>
-	<string name="newstation_searching">Searching...</string>
-	<string name="newstation_noresults">No results found</string>
-	<string name="newstation_artistradio">%1$s Radio</string>
-	<string name="newstation_tagradio">%1$s Tag Radio</string>
-	
+    <!-- NewStation activity -->
+    <string name="newstation_search">Search</string>
+    <string name="newstation_searching">Searching...</string>
+    <string name="newstation_noresults">No results found</string>
+    <string name="newstation_artistradio">%1$s Radio</string>
+    <string name="newstation_tagradio">%1$s Tag Radio</string>
+
     <!-- Event activity -->
     <string name="event_label">Last.fm: Event</string>
-	<string name="event_showmap">Show Map</string>
-	<string name="event_buytickets">Buy Tickets</string>
-	<string name="event_attending">I\'m attending</string>
-	<string name="event_notattending">I\'m not attending</string>
-	<string name="event_maybe">I might attend</string>
-	<string name="event_saving">Saving Event</string>
-	
-	<!-- Player activity -->
-	<string name="player_label">Last.fm: Player</string>
-	<string name="player_tuning">Tuning</string>
-	<string name="player_buffering">Buffering</string>
+    <string name="event_showmap">Show Map</string>
+    <string name="event_buytickets">Buy Tickets</string>
+    <string name="event_attending">I\'m attending</string>
+    <string name="event_notattending">I\'m not attending</string>
+    <string name="event_maybe">I might attend</string>
+    <string name="event_saving">Saving Event</string>
 
-	<!-- RadioPlayer service -->
-	<string name="playerservice_label">Last.fm: Radio Player</string>
+    <!-- Player activity -->
+    <string name="player_label">Last.fm: Player</string>
+    <string name="player_tuning">Tuning</string>
+    <string name="player_buffering">Buffering</string>
+
+    <!-- RadioPlayer service -->
+    <string name="playerservice_label">Last.fm: Radio Player</string>
     <string name="playerservice_error_ticker_text">An error occured during playback</string>
     <string name="playerservice_paused_ticker_text">Last.fm Paused</string>
     <string name="playerservice_paused_info">%1$s by \n %2$s</string>
@@ -222,66 +223,64 @@
     <string name="scrobbler_info_title">Now Scrobbling</string>
     <string name="scrobbler_trackloved">The track was marked as Loved.</string>
     <string name="scrobbler_trackbanned">The track was marked as Banned.</string>
+    <string name="durationformat"><xliff:g id="format">%2$d:%5$02d</xliff:g></string>
 
-	<string name="durationformat">
-		<xliff:g id="format">%2$d:%5$02d</xliff:g>
-	</string>
-
-	<!-- some strings common to different activities -->
-	<string name="common_loading">Loading...</string>
-	<string name="common_cancel">Cancel</string>
-	<string name="common_ok">OK</string>
-	<string name="common_save">Save</string>
-	<string name="common_yes">Yes</string>
-	<string name="common_no">No</string>
+    <!-- some strings common to different activities -->
+    <string name="common_loading">Loading...</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_ok">OK</string>
+    <string name="common_save">Save</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">No</string>
 
     <!-- error message dialogs -->
-	<string name="ERROR_AUTH">Unable to log in to Last.fm.  Please check your username and password and try again.</string>
-	<string name="ERROR_AUTH_TITLE">Incorrect Login</string>
-	<string name="ERROR_INSUFFICIENT_CONTENT">There is not enough content available to play this station.  Please try another station.</string>
-	<string name="ERROR_INSUFFICIENT_CONTENT_TITLE">Insufficient Content</string>
-	<string name="ERROR_INSUFFICIENT_FANS">There are not enough fans of this artist to play this station.  Please try another artist.</string>
-	<string name="ERROR_INSUFFICIENT_MEMBERS">There are not enough members in this group to play this station.  Please try another group.</string>
-	<string name="ERROR_INSUFFICIENT_NEIGHBOURS">&quot;Your musical neighborhood hasn\'t been calculated yet.  Try listening to more music and try again in a few days.&quot;</string>
-	<string name="ERROR_MISSINGINFO">&quot;You must have a valid Last.fm username and password.  If you don\'t have an account, click the Sign Up button.&quot;</string>
-	<string name="ERROR_MISSINGINFO_TITLE">Missing Information</string>
-	<string name="ERROR_NONETWORK">This feature requires a connection to the internet.  Please connect to the internet and try again.</string>
-	<string name="ERROR_NONETWORK_TITLE">No Network Connection</string>
-	<string name="ERROR_PLAYBACK_FAILED">An error occurred while trying to play this track.  Please try again shortly.</string>
-	<string name="ERROR_PLAYBACK_FAILED_TITLE">Playback Failed</string>
-	<string name="ERROR_REGFAILURE_TITLE">Account Creation Failed</string>
-	<string name="ERROR_SERVER_UNAVAILABLE">There was a problem communicating with the Last.fm servers.  Please try again shortly.</string>
-	<string name="ERROR_SERVER_UNAVAILABLE_TITLE">Communication Error</string>
-	<string name="ERROR_SESSION">This application is no longer linked with your Last.fm account.  Please log in again.</string>
-	<string name="ERROR_SESSION_TITLE">Invalid Session</string>
-	<string name="ERROR_STATION_TITLE">Station Not Available</string>
-	<string name="ERROR_SUBSCRIPTION">Please check your subscription status at the Last.fm website.</string>
-	<string name="ERROR_SUBSCRIPTION_TITLE">Subscribers Only</string>
-	<string name="ERROR_NOSUCHUSER">Unable to find a user with this username.  Please check the spelling and try again</string>
-	<string name="ERROR_NOSUCHUSER_TITLE">User Not Found</string>
-	<string name="ERROR_UPGRADE">An upgrade is required to continue using this software.  Please upgrade your software and try again.</string>
-	<string name="ERROR_UPGRADE_TITLE">Upgrade Required</string>
-	<string name="ERROR_SIGNUP_TITLE">Could not signup</string>
-	<string name="ERROR_AMAZON">The Amazon MP3 store is not currently available on this device.</string>
-	<string name="ERROR_AMAZON_TITLE">Amazon Unavailable</string>
-	<string name="ERROR_RADIO_UNAVAILABLE">Last.fm Radio is not currently available on mobile devices in your country.</string>
-	<string name="ERROR_VOICE_TITLE">Voice Search Unavailable</string>
-	<string name="ERROR_VOICE">Google Voice Search is not installed on this device.</string>
-	<string name="ERROR_DEPRECATED_TITLE">Station No Longer Available</string>
-	<string name="ERROR_DEPRECATED_LOVED">Due to recent station changes, \'loved tracks\' radio is no longer available.\n\n(Don\'t worry, your list of loved tracks hasn\'t changed).</string>
-	<string name="ERROR_DEPRECATED_TAGS">Due to recent station changes, \'personal tag\' radio is no longer available.\n\n(Don\'t worry, your tags haven\'t changed).</string>
-	<string name="ERROR_DEPRECATED_PLAYLISTS">Due to recent station changes, playlists are no longer available.\n\n(Don\'t worry, the list of tracks in your playlists haven\'t changed).</string>
-	<string name="ERROR_TRIAL_EXPIRED_TITLE">Your Free Trial Is Over</string>
-	<string name="ERROR_TRIAL_EXPIRED">Your free trial of Last.fm radio is over.  Subscribe now to get pesonalized radio on your device for just £3/€3/$3 per month.</string>
+    <string name="ERROR_AUTH">Unable to log in to Last.fm.  Please check your username and password and try again.</string>
+    <string name="ERROR_AUTH_TITLE">Incorrect Login</string>
+    <string name="ERROR_INSUFFICIENT_CONTENT">There is not enough content available to play this station.  Please try another station.</string>
+    <string name="ERROR_INSUFFICIENT_CONTENT_TITLE">Insufficient Content</string>
+    <string name="ERROR_INSUFFICIENT_FANS">There are not enough fans of this artist to play this station.  Please try another artist.</string>
+    <string name="ERROR_INSUFFICIENT_MEMBERS">There are not enough members in this group to play this station.  Please try another group.</string>
+    <string name="ERROR_INSUFFICIENT_NEIGHBOURS">&quot;Your musical neighborhood hasn\'t been calculated yet.  Try listening to more music and try again in a few days.&quot;</string>
+    <string name="ERROR_MISSINGINFO">&quot;You must have a valid Last.fm username and password.  If you don\'t have an account, click the Sign Up button.&quot;</string>
+    <string name="ERROR_MISSINGINFO_TITLE">Missing Information</string>
+    <string name="ERROR_NONETWORK">This feature requires a connection to the internet.  Please connect to the internet and try again.</string>
+    <string name="ERROR_NONETWORK_TITLE">No Network Connection</string>
+    <string name="ERROR_PLAYBACK_FAILED">An error occurred while trying to play this track.  Please try again shortly.</string>
+    <string name="ERROR_PLAYBACK_FAILED_TITLE">Playback Failed</string>
+    <string name="ERROR_REGFAILURE_TITLE">Account Creation Failed</string>
+    <string name="ERROR_SERVER_UNAVAILABLE">There was a problem communicating with the Last.fm servers.  Please try again shortly.</string>
+    <string name="ERROR_SERVER_UNAVAILABLE_TITLE">Communication Error</string>
+    <string name="ERROR_SESSION">This application is no longer linked with your Last.fm account.  Please log in again.</string>
+    <string name="ERROR_SESSION_TITLE">Invalid Session</string>
+    <string name="ERROR_STATION_TITLE">Station Not Available</string>
+    <string name="ERROR_SUBSCRIPTION">Please check your subscription status at the Last.fm website.</string>
+    <string name="ERROR_SUBSCRIPTION_TITLE">Subscribers Only</string>
+    <string name="ERROR_NOSUCHUSER">Unable to find a user with this username.  Please check the spelling and try again</string>
+    <string name="ERROR_NOSUCHUSER_TITLE">User Not Found</string>
+    <string name="ERROR_UPGRADE">An upgrade is required to continue using this software.  Please upgrade your software and try again.</string>
+    <string name="ERROR_UPGRADE_TITLE">Upgrade Required</string>
+    <string name="ERROR_SIGNUP_TITLE">Could not signup</string>
+    <string name="ERROR_AMAZON">The Amazon MP3 store is not currently available on this device.</string>
+    <string name="ERROR_AMAZON_TITLE">Amazon Unavailable</string>
+    <string name="ERROR_RADIO_UNAVAILABLE">Last.fm Radio is not currently available on mobile devices in your country.</string>
+    <string name="ERROR_VOICE_TITLE">Voice Search Unavailable</string>
+    <string name="ERROR_VOICE">Google Voice Search is not installed on this device.</string>
+    <string name="ERROR_DEPRECATED_TITLE">Station No Longer Available</string>
+    <string name="ERROR_DEPRECATED_LOVED">Due to recent station changes, \'loved tracks\' radio is no longer available.\n\n(Don\'t worry, your list of loved tracks hasn\'t changed).</string>
+    <string name="ERROR_DEPRECATED_TAGS">Due to recent station changes, \'personal tag\' radio is no longer available.\n\n(Don\'t worry, your tags haven\'t changed).</string>
+    <string name="ERROR_DEPRECATED_PLAYLISTS">Due to recent station changes, playlists are no longer available.\n\n(Don\'t worry, the list of tracks in your playlists haven\'t changed).</string>
+    <string name="ERROR_TRIAL_EXPIRED_TITLE">Your Free Trial Is Over</string>
+    <string name="ERROR_TRIAL_EXPIRED">Your free trial of Last.fm radio is over.  Subscribe now to get pesonalized radio on your device for just £3/€3/$3 per month.</string>
 
-	<!-- third party account access -->
-	<string name="account_access_title">Last.fm Account Access</string>
-	<string name="account_access_body">An application has requested access to your Last.fm profile.  Would you like to allow access?  Your password will not be shared.</string>
-	
-	<!-- sync provider -->
-	<string name="sync_only_one_account">Only one Last.fm account is supported.</string>
-	<string name="sync_prompt_title">Sync Last.fm Contacts</string>
-	<string name="sync_prompt_body">Would you like to sync your Last.fm friends with your Android contacts?  This gives you quick access to your friends\' Last.fm status and profile information.  You can enable or disable this option at any time through the \'Accounts &amp; Sync\' settings page.</string>
-	<string name="cal_sync_prompt_title">Sync Last.fm Events</string>
-	<string name="cal_sync_prompt_body">Would you like to sync your Last.fm events with your Android calendar?  You can enable or disable this option at any time through the \'Accounts &amp; Sync\' settings page.</string>
+    <!-- third party account access -->
+    <string name="account_access_title">Last.fm Account Access</string>
+    <string name="account_access_body">An application has requested access to your Last.fm profile.  Would you like to allow access?  Your password will not be shared.</string>
+
+    <!-- sync provider -->
+    <string name="sync_only_one_account">Only one Last.fm account is supported.</string>
+    <string name="sync_prompt_title">Sync Last.fm Contacts</string>
+    <string name="sync_prompt_body">Would you like to sync your Last.fm friends with your Android contacts?  This gives you quick access to your friends\' Last.fm status and profile information.  You can enable or disable this option at any time through the \'Accounts &amp; Sync\' settings page.</string>
+    <string name="cal_sync_prompt_title">Sync Last.fm Events</string>
+    <string name="cal_sync_prompt_body">Would you like to sync your Last.fm events with your Android calendar?  You can enable or disable this option at any time through the \'Accounts &amp; Sync\' settings page.</string>
+
 </resources>

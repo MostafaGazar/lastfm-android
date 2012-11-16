@@ -2,6 +2,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- Tag activity -->
-	<string name="tagarea_hint">Enter a tag above, or choose from the left</string>
-	
+    <string name="tagarea_hint">Enter a tag above, or choose from the left</string>
+
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (C) 2008 Lukasz Wisniewski <luke.cherrish@gmail.com> 
+<!--
+    Copyright (C) 2008 Lukasz Wisniewski <luke.cherrish@gmail.com> 
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,12 +15,23 @@
      limitations under the License.
 -->
 
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-		
-	<item android:id="@+id/info_menu_item" android:title="@string/action_viewinfo" android:icon="@drawable/info"/>
-	<item android:id="@+id/share_menu_item" android:title="@string/action_share" android:icon="@drawable/share"/>
-	<item android:id="@+id/tag_menu_item" android:title="@string/action_tag" android:icon="@drawable/tag_menu"/>
-	<item android:id="@+id/buy_menu_item" android:title="@string/action_amazon" android:icon="@drawable/shopping_cart"/>
-	
+    <item
+        android:id="@+id/info_menu_item"
+        android:icon="@drawable/info"
+        android:title="@string/action_viewinfo"/>
+    <item
+        android:id="@+id/share_menu_item"
+        android:icon="@drawable/share"
+        android:title="@string/action_share"/>
+    <item
+        android:id="@+id/tag_menu_item"
+        android:icon="@drawable/tag_menu"
+        android:title="@string/action_tag"/>
+    <item
+        android:id="@+id/buy_menu_item"
+        android:icon="@drawable/shopping_cart"
+        android:title="@string/action_amazon"/>
+
 </menu>

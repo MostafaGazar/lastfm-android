@@ -19,7 +19,6 @@
             android:layout_marginRight="48dip"
             android:layout_marginTop="36dip"
             android:background="@drawable/sign_in_logo" >
-
         </ImageView>
 
         <EditText

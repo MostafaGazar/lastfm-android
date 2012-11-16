@@ -1,52 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<PreferenceCategory android:title="@string/prefs_cat_scrobbler_title">
+    <PreferenceCategory android:title="@string/prefs_cat_scrobbler_title" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="scrobble"
+            android:summary="@string/prefs_scrobble_summary"
+            android:title="@string/prefs_scrobble_title" />
 
-		<CheckBoxPreference
-			android:key="scrobble"
-			android:defaultValue="true"
-			android:summary="@string/prefs_scrobble_summary" android:title="@string/prefs_scrobble_title"/>
+        <fm.last.android.activity.SeekBarPreference
+            android:defaultValue="50"
+            android:dependency="scrobble"
+            android:key="scrobble_percentage"
+            android:max="100"
+            android:summary="@string/prefs_scrobble_percentage"
+            android:title="@string/prefs_scrobble_perc_title" />
 
-		<fm.last.android.activity.SeekBarPreference
-			android:key="scrobble_percentage"
-			android:dependency="scrobble"
-			android:max="100"
-			android:defaultValue="50"
-			android:summary="@string/prefs_scrobble_percentage"
-			android:title="@string/prefs_scrobble_perc_title"/>
-
-		<CheckBoxPreference
-			android:key="scrobble_music_player"
-			android:defaultValue="true"
-			android:dependency="scrobble"
-			android:summary="@string/prefs_scrobble_music_player_summary" android:title="@string/prefs_scrobble_music_player_title"/>
-
-		<CheckBoxPreference
-			android:key="scrobble_sls"
-			android:defaultValue="true"
-			android:dependency="scrobble"
-			android:summary="@string/prefs_scrobble_sls_summary" android:title="@string/prefs_scrobble_sls_title"/>
-
-		<CheckBoxPreference
-			android:key="scrobble_sdroid"
-			android:defaultValue="true"
-			android:dependency="scrobble"
-			android:summary="@string/prefs_scrobble_sdroid_summary" android:title="@string/prefs_scrobble_sdroid_title"/>
-
-		<CheckBoxPreference
-			android:key="scrobble_realtime"
-			android:defaultValue="true"
-			android:dependency="scrobble"
-			android:summary="@string/prefs_scrobble_realtime_summary" android:title="@string/prefs_scrobble_realtime_title"/>
-
-		<CheckBoxPreference
-			android:key="scrobble_wifi_only"
-			android:defaultValue="false"
-			android:dependency="scrobble"
-			android:summary="@string/prefs_scrobble_wifi_only_summary" android:title="@string/prefs_scrobble_wifi_only_title"/>
-
-	</PreferenceCategory>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="scrobble"
+            android:key="scrobble_music_player"
+            android:summary="@string/prefs_scrobble_music_player_summary"
+            android:title="@string/prefs_scrobble_music_player_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="scrobble"
+            android:key="scrobble_sls"
+            android:summary="@string/prefs_scrobble_sls_summary"
+            android:title="@string/prefs_scrobble_sls_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="scrobble"
+            android:key="scrobble_sdroid"
+            android:summary="@string/prefs_scrobble_sdroid_summary"
+            android:title="@string/prefs_scrobble_sdroid_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="scrobble"
+            android:key="scrobble_realtime"
+            android:summary="@string/prefs_scrobble_realtime_summary"
+            android:title="@string/prefs_scrobble_realtime_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="scrobble"
+            android:key="scrobble_wifi_only"
+            android:summary="@string/prefs_scrobble_wifi_only_summary"
+            android:title="@string/prefs_scrobble_wifi_only_title" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

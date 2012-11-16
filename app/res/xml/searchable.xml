@@ -17,7 +17,8 @@
 */
 -->
 
-<!-- The attributes below configure how the search results will work:
+<!--
+ The attributes below configure how the search results will work:
  - the 'label' points to a short description used when searching within the application if
    'badge mode' is used as specified with android:searchMode="useLabelAsBadge" (which it is not for
     this application).
@@ -30,12 +31,13 @@
  - 'searchSuggestIntentAction' the default intent action used in the intent that is launched based
    on a user cilcking on a search suggestion.  This saves us from manually having to fill in the
    SUGGEST_COLUMN_INTENT_ACTION column for each suggestion returned by the provider.
- -->
+-->
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-        android:label="@string/app_name"
-        android:searchSettingsDescription="@string/action_search"
-        android:includeInGlobalSearch="true"
-        android:searchSuggestAuthority="lastfm"
-        android:queryAfterZeroResults="true"
-        android:searchSuggestIntentAction="android.intent.action.VIEW">
+    android:includeInGlobalSearch="true"
+    android:label="@string/app_name"
+    android:queryAfterZeroResults="true"
+    android:searchSettingsDescription="@string/action_search"
+    android:searchSuggestAuthority="lastfm"
+    android:searchSuggestIntentAction="android.intent.action.VIEW" >
+
 </searchable>

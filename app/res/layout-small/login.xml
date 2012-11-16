@@ -9,8 +9,12 @@
         android:id="@+id/ImageView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dip"
+        android:layout_marginBottom="12dip"
+        android:layout_marginLeft="24dip"
+        android:layout_marginRight="24dip"
+        android:layout_marginTop="12dip"
         android:background="@drawable/sign_in_logo" >
+
     </ImageView>
 
     <EditText
@@ -24,6 +28,7 @@
         android:id="@+id/password"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="@string/main_password"
         android:maxLines="1"
         android:password="true"
@@ -33,7 +38,7 @@
         android:id="@+id/sign_in_button"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dip"
+        android:layout_marginTop="16dip"
         android:background="@drawable/sign_in_button"
         android:text="@string/main_login"
         android:textColor="#fff"
