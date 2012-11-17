@@ -21,9 +21,9 @@
 package fm.last.android.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,9 +33,9 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -43,8 +43,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import com.actionbarsherlock.app.SherlockListFragment;
+
 import fm.last.android.AndroidLastFmServerFactory;
-import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.R;
@@ -65,7 +67,7 @@ import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
 
-public class Profile_ChartsTab extends BaseListActivity {
+public class Profile_ChartsTab extends SherlockListFragment {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int PROFILE_RECOMMENDED = 0;
@@ -76,64 +78,63 @@ public class Profile_ChartsTab extends BaseListActivity {
 	private static final int PROFILE_FRIENDS = 5;
 	private static final int PROFILE_TAGS = 6;
 
+	private Activity mContext;
+	private ViewGroup viewer;
+	
 	private ListAdapter mProfileAdapter;
-	private String mUsername; // store this separate so we have access to it
-								// before User obj is retrieved
-	LastFmServer mServer = AndroidLastFmServerFactory.getServer();
+	public static String username; // store this separate so we have access to it before User obj is retrieved
+	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();
 
-	ViewFlipper mNestedViewFlipper;
+	private ViewFlipper mNestedViewFlipper;
 	private Stack<Integer> mViewHistory;
 
-	View previousSelectedView = null;
+	private View previousSelectedView = null;
 
 	// Animations
-	Animation mPushRightIn;
-	Animation mPushRightOut;
-	Animation mPushLeftIn;
-	Animation mPushLeftOut;
+	private Animation mPushRightIn;
+	private Animation mPushRightOut;
+	private Animation mPushLeftIn;
+	private Animation mPushLeftOut;
 
-	ListView[] mProfileLists = new ListView[7];
+	private ListView[] mProfileLists = new ListView[7];
 
 	private ImageCache mImageCache = null;
 
 	private IntentFilter mIntentFilter;
 	
-	ProfileBubble mProfileBubble;
-
+	private ProfileBubble mProfileBubble;
+	
+	@SuppressWarnings("deprecation")
 	@Override
-	public void onCreate(Bundle icicle) {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		super.onCreate(icicle);
-		setContentView(R.layout.charts);
-
-		mUsername = getIntent().getStringExtra("user");
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		viewer = (ViewGroup) inflater.inflate(R.layout.charts,
+				container, false);
+		mContext = getActivity();
+		
+//		username = savedInstanceState.getString("user");
 		
 		try {
-			mProfileBubble = new QuickContactProfileBubble(this);
+			mProfileBubble = new QuickContactProfileBubble(mContext);
 		} catch (java.lang.VerifyError e) {
-			mProfileBubble = new ProfileBubble(this);
+			mProfileBubble = new ProfileBubble(mContext);
 		} catch (Exception e) {
-			mProfileBubble = new ProfileBubble(this);
+			mProfileBubble = new ProfileBubble(mContext);
 		}
 		mProfileBubble.setTag("header");
 		mProfileBubble.setClickable(false);
-		getListView().addHeaderView(mProfileBubble, null, false);
 
 		new LoadUserTask().execute((Void)null);
 
 		mViewHistory = new Stack<Integer>();
-		mNestedViewFlipper = (ViewFlipper) findViewById(R.id.NestedViewFlipper);
+		mNestedViewFlipper = (ViewFlipper) viewer.findViewById(R.id.NestedViewFlipper);
 		mNestedViewFlipper.setAnimateFirstView(false);
 		mNestedViewFlipper.setAnimationCacheEnabled(false);
-
-		getListView().requestFocus();
-		
-		RebuildChartsMenu();
 		
 		// TODO should be functions and not member variables, caching is evil
-		mProfileLists[PROFILE_RECOMMENDED] = (ListView) findViewById(R.id.recommended_list_view);
+		mProfileLists[PROFILE_RECOMMENDED] = (ListView) viewer.findViewById(R.id.recommended_list_view);
 		mProfileLists[PROFILE_RECOMMENDED].setOnItemClickListener(mArtistListItemClickListener);
-		TextView title = new TextView(this);
+		TextView title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_myrecs));
 		title.setPadding(6, 6, 6, 6);
@@ -145,9 +146,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 		mProfileLists[PROFILE_RECOMMENDED].addHeaderView(title);
 		
 		
-		mProfileLists[PROFILE_TOPARTISTS] = (ListView) findViewById(R.id.topartists_list_view);
+		mProfileLists[PROFILE_TOPARTISTS] = (ListView) viewer.findViewById(R.id.topartists_list_view);
 		mProfileLists[PROFILE_TOPARTISTS].setOnItemClickListener(mArtistListItemClickListener);
-		title = new TextView(this);
+		title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_topartists));
 		title.setPadding(6, 6, 6, 6);
@@ -158,9 +159,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 		title.setShadowLayer(4, 4, 4, 0xFF000000);
 		mProfileLists[PROFILE_TOPARTISTS].addHeaderView(title);
 
-		mProfileLists[PROFILE_TOPALBUMS] = (ListView) findViewById(R.id.topalbums_list_view);
+		mProfileLists[PROFILE_TOPALBUMS] = (ListView) viewer.findViewById(R.id.topalbums_list_view);
 		mProfileLists[PROFILE_TOPALBUMS].setOnItemClickListener(mAlbumListItemClickListener);
-		title = new TextView(this);
+		title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_topalbums));
 		title.setPadding(6, 6, 6, 6);
@@ -171,9 +172,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 		title.setShadowLayer(4, 4, 4, 0xFF000000);
 		mProfileLists[PROFILE_TOPALBUMS].addHeaderView(title);
 
-		mProfileLists[PROFILE_TOPTRACKS] = (ListView) findViewById(R.id.toptracks_list_view);
+		mProfileLists[PROFILE_TOPTRACKS] = (ListView) viewer.findViewById(R.id.toptracks_list_view);
 		mProfileLists[PROFILE_TOPTRACKS].setOnItemClickListener(mTrackListItemClickListener);
-		title = new TextView(this);
+		title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_toptracks));
 		title.setPadding(6, 6, 6, 6);
@@ -184,9 +185,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 		title.setShadowLayer(4, 4, 4, 0xFF000000);
 		mProfileLists[PROFILE_TOPTRACKS].addHeaderView(title);
 
-		mProfileLists[PROFILE_RECENTLYPLAYED] = (ListView) findViewById(R.id.recenttracks_list_view);
+		mProfileLists[PROFILE_RECENTLYPLAYED] = (ListView) viewer.findViewById(R.id.recenttracks_list_view);
 		mProfileLists[PROFILE_RECENTLYPLAYED].setOnItemClickListener(mTrackListItemClickListener);
-		title = new TextView(this);
+		title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_recentlyplayed));
 		title.setPadding(6, 6, 6, 6);
@@ -197,9 +198,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 		title.setShadowLayer(4, 4, 4, 0xFF000000);
 		mProfileLists[PROFILE_RECENTLYPLAYED].addHeaderView(title);
 
-		mProfileLists[PROFILE_FRIENDS] = (ListView) findViewById(R.id.profilefriends_list_view);
+		mProfileLists[PROFILE_FRIENDS] = (ListView) viewer.findViewById(R.id.profilefriends_list_view);
 		mProfileLists[PROFILE_FRIENDS].setOnItemClickListener(mUserItemClickListener);
-		title = new TextView(this);
+		title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_friends));
 		title.setPadding(6, 6, 6, 6);
@@ -210,9 +211,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 		title.setShadowLayer(4, 4, 4, 0xFF000000);
 		mProfileLists[PROFILE_FRIENDS].addHeaderView(title);
 
-		mProfileLists[PROFILE_TAGS] = (ListView) findViewById(R.id.profiletags_list_view);
+		mProfileLists[PROFILE_TAGS] = (ListView) viewer.findViewById(R.id.profiletags_list_view);
 		mProfileLists[PROFILE_TAGS].setOnItemClickListener(mTagListItemClickListener);
-		title = new TextView(this);
+		title = new TextView(mContext);
 		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
 		title.setText(getString(R.string.profile_tags));
 		title.setPadding(6, 6, 6, 6);
@@ -224,24 +225,36 @@ public class Profile_ChartsTab extends BaseListActivity {
 		mProfileLists[PROFILE_TAGS].addHeaderView(title);
 
 		// Loading animations
-		mPushLeftIn = AnimationUtils.loadAnimation(this, R.anim.push_left_in);
-		mPushLeftOut = AnimationUtils.loadAnimation(this, R.anim.push_left_out);
-		mPushRightIn = AnimationUtils.loadAnimation(this, R.anim.push_right_in);
-		mPushRightOut = AnimationUtils.loadAnimation(this, R.anim.push_right_out);
+		mPushLeftIn = AnimationUtils.loadAnimation(mContext, R.anim.push_left_in);
+		mPushLeftOut = AnimationUtils.loadAnimation(mContext, R.anim.push_left_out);
+		mPushRightIn = AnimationUtils.loadAnimation(mContext, R.anim.push_right_in);
+		mPushRightOut = AnimationUtils.loadAnimation(mContext, R.anim.push_right_out);
 
 		mIntentFilter = new IntentFilter();
 		mIntentFilter.addAction(RadioPlayerService.PLAYBACK_ERROR);
 		mIntentFilter.addAction(RadioPlayerService.STATION_CHANGED);
 		mIntentFilter.addAction("fm.last.android.ERROR");
+		
+		return viewer;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+		getListView().addHeaderView(mProfileBubble, null, false);
+		getListView().requestFocus();
+		
+		RebuildChartsMenu();
 	}
 	
 	private void RebuildChartsMenu() {
 		String[] mStrings;
 		
-		SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
+		SharedPreferences settings = mContext.getSharedPreferences(LastFm.PREFS, 0);
 
 		if(!settings.getBoolean("remove_tags", false)) {
-			if(mUsername.equals(LastFMApplication.getInstance().session.getName()))
+			if(username.equals(LastFMApplication.getInstance().session.getName()))
 				mStrings = new String[] { getString(R.string.profile_myrecs), getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
 					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
 					getString(R.string.profile_friends), getString(R.string.profile_tags) }; // this
@@ -262,7 +275,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 																							// ProfileActions
 																							// enum
 		} else {
-			if(mUsername.equals(LastFMApplication.getInstance().session.getName()))
+			if(username.equals(LastFMApplication.getInstance().session.getName()))
 				mStrings = new String[] { getString(R.string.profile_myrecs), getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
 					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
 					getString(R.string.profile_friends) }; // this
@@ -284,7 +297,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 																							// enum
 		}
 		
-		mProfileAdapter = new ListAdapter(Profile_ChartsTab.this, mStrings);
+		mProfileAdapter = new ListAdapter(mContext, mStrings);
 		getListView().setAdapter(mProfileAdapter);
 	}
 	
@@ -295,7 +308,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		public Boolean doInBackground(Void... params) {
 			LastFmServer server = AndroidLastFmServerFactory.getServer();
 			try {
-				mUser = server.getUserInfo(mUsername, null);
+				mUser = server.getUserInfo(username, null);
 			} catch (WSError e) {
 				return false;
 			} catch (Exception e) {
@@ -312,63 +325,64 @@ public class Profile_ChartsTab extends BaseListActivity {
 		}
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		outState.putInt("displayed_view", mNestedViewFlipper.getDisplayedChild());
-		outState.putSerializable("view_history", mViewHistory);
-
-		HashMap<Integer, ListAdapter> adapters = new HashMap<Integer, ListAdapter>(mProfileLists.length);
-		for (int i = 0; i < mProfileLists.length; i++) {
-			ListView lv = mProfileLists[i];
-			if (lv.getAdapter() == null)
-				continue;
-			if (lv.getAdapter().getClass() == ListAdapter.class)
-				adapters.put(i, (ListAdapter) lv.getAdapter());
-		}
-
-		outState.putSerializable("adapters", adapters);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void onRestoreInstanceState(Bundle state) {
-		mNestedViewFlipper.setDisplayedChild(state.getInt("displayed_view"));
-
-		if (state.containsKey("view_history"))
-			try {
-				Object viewHistory = state.getSerializable("view_history");
-				if (viewHistory instanceof Stack)
-					mViewHistory = (Stack<Integer>) viewHistory;
-				else {
-					// For some reason when the process gets killed and then
-					// resumed,
-					// the serializable becomes an ArrayList
-					for (Integer i : (ArrayList<Integer>) state.getSerializable("view_history"))
-						mViewHistory.push(i);
-				}
-			} catch (ClassCastException e) {
-
-			}
-
-		// Restore the adapters and disable the spinner for all the profile
-		// lists
-		HashMap<Integer, ListAdapter> adapters = (HashMap<Integer, ListAdapter>) state.getSerializable("adapters");
-
-		for (int key : adapters.keySet()) {
-			ListAdapter adapter = adapters.get(key);
-			if (adapter != null) {
-				adapter.setContext(this);
-				adapter.setImageCache(getImageCache());
-				adapter.disableLoadBar();
-				adapter.refreshList();
-				mProfileLists[key].setAdapter(adapter);
-			}
-		}
-	}
+	// FIXME :: uncomment.
+//	@Override
+//	protected void onSaveInstanceState(Bundle outState) {
+//		outState.putInt("displayed_view", mNestedViewFlipper.getDisplayedChild());
+//		outState.putSerializable("view_history", mViewHistory);
+//
+//		HashMap<Integer, ListAdapter> adapters = new HashMap<Integer, ListAdapter>(mProfileLists.length);
+//		for (int i = 0; i < mProfileLists.length; i++) {
+//			ListView lv = mProfileLists[i];
+//			if (lv.getAdapter() == null)
+//				continue;
+//			if (lv.getAdapter().getClass() == ListAdapter.class)
+//				adapters.put(i, (ListAdapter) lv.getAdapter());
+//		}
+//
+//		outState.putSerializable("adapters", adapters);
+//	}
+//
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	protected void onRestoreInstanceState(Bundle state) {
+//		mNestedViewFlipper.setDisplayedChild(state.getInt("displayed_view"));
+//
+//		if (state.containsKey("view_history"))
+//			try {
+//				Object viewHistory = state.getSerializable("view_history");
+//				if (viewHistory instanceof Stack)
+//					mViewHistory = (Stack<Integer>) viewHistory;
+//				else {
+//					// For some reason when the process gets killed and then
+//					// resumed,
+//					// the serializable becomes an ArrayList
+//					for (Integer i : (ArrayList<Integer>) state.getSerializable("view_history"))
+//						mViewHistory.push(i);
+//				}
+//			} catch (ClassCastException e) {
+//
+//			}
+//
+//		// Restore the adapters and disable the spinner for all the profile
+//		// lists
+//		HashMap<Integer, ListAdapter> adapters = (HashMap<Integer, ListAdapter>) state.getSerializable("adapters");
+//
+//		for (int key : adapters.keySet()) {
+//			ListAdapter adapter = adapters.get(key);
+//			if (adapter != null) {
+//				adapter.setContext(this);
+//				adapter.setImageCache(getImageCache());
+//				adapter.disableLoadBar();
+//				adapter.refreshList();
+//				mProfileLists[key].setAdapter(adapter);
+//			}
+//		}
+//	}
 
 	@Override
 	public void onResume() {
-		registerReceiver(mStatusListener, mIntentFilter);
+		mContext.registerReceiver(mStatusListener, mIntentFilter);
 
 		getListView().setEnabled(true);
 
@@ -385,8 +399,8 @@ public class Profile_ChartsTab extends BaseListActivity {
 	}
 
 	@Override
-	protected void onPause() {
-		unregisterReceiver(mStatusListener);
+	public void onPause() {
+		mContext.unregisterReceiver(mStatusListener);
 		super.onPause();
 	}
 
@@ -413,23 +427,26 @@ public class Profile_ChartsTab extends BaseListActivity {
 		}
 	};
 
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (!mViewHistory.isEmpty()) {
-				setPreviousAnimation();
-				mProfileAdapter.disableLoadBar();
-				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-				return true;
-			}
-			if (event.getRepeatCount() == 0) {
-				finish();
-				return true;
-			}
-		}
-		return false;
-	}
+	// FIXME :: uncomment.
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			if (!mViewHistory.isEmpty()) {
+//				setPreviousAnimation();
+//				mProfileAdapter.disableLoadBar();
+//				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
+//				
+//				return true;
+//			}
+//			if (event.getRepeatCount() == 0) {
+//				mContext.finish();
+//				
+//				return true;
+//			}
+//		}
+//		
+//		return false;
+//	}
 
 	private void setNextAnimation() {
 		mNestedViewFlipper.setInAnimation(mPushLeftIn);
@@ -444,7 +461,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		setNextAnimation();
 		mProfileAdapter.enableLoadBar(position-1);
-		if(!mUsername.equals(LastFMApplication.getInstance().session.getName()))
+		if(!username.equals(LastFMApplication.getInstance().session.getName()))
 			position++;
 		switch (position-1) {
 		case PROFILE_RECOMMENDED: // "Top Artists"
@@ -514,7 +531,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			try {
 				Artist artist = (Artist) l.getAdapter().getItem(position);
 				if(artist != null) {
-					Intent i = new Intent(Profile_ChartsTab.this, Metadata.class);
+					Intent i = new Intent(mContext, Metadata.class);
 					i.putExtra("artist", artist.getName());
 					startActivity(i);
 				}
@@ -530,7 +547,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			try {
 				Album album = (Album) l.getAdapter().getItem(position);
 				if(album != null) {
-					Intent i = new Intent(Profile_ChartsTab.this, PopupActionActivity.class);
+					Intent i = new Intent(mContext, PopupActionActivity.class);
 					i.putExtra("lastfm.artist", album.getArtist());
 					i.putExtra("lastfm.album", album.getTitle());
 					startActivity(i);
@@ -548,7 +565,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			try {
 				Track track = (Track) l.getAdapter().getItem(position);
 				if(track != null) {
-					Intent i = new Intent(Profile_ChartsTab.this, PopupActionActivity.class);
+					Intent i = new Intent(mContext, PopupActionActivity.class);
 					i.putExtra("lastfm.artist", track.getArtist().getName());
 					i.putExtra("lastfm.track", track.getName());
 					startActivity(i);
@@ -568,9 +585,9 @@ public class Profile_ChartsTab extends BaseListActivity {
 				Tag tag = (Tag) l.getAdapter().getItem(position);
 				if(tag != null) {
 					if (session.getSubscriber().equals("1"))
-						LastFMApplication.getInstance().playRadioStation(Profile_ChartsTab.this, "lastfm://usertags/" + mUsername + "/" + Uri.encode(tag.getName()), true);
+						LastFMApplication.getInstance().playRadioStation(mContext, "lastfm://usertags/" + username + "/" + Uri.encode(tag.getName()), true);
 					else
-						LastFMApplication.getInstance().playRadioStation(Profile_ChartsTab.this, "lastfm://globaltags/" + Uri.encode(tag.getName()), true);
+						LastFMApplication.getInstance().playRadioStation(mContext, "lastfm://globaltags/" + Uri.encode(tag.getName()), true);
 				}
 			} catch (ClassCastException e) {
 				// when the list item is not a tag
@@ -584,7 +601,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			try {
 				User user = (User) l.getAdapter().getItem(position);
 				if(user != null) {
-					Intent profileIntent = new Intent(Profile_ChartsTab.this, fm.last.android.activity.Profile.class);
+					Intent profileIntent = new Intent(mContext, fm.last.android.activity.Profile.class);
 					profileIntent.putExtra("lastfm.profile.username", user.getName());
 					startActivity(profileIntent);
 				}
@@ -600,7 +617,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 
 			try {
-				Artist[] recartists = mServer.getUserRecommendedArtists(mUsername, LastFMApplication.getInstance().session.getKey());
+				Artist[] recartists = mServer.getUserRecommendedArtists(username, LastFMApplication.getInstance().session.getKey());
 				if (recartists.length == 0)
 					return null;
 				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
@@ -619,7 +636,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(Profile_ChartsTab.this, e);
+				LastFMApplication.getInstance().presentError(mContext, e);
 			}
 			return null;
 		}
@@ -627,12 +644,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_notopartists) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
@@ -651,7 +668,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 
 			try {
-				Artist[] topartists = mServer.getUserTopArtists(mUsername, "overall");
+				Artist[] topartists = mServer.getUserTopArtists(username, "overall");
 				if (topartists.length == 0)
 					return null;
 				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
@@ -670,7 +687,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(Profile_ChartsTab.this, e);
+				LastFMApplication.getInstance().presentError(mContext, e);
 			}
 			return null;
 		}
@@ -678,12 +695,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_TOPARTISTS].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_notopartists) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_TOPARTISTS].setAdapter(adapter);
@@ -702,7 +719,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 
 			try {
-				Album[] topalbums = mServer.getUserTopAlbums(mUsername, "overall");
+				Album[] topalbums = mServer.getUserTopAlbums(username, "overall");
 				if (topalbums.length == 0)
 					return null;
 				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
@@ -721,7 +738,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(Profile_ChartsTab.this, e);
+				LastFMApplication.getInstance().presentError(mContext, e);
 			}
 			return null;
 		}
@@ -729,12 +746,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_TOPALBUMS].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_notopalbums) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_TOPALBUMS].setAdapter(adapter);
@@ -752,7 +769,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 			try {
-				Track[] toptracks = mServer.getUserTopTracks(mUsername, "overall");
+				Track[] toptracks = mServer.getUserTopTracks(username, "overall");
 				if (toptracks.length == 0)
 					return null;
 				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
@@ -770,7 +787,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(Profile_ChartsTab.this, e);
+				LastFMApplication.getInstance().presentError(mContext, e);
 			}
 			return null;
 		}
@@ -778,12 +795,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_TOPTRACKS].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_notoptracks) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_TOPTRACKS].setAdapter(adapter);
@@ -801,7 +818,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 			try {
-				Track[] recenttracks = mServer.getUserRecentTracks(mUsername, "true", 10);
+				Track[] recenttracks = mServer.getUserRecentTracks(username, "true", 10);
 				if (recenttracks.length == 0)
 					return null;
 
@@ -823,12 +840,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_RECENTLYPLAYED].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_norecenttracks) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_RECENTLYPLAYED].setAdapter(adapter);
@@ -846,7 +863,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 			try {
-				Tag[] tags = mServer.getUserTopTags(mUsername, 10);
+				Tag[] tags = mServer.getUserTopTags(username, 10);
 				if (tags.length == 0)
 					return null;
 
@@ -859,7 +876,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(Profile_ChartsTab.this, e);
+				LastFMApplication.getInstance().presentError(mContext, e);
 			}
 			return null;
 		}
@@ -867,12 +884,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_TAGS].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_notags) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_TAGS].setAdapter(adapter);
@@ -890,7 +907,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 			try {
-				User[] friends = mServer.getFriends(mUsername, null, "1024").getFriends();
+				User[] friends = mServer.getFriends(username, null, "1024").getFriends();
 				if (friends.length == 0)
 					return null;
 				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
@@ -907,7 +924,7 @@ public class Profile_ChartsTab extends BaseListActivity {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(Profile_ChartsTab.this, e);
+				LastFMApplication.getInstance().presentError(mContext, e);
 			}
 			return null;
 		}
@@ -915,12 +932,12 @@ public class Profile_ChartsTab extends BaseListActivity {
 		@Override
 		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
 			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, getImageCache());
+				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
 				adapter.setSourceIconified(iconifiedEntries);
 				mProfileLists[PROFILE_FRIENDS].setAdapter(adapter);
 			} else {
 				String[] strings = new String[] { getString(R.string.profile_nofriends) };
-				ListAdapter adapter = new ListAdapter(Profile_ChartsTab.this, strings);
+				ListAdapter adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 				mProfileLists[PROFILE_FRIENDS].setAdapter(adapter);

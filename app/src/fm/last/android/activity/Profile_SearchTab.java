@@ -23,6 +23,7 @@ package fm.last.android.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -34,15 +35,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import fm.last.android.BaseListActivity;
+
+import com.actionbarsherlock.app.SherlockListFragment;
+
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.SearchProvider;
@@ -51,27 +55,34 @@ import fm.last.android.adapter.ListEntry;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 
-public class Profile_SearchTab extends BaseListActivity implements OnClickListener, OnKeyListener {
+public class Profile_SearchTab extends SherlockListFragment implements OnClickListener, OnKeyListener {
+	
+	public static String query;
+	
+	private Activity mContext;
+	private ViewGroup viewer;
+	
 	private EditText mSearchText;
 	private ImageButton mSearchButton;
 	private ImageButton mVoiceButton;
 	private ImageCache mImageCache;
 	
 	@Override
-	public void onCreate(Bundle state) {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		super.onCreate(state);
-		setContentView(R.layout.search);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		viewer = (ViewGroup) inflater.inflate(R.layout.search,
+				container, false);
+		mContext = getActivity();
 
-		mSearchText = (EditText)findViewById(R.id.station_editbox);
+		mSearchText = (EditText) viewer.findViewById(R.id.station_editbox);
 		mSearchText.setOnKeyListener(this);
 		
-		mSearchButton = (ImageButton)findViewById(R.id.search);
+		mSearchButton = (ImageButton) viewer.findViewById(R.id.search);
 		mSearchButton.setOnClickListener(this);
 		
-		mVoiceButton = (ImageButton)findViewById(R.id.voice);
+		mVoiceButton = (ImageButton) viewer.findViewById(R.id.voice);
 		// Check to see if a recognition activity is present
-		PackageManager pm = getPackageManager();
+		PackageManager pm = mContext.getPackageManager();
 		List<ResolveInfo> activities = pm.queryIntentActivities(
 		  new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
 		if (activities.size() != 0) {
@@ -83,17 +94,25 @@ public class Profile_SearchTab extends BaseListActivity implements OnClickListen
 		
 		mImageCache = new ImageCache();
 		
-		String query = getIntent().getStringExtra(SearchManager.QUERY);
+		return viewer;
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+
+		//query = savedInstanceState.getString(SearchManager.QUERY);
 		if(query != null) {
 			mSearchText.setText(query);
 			new SearchTask().execute((Void)null);
 		}
+		query = null;
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager mgr = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		mgr.hideSoftInputFromWindow(mSearchText.getWindowToken(), 0);
 	}
 	
@@ -106,7 +125,7 @@ public class Profile_SearchTab extends BaseListActivity implements OnClickListen
 		        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.action_search));
 		        startActivityForResult(intent, 1234);
 			} catch (ActivityNotFoundException e) {
-				LastFMApplication.getInstance().presentError(this, getString(R.string.ERROR_VOICE_TITLE), getString(R.string.ERROR_VOICE));
+				LastFMApplication.getInstance().presentError(mContext, getString(R.string.ERROR_VOICE_TITLE), getString(R.string.ERROR_VOICE));
 			}
 		} else {
 			new SearchTask().execute((Void)null);
@@ -114,8 +133,8 @@ public class Profile_SearchTab extends BaseListActivity implements OnClickListen
 	}
 	
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1234 && resultCode == RESULT_OK) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1234 && resultCode == Activity.RESULT_OK) {
             // Fill the list view with the strings the recognizer thought it could have heard
             ArrayList<String> matches = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
@@ -134,29 +153,30 @@ public class Profile_SearchTab extends BaseListActivity implements OnClickListen
 		return false;
 	}
 	
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		ListAdapter a = (ListAdapter)getListAdapter();
 		
 		if(a != null) {
-			LastFMApplication.getInstance().mCtx = this;
+			LastFMApplication.getInstance().mCtx = mContext;
 			String URI = (String)a.getItem(position);
-			Intent i = new Intent(this, Profile.class);
+			Intent i = new Intent(mContext, Profile.class);
 			i.setData(Uri.parse(URI));
 			startActivity(i);
 		}
 	}
 	
-	@Override
-	public boolean onSearchRequested() {
-	     return true;
-	 }
+	// FIXME :: uncomment.
+//	@Override
+//	public boolean onSearchRequested() {
+//	     return true;
+//	 }
 	
 	private class SearchTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
 
 		@Override
 		public void onPreExecute() {
 			String[] strings = new String[] { "Searching" };
-			ListAdapter adapter = new ListAdapter(Profile_SearchTab.this, strings);
+			ListAdapter adapter = new ListAdapter(mContext, strings);
 
 			mSearchText.setEnabled(false);
 			mSearchButton.setEnabled(false);
@@ -172,7 +192,7 @@ public class Profile_SearchTab extends BaseListActivity implements OnClickListen
 		@Override
 		public ArrayList<ListEntry> doInBackground(Void... params) {
 			try {
-				Cursor managedCursor = managedQuery(Uri.withAppendedPath(SearchProvider.SUGGESTIONS_URI,Uri.encode(mSearchText.getText().toString()).replace("/", "%2f")),null,null,null,null);
+				Cursor managedCursor = mContext.managedQuery(Uri.withAppendedPath(SearchProvider.SUGGESTIONS_URI,Uri.encode(mSearchText.getText().toString()).replace("/", "%2f")),null,null,null,null);
 				if (managedCursor.getCount() == 0)
 					return null;
 				
@@ -203,11 +223,11 @@ public class Profile_SearchTab extends BaseListActivity implements OnClickListen
 			ListAdapter adapter;
 			
 			if (iconifiedEntries != null) {
-				adapter = new ListAdapter(Profile_SearchTab.this, mImageCache);
+				adapter = new ListAdapter(mContext, mImageCache);
 				adapter.setSourceIconified(iconifiedEntries);
 			} else {
 				String[] strings = new String[] { getString(R.string.newstation_noresults) };
-				adapter = new ListAdapter(Profile_SearchTab.this, strings);
+				adapter = new ListAdapter(mContext, strings);
 				adapter.disableDisclosureIcons();
 				adapter.setDisabled();
 			}

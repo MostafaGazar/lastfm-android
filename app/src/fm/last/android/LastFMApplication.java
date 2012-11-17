@@ -44,6 +44,9 @@ import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 import fm.last.android.activity.Player;
 import fm.last.android.activity.Profile;
+import fm.last.android.activity.Profile_ChartsTab;
+import fm.last.android.activity.Profile_EventsTab;
+import fm.last.android.activity.Profile_RadioTab;
 import fm.last.android.db.LastFmDbHelper;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
@@ -374,6 +377,11 @@ public class LastFMApplication extends Application {
 	}
 	
 	public void logout() {
+		Profile_ChartsTab.username = null;
+		Profile_EventsTab.username = null;
+		Profile_RadioTab.username = null;
+		Profile_RadioTab.isAuthenticatedUser = false;
+		
 		SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.remove("lastfm_user");

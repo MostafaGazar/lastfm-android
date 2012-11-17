@@ -21,11 +21,11 @@
 package fm.last.android.activity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.ActivityGroup;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -45,10 +45,18 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.provider.CalendarContract;
 import android.provider.ContactsContract;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TabHost;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
@@ -62,11 +70,19 @@ import fm.last.api.Session;
 import fm.last.api.SessionInfo;
 import fm.last.api.WSError;
 
-@SuppressWarnings("deprecation")
-public class Profile extends ActivityGroup {
-	private TabHost mTabHost;
+/**
+ * 
+ * @edited Mostafa Gazar
+ */
+public class Profile extends SherlockFragmentActivity {
+	
+	private SessionInfoTask mSessionInfoTask;
+	
 	private boolean mIsPlaying = false;
 	private boolean mIsPaused = false;
+	
+	private ViewPager mViewPager;
+	private TabsAdapter mTabsAdapter;
 	
 	public static boolean isHTCContactsInstalled(Context ctx) {
 		try {
@@ -85,6 +101,10 @@ public class Profile extends ActivityGroup {
 
 		super.onCreate(icicle);
 		setContentView(R.layout.home);
+		
+		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mTabsAdapter = new TabsAdapter(this, mViewPager);
+		
 		Session session = LastFMApplication.getInstance().session;
 		if (session == null || session.getName() == null || (Integer.decode(Build.VERSION.SDK) >= 6 && !AccountAuthenticatorService.hasLastfmAccount(this))) {
 			LastFMApplication.getInstance().logout();
@@ -142,22 +162,19 @@ public class Profile extends ActivityGroup {
 			d.show();
 		}
 
-		mTabHost = (TabHost)findViewById(R.id.TabBar);
-		mTabHost.setup(getLocalActivityManager());
-
-		Intent radioTabIntent = new Intent(this, Profile_RadioTab.class);
-		radioTabIntent.putExtra("user", username);
-		radioTabIntent.putExtra("authenticated", isAuthenticatedUser);
-		
-		Intent chartsTabIntent = new Intent(this, Profile_ChartsTab.class);
-		chartsTabIntent.putExtra("user", username);
-		
-		Intent eventsTabIntent = new Intent(this, Profile_EventsTab.class);
-		eventsTabIntent.putExtra("user", username);
-		
-		Intent searchTabIntent = new Intent(this, Profile_SearchTab.class);
-		if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null)
-			searchTabIntent.putExtra(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
+//		Intent radioTabIntent = new Intent(this, Profile_RadioTab.class);
+//		radioTabIntent.putExtra("user", username);
+//		radioTabIntent.putExtra("authenticated", isAuthenticatedUser);
+//		
+//		Intent chartsTabIntent = new Intent(this, Profile_ChartsTab.class);
+//		chartsTabIntent.putExtra("user", username);
+//		
+//		Intent eventsTabIntent = new Intent(this, Profile_EventsTab.class);
+//		eventsTabIntent.putExtra("user", username);
+//		
+//		Intent searchTabIntent = new Intent(this, Profile_SearchTab.class);
+//		if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null)
+//			searchTabIntent.putExtra(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
 
 		if(RadioPlayerService.radioAvailable(this)) {
 			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.activity.Player"), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
@@ -165,32 +182,73 @@ public class Profile extends ActivityGroup {
 			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.activity.Player"), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 		}
 
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+	    actionBar.setDisplayUseLogoEnabled(true);
+		actionBar.setDisplayShowTitleEnabled(false);
 		
 		if (isAuthenticatedUser) {
-			mTabHost.addTab(mTabHost.newTabSpec("profile")
-	                .setIndicator(getString(R.string.profile_myprofile), getResources().getDrawable(R.drawable.ic_tab_profile))
-	                .setContent(chartsTabIntent));
-			mTabHost.addTab(mTabHost.newTabSpec("events")
-	                .setIndicator(getString(R.string.profile_events), getResources().getDrawable(R.drawable.ic_tab_events))
-	                .setContent(eventsTabIntent));
-			mTabHost.addTab(mTabHost.newTabSpec("search")
-	                .setIndicator(getString(R.string.profile_search), getResources().getDrawable(R.drawable.ic_tab_search))
-	                .setContent(searchTabIntent));
-			if(RadioPlayerService.radioAvailable(this)) {
-				mTabHost.addTab(mTabHost.newTabSpec("radio")
-		                .setIndicator(getString(R.string.profile_myradio), getResources().getDrawable(R.drawable.ic_tab_radio))
-		                .setContent(radioTabIntent));
-			}
+			// Charts.
+			Bundle chartsArgs = new Bundle();
+			Profile_ChartsTab.username = username;
+			chartsArgs.putString("user", username);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(R.string.profile_myprofile)
+		            , Profile_ChartsTab.class, chartsArgs);
+			
+			// Events.
+			Bundle eventsArgs = new Bundle();
+			Profile_EventsTab.username = username;
+			eventsArgs.putString("user", username);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(R.string.profile_events)
+		            , Profile_EventsTab.class, eventsArgs);
+			
+			// Search.
+			Bundle searchArgs = new Bundle();
+			Profile_SearchTab.query = getIntent().getStringExtra(SearchManager.QUERY);
+			searchArgs.putString(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(R.string.profile_search), 
+		            Profile_SearchTab.class, searchArgs);
+			
+			// Radio.
+			Bundle radioArgs = new Bundle();
+			Profile_RadioTab.username = username;
+			Profile_RadioTab.isAuthenticatedUser = isAuthenticatedUser;
+			radioArgs.putString("user", username);
+			radioArgs.putBoolean("authenticated", isAuthenticatedUser);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(R.string.profile_myradio)
+		            , Profile_RadioTab.class, radioArgs);
+			
 			if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null) {
-				mTabHost.setCurrentTabByTag("search");
+				mViewPager.setCurrentItem(2);
 			}
 		} else {
-			mTabHost.addTab(mTabHost.newTabSpec("profile")
-	                .setIndicator(getString(R.string.profile_userprofile, username), getResources().getDrawable(R.drawable.ic_tab_profile))
-	                .setContent(chartsTabIntent));
-			mTabHost.addTab(mTabHost.newTabSpec("radio")
-	                .setIndicator(getString(R.string.profile_userradio, username), getResources().getDrawable(R.drawable.ic_tab_radio))
-	                .setContent(radioTabIntent));
+			// Charts.
+			Bundle chartsArgs = new Bundle();
+			Profile_ChartsTab.username = username;
+			chartsArgs.putString("user", username);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(getString(R.string.profile_userprofile, username))
+		            , Profile_ChartsTab.class, chartsArgs);
+						
+			// Radio.
+			Bundle radioArgs = new Bundle();
+			Profile_RadioTab.username = username;
+			Profile_RadioTab.isAuthenticatedUser = isAuthenticatedUser;
+			radioArgs.putString("user", username);
+			radioArgs.putBoolean("authenticated", isAuthenticatedUser);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(getString(R.string.profile_userradio, username))
+		            , Profile_RadioTab.class, radioArgs);
 		}
 
 		File f = new File(Environment.getExternalStorageDirectory() + "/lastfm-logs.zip");
@@ -204,19 +262,16 @@ public class Profile extends ActivityGroup {
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		// the event list adapter (a SeparatedListAdapter) doesn't serialise,
-		// so move away from it if we happen to be looking at it now.
-		// FIXME: make the SeparatedListAdapter serialize.
-
-		outState.putString("selected_tab", mTabHost.getCurrentTabTag());
-	}
-
-	@Override
 	protected void onRestoreInstanceState(Bundle state) {
-		mTabHost.setCurrentTabByTag(state.getString("selected_tab"));
+		getSupportActionBar().setSelectedNavigationItem(state.getInt("tab", 0));
 	}
-
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    outState.putInt("tab", getSupportActionBar().getSelectedNavigationIndex());
+	}
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -426,5 +481,77 @@ public class Profile extends ActivityGroup {
 		}
 	}
 
-	private SessionInfoTask mSessionInfoTask;
+	public static class TabsAdapter extends FragmentPagerAdapter implements
+			ActionBar.TabListener, ViewPager.OnPageChangeListener {
+		private final Context mContext;
+		private final ActionBar mActionBar;
+		private final ViewPager mViewPager;
+		private final List<TabInfo> mTabs = new ArrayList<TabInfo>();
+
+		static final class TabInfo {
+			private final Class<?> clss;
+			private final Bundle args;
+
+			TabInfo(Class<?> _class, Bundle _args) {
+				clss = _class;
+				args = _args;
+			}
+		}
+
+		public TabsAdapter(SherlockFragmentActivity activity, ViewPager pager) {
+			super(activity.getSupportFragmentManager());
+			mContext = activity;
+			mActionBar = activity.getSupportActionBar();
+			mViewPager = pager;
+			mViewPager.setAdapter(this);
+			mViewPager.setOnPageChangeListener(this);
+		}
+
+		public void addTab(ActionBar.Tab tab, Class<?> clss, Bundle args) {
+			TabInfo info = new TabInfo(clss, args);
+			tab.setTag(info);
+			tab.setTabListener(this);
+			mTabs.add(info);
+			mActionBar.addTab(tab);
+			notifyDataSetChanged();
+		}
+
+		@Override
+		public int getCount() {
+			return mTabs.size();
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			TabInfo info = mTabs.get(position);
+			return Fragment.instantiate(mContext, info.clss.getName(),
+					info.args);
+		}
+
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
+		}
+
+		public void onPageSelected(int position) {
+			mActionBar.setSelectedNavigationItem(position);
+		}
+
+		public void onPageScrollStateChanged(int state) {
+		}
+
+		public void onTabSelected(Tab tab, FragmentTransaction ft) {
+			Object tag = tab.getTag();
+			for (int i = 0; i < mTabs.size(); i++) {
+				if (mTabs.get(i) == tag) {
+					mViewPager.setCurrentItem(i);
+				}
+			}
+		}
+
+		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		}
+
+		public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		}
+	}
 }

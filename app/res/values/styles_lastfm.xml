@@ -39,7 +39,6 @@
         <item name="android:actionBarWidgetTheme">@style/Theme.lastfm.widget</item>
 
         <!-- Controls styling -->
-        <item name="android:tabWidgetStyle">@style/Widget.TabWidget</item>
         <item name="android:editTextStyle">@style/EditTextTheme.lastfm</item>
         <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTheme.lastfm</item>
         <item name="android:checkboxStyle">@style/CheckBoxTheme.lastfm</item>
