@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,10 +1,12 @@
 /* The following code was written by Matthew Wiggins
- * and is released under the APACHE 2.0 license
+ * and edited by Mostafa Gazar.
+ * 
+ * It is released under the APACHE 2.0 license
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import android.content.Context;
 import android.preference.DialogPreference;

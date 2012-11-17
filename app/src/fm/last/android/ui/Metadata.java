@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -52,13 +52,13 @@ import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
-import fm.last.android.activity.Event.EventActivityResult;
 import fm.last.android.adapter.EventListAdapter;
 import fm.last.android.adapter.ListAdapter;
 import fm.last.android.adapter.ListEntry;
 import fm.last.android.adapter.NotificationAdapter;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
+import fm.last.android.ui.Event.EventActivityResult;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 import fm.last.api.Artist;
@@ -251,7 +251,7 @@ public class Metadata extends BaseActivity {
 			startActivity(intent);
 			break;
 		case R.id.tag_menu_item:
-			intent = new Intent(this, fm.last.android.activity.Tag.class);
+			intent = new Intent(this, fm.last.android.ui.Tag.class);
 			intent.putExtra("lastfm.artist", mArtistName);
 			intent.putExtra("lastfm.track", mTrackName);
 			startActivity(intent);
@@ -515,7 +515,7 @@ public class Metadata extends BaseActivity {
 				mFanList.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 						User user = (User) mFanAdapter.getItem(position);
-						Intent profileIntent = new Intent(Metadata.this, fm.last.android.activity.Profile.class);
+						Intent profileIntent = new Intent(Metadata.this, fm.last.android.ui.Profile.class);
 						profileIntent.putExtra("lastfm.profile.username", user.getName());
 						startActivity(profileIntent);
 					}
@@ -546,7 +546,7 @@ public class Metadata extends BaseActivity {
 
 		@Override
 		public Intent doInBackground(Void... params) {
-			Intent intent = fm.last.android.activity.Event.intentFromEvent(Metadata.this, event);
+			Intent intent = fm.last.android.ui.Event.intentFromEvent(Metadata.this, event);
 			try {
 				Event[] events = mServer.getUserEvents((LastFMApplication.getInstance().session).getName());
 				for (Event e : events) {

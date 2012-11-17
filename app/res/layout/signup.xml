@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/black_gradient"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -10,8 +9,12 @@
         android:id="@+id/ImageView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="48dip"
+        android:layout_marginBottom="36dip"
+        android:layout_marginLeft="48dip"
+        android:layout_marginRight="48dip"
+        android:layout_marginTop="36dip"
         android:background="@drawable/sign_in_logo" >
+
     </ImageView>
 
     <EditText
@@ -26,6 +29,7 @@
         android:id="@+id/password"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="@string/signup_password"
         android:maxLines="1"
         android:password="true"
@@ -35,6 +39,7 @@
         android:id="@+id/email"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="@string/signup_email"
         android:maxLines="1"
         android:singleLine="true" />
@@ -43,7 +48,7 @@
         android:id="@+id/create_account_button"
         android:layout_width="200dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dip"
+        android:layout_marginTop="36dip"
         android:background="@drawable/sign_in_button"
         android:text="@string/signup_create_account"
         android:textColor="#fff"

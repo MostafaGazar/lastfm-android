@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.activity;
+package fm.last.android.ui.fragment;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -47,9 +47,10 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
-import fm.last.android.activity.Event.EventActivityResult;
 import fm.last.android.adapter.EventListAdapter;
 import fm.last.android.adapter.ListAdapter;
+import fm.last.android.ui.Event.EventActivityResult;
+import fm.last.android.ui.interfaces.IKeyDownFragment;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
@@ -240,7 +241,7 @@ public class Profile_EventsTab extends SherlockListFragment implements LocationL
 						mOnEventActivityResult = null;
 					}
 				};
-				startActivityForResult(fm.last.android.activity.Event.intentFromEvent(mContext, event), 0);
+				startActivityForResult(fm.last.android.ui.Event.intentFromEvent(mContext, event), 0);
 			} catch (ClassCastException e) {
 				// when the list item is not an event
 			}

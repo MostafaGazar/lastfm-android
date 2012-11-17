@@ -601,7 +601,7 @@ public class ScrobblerService extends Service {
 				nm.cancel(1338);
 
 				Notification notification = new Notification(R.drawable.as_statusbar, null, System.currentTimeMillis());
-				Intent metaIntent = new Intent(this, fm.last.android.activity.Metadata.class);
+				Intent metaIntent = new Intent(this, fm.last.android.ui.Metadata.class);
 				metaIntent.putExtra("artist", mCurrentTrack.artist);
 				metaIntent.putExtra("track", mCurrentTrack.title);
 				PendingIntent contentIntent = PendingIntent.getActivity(this, 0, metaIntent, PendingIntent.FLAG_UPDATE_CURRENT);

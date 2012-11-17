@@ -22,8 +22,8 @@ import android.util.Log;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.R;
-import fm.last.android.activity.AccountAccessPrompt;
-import fm.last.android.activity.AccountFailActivity;
+import fm.last.android.ui.AccountAccessPrompt;
+import fm.last.android.ui.AccountFailActivity;
 import fm.last.api.MD5;
 
 /**

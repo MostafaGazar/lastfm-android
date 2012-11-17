@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import android.app.NotificationManager;
 import android.content.ComponentName;

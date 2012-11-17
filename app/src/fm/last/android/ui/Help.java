@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import android.os.Bundle;
 import android.webkit.WebView;

@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import java.io.IOException;
 import java.util.Formatter;
@@ -293,7 +293,7 @@ public class Player extends BaseActivity {
 				return;
 			artist = LastFMApplication.getInstance().player.getArtistName();
 			track = LastFMApplication.getInstance().player.getTrackName();
-			Intent myIntent = new Intent(c, fm.last.android.activity.Tag.class);
+			Intent myIntent = new Intent(c, fm.last.android.ui.Tag.class);
 			myIntent.putExtra("lastfm.artist", artist);
 			myIntent.putExtra("lastfm.track", track);
 			c.startActivity(myIntent);
@@ -534,7 +534,7 @@ public class Player extends BaseActivity {
 
 	private void showMetadataIntent(boolean gotoEventsTab) {
 		Intent metaIntent = new Intent(this,
-				fm.last.android.activity.Metadata.class);
+				fm.last.android.ui.Metadata.class);
 		metaIntent.putExtra("artist", mArtistName.getText());
 		metaIntent.putExtra("track", mTrackName.getText());
 		if (gotoEventsTab)

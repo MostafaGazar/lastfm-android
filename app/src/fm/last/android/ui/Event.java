@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -184,7 +184,7 @@ public class Event extends BaseActivity {
 	}
 
 	public static Intent intentFromEvent(Context packageContext, fm.last.api.Event event) {
-		Intent intent = new Intent(packageContext, fm.last.android.activity.Event.class);
+		Intent intent = new Intent(packageContext, fm.last.android.ui.Event.class);
 		intent.putExtra("lastfm.event.id", Integer.toString(event.getId()));
 		intent.putExtra("lastfm.event.title", event.getTitle());
 		String artists = "";

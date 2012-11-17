@@ -42,15 +42,15 @@ import android.util.Log;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
-import fm.last.android.activity.Player;
-import fm.last.android.activity.Profile;
-import fm.last.android.activity.Profile_ChartsTab;
-import fm.last.android.activity.Profile_EventsTab;
-import fm.last.android.activity.Profile_RadioTab;
 import fm.last.android.db.LastFmDbHelper;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
+import fm.last.android.ui.Player;
+import fm.last.android.ui.Profile;
+import fm.last.android.ui.fragment.Profile_ChartsTab;
+import fm.last.android.ui.fragment.Profile_EventsTab;
+import fm.last.android.ui.fragment.Profile_RadioTab;
 import fm.last.api.Session;
 import fm.last.api.WSError;
 import fm.last.util.UrlUtil;

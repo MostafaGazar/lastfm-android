@@ -39,7 +39,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="LastFMApplication"
+        android:name="fm.last.android.LastFMApplication"
         android:logo="@drawable/logo_white"
 		android:icon="@drawable/icon"
         android:installLocation="internalOnly"
@@ -67,7 +67,8 @@
         </receiver>
 
         <activity
-            android:name=".activity.Profile"
+            android:name=".ui.Profile"
+            android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -145,18 +146,14 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".activity.Profile_RadioTab" />
-        <activity android:name=".activity.Profile_ChartsTab" />
-        <activity android:name=".activity.Profile_EventsTab" />
-        <activity android:name=".activity.Profile_SearchTab" />
 
         <provider
-            android:name=".SearchProvider"
+            android:name="fm.last.android.SearchProvider"
             android:authorities="lastfm"
             android:syncable="false" />
 
         <activity
-            android:name=".activity.Player"
+            android:name=".ui.Player"
             android:configChanges="keyboardHidden"
             android:launchMode="singleTop" >
             <intent-filter>
@@ -174,7 +171,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Event"
+            android:name=".ui.Event"
             android:configChanges="keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -183,7 +180,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Share"
+            android:name=".ui.Share"
             android:configChanges="keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -192,7 +189,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Tag"
+            android:name=".ui.Tag"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -200,7 +197,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SignUp"
+        <activity android:name=".ui.SignUp"
             android:windowSoftInputMode="stateUnchanged" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -208,7 +205,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Metadata" >
+        <activity android:name=".ui.Metadata" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -280,7 +277,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Preferences"
+            android:name=".ui.Preferences"
             android:configChanges="orientation|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -294,7 +291,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PopupActionActivity"
+            android:name=".ui.PopupActionActivity"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -303,7 +300,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.TicketProviderPopup"
+            android:name=".ui.TicketProviderPopup"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -312,7 +309,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ShareResolverActivity"
+            android:name=".ui.ShareResolverActivity"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -320,14 +317,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Help" >
+        <activity android:name=".ui.Help" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AccountFailActivity" >
+        <activity android:name=".ui.AccountFailActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -335,7 +332,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AccountAccessPrompt"
+            android:name="fm.last.android.ui.AccountAccessPrompt"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -410,7 +407,7 @@
                 <action android:name="net.jjc1138.android.scrobbler.action.MUSIC_STATUS" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".scrobbler.SLSIntentReceiver" >
+        <receiver android:name="fm.last.android.scrobbler.SLSIntentReceiver" >
             <intent-filter>
                 <action android:name="com.adam.aslfms.notify.playstatechanged" />
             </intent-filter>
@@ -448,7 +445,7 @@
                 android:resource="@xml/contacts" />
         </service>
         <service
-            android:name=".sync.CalendarSyncAdapterService"
+            android:name="fm.last.android.sync.CalendarSyncAdapterService"
             android:exported="true"
             android:process=":calendar" >
             <intent-filter>

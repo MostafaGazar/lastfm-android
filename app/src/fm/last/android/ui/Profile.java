@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.activity;
+package fm.last.android.ui;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,12 +59,18 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.R;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
+import fm.last.android.ui.fragment.Profile_ChartsTab;
+import fm.last.android.ui.fragment.Profile_EventsTab;
+import fm.last.android.ui.fragment.Profile_RadioTab;
+import fm.last.android.ui.fragment.Profile_SearchTab;
+import fm.last.android.ui.interfaces.IKeyDownFragment;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
@@ -75,7 +81,7 @@ import fm.last.api.WSError;
  * 
  * @edited Mostafa Gazar
  */
-public class Profile extends SherlockFragmentActivity {
+public class Profile extends BaseActivity {
 	
 	private SessionInfoTask mSessionInfoTask;
 	
@@ -163,24 +169,10 @@ public class Profile extends SherlockFragmentActivity {
 			d.show();
 		}
 
-//		Intent radioTabIntent = new Intent(this, Profile_RadioTab.class);
-//		radioTabIntent.putExtra("user", username);
-//		radioTabIntent.putExtra("authenticated", isAuthenticatedUser);
-//		
-//		Intent chartsTabIntent = new Intent(this, Profile_ChartsTab.class);
-//		chartsTabIntent.putExtra("user", username);
-//		
-//		Intent eventsTabIntent = new Intent(this, Profile_EventsTab.class);
-//		eventsTabIntent.putExtra("user", username);
-//		
-//		Intent searchTabIntent = new Intent(this, Profile_SearchTab.class);
-//		if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null)
-//			searchTabIntent.putExtra(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
-
 		if(RadioPlayerService.radioAvailable(this)) {
-			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.activity.Player"), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
+			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.ui.Player"), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
 		} else {
-			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.activity.Player"), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.ui.Player"), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 		}
 
 		ActionBar actionBar = getSupportActionBar();

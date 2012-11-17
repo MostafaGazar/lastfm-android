@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.activity;
+package fm.last.android.ui.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +52,7 @@ import fm.last.android.R;
 import fm.last.android.SearchProvider;
 import fm.last.android.adapter.ListAdapter;
 import fm.last.android.adapter.ListEntry;
+import fm.last.android.ui.Profile;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 

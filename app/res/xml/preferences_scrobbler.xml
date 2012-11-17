@@ -8,7 +8,7 @@
             android:summary="@string/prefs_scrobble_summary"
             android:title="@string/prefs_scrobble_title" />
 
-        <fm.last.android.activity.SeekBarPreference
+        <fm.last.android.ui.SeekBarPreference
             android:defaultValue="50"
             android:dependency="scrobble"
             android:key="scrobble_percentage"

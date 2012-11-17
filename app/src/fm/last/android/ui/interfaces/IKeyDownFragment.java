@@ -1,4 +1,4 @@
-package fm.last.android.activity;
+package fm.last.android.ui.interfaces;
 
 import android.view.KeyEvent;
 

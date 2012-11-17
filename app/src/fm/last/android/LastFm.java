@@ -44,9 +44,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import fm.last.android.activity.Profile;
-import fm.last.android.activity.SignUp;
 import fm.last.android.sync.AccountAuthenticatorService;
+import fm.last.android.ui.Profile;
+import fm.last.android.ui.SignUp;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.MD5;
@@ -71,8 +71,10 @@ public class LastFm extends BaseActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle icicle) {
-
 		super.onCreate(icicle);
+		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		
 		SharedPreferences settings = getSharedPreferences(PREFS, 0);
 		String user = settings.getString("lastfm_user", "");
 		String session_key = settings.getString("lastfm_session_key", "");

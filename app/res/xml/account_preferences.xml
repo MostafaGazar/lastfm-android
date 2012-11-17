@@ -9,7 +9,7 @@
         android:title="Last.fm Settings" >
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="fm.last.android.activity.Preferences"
+            android:targetClass="fm.last.android.ui.Preferences"
             android:targetPackage="fm.last.android" />
     </PreferenceScreen>
 
