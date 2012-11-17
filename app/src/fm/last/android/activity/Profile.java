@@ -50,6 +50,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -481,6 +482,17 @@ public class Profile extends SherlockFragmentActivity {
 		}
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		int selectedTabPosition = getSupportActionBar().getSelectedTab().getPosition();
+		Fragment selectedFragment = mTabsAdapter.getItem(selectedTabPosition);
+		if (selectedFragment instanceof IKeyDownFragment) {
+			return ((IKeyDownFragment) selectedFragment).onKeyDown(keyCode, event);
+		}
+		
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	public static class TabsAdapter extends FragmentPagerAdapter implements
 			ActionBar.TabListener, ViewPager.OnPageChangeListener {
 		private final Context mContext;

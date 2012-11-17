@@ -21,6 +21,7 @@
 package fm.last.android.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 import android.app.Activity;
@@ -33,6 +34,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +69,7 @@ import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
 
-public class Profile_ChartsTab extends SherlockListFragment {
+public class Profile_ChartsTab extends SherlockListFragment implements IKeyDownFragment {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int PROFILE_RECOMMENDED = 0;
@@ -86,7 +88,7 @@ public class Profile_ChartsTab extends SherlockListFragment {
 	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();
 
 	private ViewFlipper mNestedViewFlipper;
-	private Stack<Integer> mViewHistory;
+	private Stack<Integer> mViewHistory = new Stack<Integer>();
 
 	private View previousSelectedView = null;
 
@@ -126,7 +128,6 @@ public class Profile_ChartsTab extends SherlockListFragment {
 
 		new LoadUserTask().execute((Void)null);
 
-		mViewHistory = new Stack<Integer>();
 		mNestedViewFlipper = (ViewFlipper) viewer.findViewById(R.id.NestedViewFlipper);
 		mNestedViewFlipper.setAnimateFirstView(false);
 		mNestedViewFlipper.setAnimationCacheEnabled(false);
@@ -242,6 +243,8 @@ public class Profile_ChartsTab extends SherlockListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
+		onRestoreInstanceState(savedInstanceState);
+		
 		getListView().addHeaderView(mProfileBubble, null, false);
 		getListView().requestFocus();
 		
@@ -326,59 +329,59 @@ public class Profile_ChartsTab extends SherlockListFragment {
 	}
 
 	// FIXME :: uncomment.
-//	@Override
-//	protected void onSaveInstanceState(Bundle outState) {
-//		outState.putInt("displayed_view", mNestedViewFlipper.getDisplayedChild());
-//		outState.putSerializable("view_history", mViewHistory);
-//
-//		HashMap<Integer, ListAdapter> adapters = new HashMap<Integer, ListAdapter>(mProfileLists.length);
-//		for (int i = 0; i < mProfileLists.length; i++) {
-//			ListView lv = mProfileLists[i];
-//			if (lv.getAdapter() == null)
-//				continue;
-//			if (lv.getAdapter().getClass() == ListAdapter.class)
-//				adapters.put(i, (ListAdapter) lv.getAdapter());
-//		}
-//
-//		outState.putSerializable("adapters", adapters);
-//	}
-//
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	protected void onRestoreInstanceState(Bundle state) {
-//		mNestedViewFlipper.setDisplayedChild(state.getInt("displayed_view"));
-//
-//		if (state.containsKey("view_history"))
-//			try {
-//				Object viewHistory = state.getSerializable("view_history");
-//				if (viewHistory instanceof Stack)
-//					mViewHistory = (Stack<Integer>) viewHistory;
-//				else {
-//					// For some reason when the process gets killed and then
-//					// resumed,
-//					// the serializable becomes an ArrayList
-//					for (Integer i : (ArrayList<Integer>) state.getSerializable("view_history"))
-//						mViewHistory.push(i);
-//				}
-//			} catch (ClassCastException e) {
-//
-//			}
-//
-//		// Restore the adapters and disable the spinner for all the profile
-//		// lists
-//		HashMap<Integer, ListAdapter> adapters = (HashMap<Integer, ListAdapter>) state.getSerializable("adapters");
-//
-//		for (int key : adapters.keySet()) {
-//			ListAdapter adapter = adapters.get(key);
-//			if (adapter != null) {
-//				adapter.setContext(this);
-//				adapter.setImageCache(getImageCache());
-//				adapter.disableLoadBar();
-//				adapter.refreshList();
-//				mProfileLists[key].setAdapter(adapter);
-//			}
-//		}
-//	}
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putInt("displayed_view", mNestedViewFlipper.getDisplayedChild());
+		outState.putSerializable("view_history", mViewHistory);
+
+		HashMap<Integer, ListAdapter> adapters = new HashMap<Integer, ListAdapter>(mProfileLists.length);
+		for (int i = 0; i < mProfileLists.length; i++) {
+			ListView lv = mProfileLists[i];
+			if (lv.getAdapter() == null)
+				continue;
+			if (lv.getAdapter().getClass() == ListAdapter.class)
+				adapters.put(i, (ListAdapter) lv.getAdapter());
+		}
+
+		outState.putSerializable("adapters", adapters);
+	}
+
+	public void onRestoreInstanceState(Bundle state) {
+		if (state != null ) {
+			mNestedViewFlipper.setDisplayedChild(state.getInt("displayed_view"));
+	
+			if (state.containsKey("view_history"))
+				try {
+					Object viewHistory = state.getSerializable("view_history");
+					if (viewHistory instanceof Stack)
+						mViewHistory = (Stack<Integer>) viewHistory;
+					else {
+						// For some reason when the process gets killed and then
+						// resumed,
+						// the serializable becomes an ArrayList
+						for (Integer i : (ArrayList<Integer>) state.getSerializable("view_history"))
+							mViewHistory.push(i);
+					}
+				} catch (ClassCastException e) {
+	
+				}
+	
+			// Restore the adapters and disable the spinner for all the profile
+			// lists
+			HashMap<Integer, ListAdapter> adapters = (HashMap<Integer, ListAdapter>) state.getSerializable("adapters");
+	
+			for (int key : adapters.keySet()) {
+				ListAdapter adapter = adapters.get(key);
+				if (adapter != null) {
+					adapter.setContext(mContext);
+					adapter.setImageCache(getImageCache());
+					adapter.disableLoadBar();
+					adapter.refreshList();
+					mProfileLists[key].setAdapter(adapter);
+				}
+		}
+		}
+	}
 
 	@Override
 	public void onResume() {
@@ -427,26 +430,25 @@ public class Profile_ChartsTab extends SherlockListFragment {
 		}
 	};
 
-	// FIXME :: uncomment.
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			if (!mViewHistory.isEmpty()) {
-//				setPreviousAnimation();
-//				mProfileAdapter.disableLoadBar();
-//				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-//				
-//				return true;
-//			}
-//			if (event.getRepeatCount() == 0) {
-//				mContext.finish();
-//				
-//				return true;
-//			}
-//		}
-//		
-//		return false;
-//	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (!mViewHistory.isEmpty()) {
+				setPreviousAnimation();
+				mProfileAdapter.disableLoadBar();
+				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
+				
+				return true;
+			}
+			if (event.getRepeatCount() == 0) {
+				// mContext.finish();
+				
+				return false;
+			}
+		}
+		
+		return false;
+	}
 
 	private void setNextAnimation() {
 		mNestedViewFlipper.setInAnimation(mPushLeftIn);

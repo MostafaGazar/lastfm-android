@@ -37,6 +37,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
+import fm.last.android.PrivateAPIKey;
 import fm.last.android.R;
 import fm.last.android.adapter.LastFMStreamAdapter;
 import fm.last.android.adapter.SeparatedListAdapter;
@@ -62,7 +64,8 @@ import fm.last.api.User;
 import fm.last.api.WSError;
 
 public class Profile_RadioTab extends SherlockListFragment {
-
+	private static final String TAG = Profile_RadioTab.class.getName();
+	
 	private Activity mContext;
 	private ViewGroup viewer;
 	
@@ -129,8 +132,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 					}
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.e(TAG , e.toString());
 			}
 		}
 	}
@@ -158,11 +160,9 @@ public class Profile_RadioTab extends SherlockListFragment {
 					LastFMApplication.getInstance().session = session;
 				}
 			} catch (WSError e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.e(TAG, e.toString());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.e(TAG, e.toString());
 			}
 			try {
 				if (username == null) {
@@ -345,8 +345,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 								LastFMApplication.getInstance().playRadioStation(mContext, adapter_station, true);
 							}
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							Log.e(TAG, e.toString());
 						}
 						try {
 							LastFMApplication.getInstance().unbindService(this);

@@ -31,6 +31,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
 
-public class Profile_EventsTab extends SherlockListFragment implements LocationListener {
+public class Profile_EventsTab extends SherlockListFragment implements LocationListener, IKeyDownFragment {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int EVENTS_MYEVENTS = 0;
@@ -67,24 +68,24 @@ public class Profile_EventsTab extends SherlockListFragment implements LocationL
 	private ListAdapter mEventsAdapter;
 	public static String username; // store this separate so we have access to it
 								// before User obj is retrieved
-	LastFmServer mServer = AndroidLastFmServerFactory.getServer();
+	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();
 
-	ViewFlipper mNestedViewFlipper;
-	private Stack<Integer> mViewHistory;
+	private ViewFlipper mNestedViewFlipper;
+	private Stack<Integer> mViewHistory = new Stack<Integer>();
 
-	View previousSelectedView = null;
+	private View mPreviousSelectedView = null;
 
 	// Animations
-	Animation mPushRightIn;
-	Animation mPushRightOut;
-	Animation mPushLeftIn;
-	Animation mPushLeftOut;
+	private Animation mPushRightIn;
+	private Animation mPushRightOut;
+	private Animation mPushLeftIn;
+	private Animation mPushLeftOut;
 
-	ListView[] mEventsLists = new ListView[3];
+	private ListView[] mEventsLists = new ListView[3];
 
 	private EventActivityResult mOnEventActivityResult;
 
-	Location mLocation = null;
+	private Location mLocation = null;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,12 +96,9 @@ public class Profile_EventsTab extends SherlockListFragment implements LocationL
 		
 //		username = savedInstanceState.getString("user");
 
-		mViewHistory = new Stack<Integer>();
 		mNestedViewFlipper = (ViewFlipper) viewer.findViewById(R.id.NestedViewFlipper);
 		mNestedViewFlipper.setAnimateFirstView(false);
 		mNestedViewFlipper.setAnimationCacheEnabled(false);
-
-											
 
 		// TODO should be functions and not member variables, caching is evil
 		mEventsLists[EVENTS_MYEVENTS] = (ListView) viewer.findViewById(R.id.myevents_list_view);
@@ -152,25 +150,24 @@ public class Profile_EventsTab extends SherlockListFragment implements LocationL
 		super.onPause();
 	}
 
-	// FIXME :: uncomment.
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			if (!mViewHistory.isEmpty()) {
-//				setPreviousAnimation();
-//				mEventsAdapter.disableLoadBar();
-//				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-//				LocationManager lm = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
-//				lm.removeUpdates(this);
-//				return true;
-//			}
-//			if (event.getRepeatCount() == 0) {
-//				mContext.finish();
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (!mViewHistory.isEmpty()) {
+				setPreviousAnimation();
+				mEventsAdapter.disableLoadBar();
+				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
+				LocationManager lm = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
+				lm.removeUpdates(this);
+				return true;
+			}
+			if (event.getRepeatCount() == 0) {
+				// mContext.finish();
+				return false;
+			}
+		}
+		return false;
+	}
 
 	private void setNextAnimation() {
 		mNestedViewFlipper.setInAnimation(mPushLeftIn);
