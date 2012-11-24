@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.ListView;
 import android.widget.Toast;
 import fm.last.android.Amazon;
@@ -44,7 +43,6 @@ public class PopupActionActivity extends BaseListActivity {
 		ListEntry entry;
 		
 		super.onCreate(icicle);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.popup);
 		
 		mArtistName = getIntent().getStringExtra("lastfm.artist");

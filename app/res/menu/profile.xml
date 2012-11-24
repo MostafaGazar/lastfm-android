@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2008 Lukasz Wisniewski <luke.cherrish@gmail.com> 
-
-	Portions contributed by Mostafa Gazar.
+    Copyright (C) 2012 Mostafa Gazar <eng.mostafa.gazar@gmail.com> 
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,20 +18,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/info_menu_item"
-        android:icon="@drawable/info"
-        android:title="@string/action_viewinfo"/>
+        android:id="@+id/menu_item_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/profile_search"
+        android:showAsAction="always"/>
     <item
-        android:id="@+id/share_menu_item"
-        android:icon="@drawable/ic_share"
-        android:title="@string/action_share"/>
+        android:id="@+id/menu_item_nowplaying"
+        android:icon="@drawable/ic_play"
+        android:title="@string/action_nowplaying"/>
     <item
-        android:id="@+id/tag_menu_item"
-        android:icon="@drawable/tag_menu"
-        android:title="@string/action_tag"/>
+        android:id="@+id/menu_item_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/action_settings"/>
     <item
-        android:id="@+id/buy_menu_item"
-        android:icon="@drawable/shopping_cart"
-        android:title="@string/action_amazon"/>
+        android:id="@+id/menu_item_logout"
+        android:icon="@drawable/logout"
+        android:title="@string/action_logout"/>
 
 </menu>

@@ -83,8 +83,8 @@ import fm.last.android.R;
 import fm.last.android.RadioWidgetProvider;
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.scrobbler.ScrobblerService;
-import fm.last.android.ui.Player;
-import fm.last.android.ui.Profile;
+import fm.last.android.ui.PlayerActivity;
+import fm.last.android.ui.ProfileActivity;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Album;
 import fm.last.api.LastFmServer;
@@ -473,7 +473,7 @@ public class RadioPlayerService extends Service implements MusicFocusable {
 	
 	private Notification buildNotification(Bitmap art, String ticker) {
 		Notification notification = new Notification(R.drawable.as_statusbar, ticker, System.currentTimeMillis());
-		PendingIntent contentIntent = PendingIntent.getActivity(RadioPlayerService.this, 0, new Intent(RadioPlayerService.this, Player.class), 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(RadioPlayerService.this, 0, new Intent(RadioPlayerService.this, PlayerActivity.class), 0);
 		String info = currentTrack.getTitle() + " - " + currentTrack.getCreator();
 		notification.setLatestEventInfo(RadioPlayerService.this, currentStation.getName(), info, contentIntent);
 		notification.flags |= Notification.FLAG_ONGOING_EVENT;
@@ -506,7 +506,7 @@ public class RadioPlayerService extends Service implements MusicFocusable {
 			nm.notify(NOTIFY_ID, notification);
 		} catch (java.lang.RuntimeException e) {
 			notification = new Notification(R.drawable.as_statusbar, ticker, System.currentTimeMillis());
-			PendingIntent contentIntent = PendingIntent.getActivity(RadioPlayerService.this, 0, new Intent(RadioPlayerService.this, Player.class), 0);
+			PendingIntent contentIntent = PendingIntent.getActivity(RadioPlayerService.this, 0, new Intent(RadioPlayerService.this, PlayerActivity.class), 0);
 			String info = currentTrack.getTitle() + " - " + currentTrack.getCreator();
 			notification.setLatestEventInfo(RadioPlayerService.this, currentStation.getName(), info, contentIntent);
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
@@ -544,7 +544,7 @@ public class RadioPlayerService extends Service implements MusicFocusable {
 			info = getString(R.string.playerservice_tuningwithstation, currentStation.getName());
 		}
 		Notification notification = new Notification(R.drawable.as_statusbar, getString(R.string.playerservice_tuning), System.currentTimeMillis());
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, Player.class), 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, PlayerActivity.class), 0);
 		notification.setLatestEventInfo(this, info, "", contentIntent);
 		notification.flags |= Notification.FLAG_ONGOING_EVENT;
 		RadioWidgetProvider.updateAppWidget(this);
@@ -896,7 +896,7 @@ public class RadioPlayerService extends Service implements MusicFocusable {
 			mState = STATE_ERROR;
 			Notification notification = new Notification(R.drawable.as_statusbar, getString(R.string.playerservice_error_ticker_text), System
 					.currentTimeMillis());
-			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, Profile.class), 0);
+			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(this, ProfileActivity.class), 0);
 			notification.setLatestEventInfo(this, getString(R.string.ERROR_INSUFFICIENT_CONTENT_TITLE), getString(R.string.ERROR_INSUFFICIENT_CONTENT),
 					contentIntent);
 			nm.notify(NOTIFY_ID, notification);
@@ -1295,7 +1295,7 @@ public class RadioPlayerService extends Service implements MusicFocusable {
 					nm.notify(NOTIFY_ID, notification);
 				} catch (java.lang.RuntimeException e) {
 					notification = new Notification(R.drawable.as_statusbar, null, System.currentTimeMillis());
-					PendingIntent contentIntent = PendingIntent.getActivity(RadioPlayerService.this, 0, new Intent(RadioPlayerService.this, Player.class), 0);
+					PendingIntent contentIntent = PendingIntent.getActivity(RadioPlayerService.this, 0, new Intent(RadioPlayerService.this, PlayerActivity.class), 0);
 					String info = currentTrack.getTitle() + " - " + currentTrack.getCreator();
 					notification.setLatestEventInfo(RadioPlayerService.this, currentStation.getName(), info, contentIntent);
 					notification.flags |= Notification.FLAG_ONGOING_EVENT;

@@ -47,7 +47,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import fm.last.android.AndroidLastFmServerFactory;
-import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
 import fm.last.android.adapter.TagListAdapter;

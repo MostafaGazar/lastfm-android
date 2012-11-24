@@ -26,7 +26,7 @@ import fm.last.android.db.RecentStationsDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.ui.PopupActionActivity;
-import fm.last.android.ui.Profile;
+import fm.last.android.ui.ProfileActivity;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Session;
 import fm.last.api.Station;
@@ -176,7 +176,7 @@ public class RadioWidgetProvider extends AppWidgetProvider {
 											i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 											LastFMApplication.getInstance().startActivity(i);
 										} else {
-											Intent i = new Intent(LastFMApplication.getInstance(), Profile.class);
+											Intent i = new Intent(LastFMApplication.getInstance(), ProfileActivity.class);
 											i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 											LastFMApplication.getInstance().startActivity(i);
 										}

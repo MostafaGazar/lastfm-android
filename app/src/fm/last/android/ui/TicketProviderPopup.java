@@ -13,7 +13,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.ListView;
 import fm.last.android.BaseListActivity;
 import fm.last.android.R;
@@ -34,7 +33,6 @@ public class TicketProviderPopup extends BaseListActivity {
 		ListEntry entry;
 		
 		super.onCreate(icicle);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.popup);
 		
 		mTicketUrls = (HashMap<String, String>)(getIntent().getSerializableExtra("ticketurls"));

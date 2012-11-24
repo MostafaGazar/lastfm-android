@@ -10,7 +10,6 @@ import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import fm.last.android.BaseActivity;
 import fm.last.android.R;
@@ -28,7 +27,6 @@ public class AccountAccessPrompt extends BaseActivity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.account_access_prompt);
 		 response = getIntent().getParcelableExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE);
 		

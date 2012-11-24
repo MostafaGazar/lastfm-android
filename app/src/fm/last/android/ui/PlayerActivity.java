@@ -68,7 +68,7 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Station;
 import fm.last.api.WSError;
 
-public class Player extends BaseActivity {
+public class PlayerActivity extends BaseActivity {
 
 	private ImageButton mLoveButton;
 	private ImageButton mBanButton;
@@ -200,7 +200,7 @@ public class Player extends BaseActivity {
 				new SearchStationTask().execute((Void)null);
 				tuning = true;
 			} else if(intent.getData() != null && intent.getData().getScheme() != null && intent.getData().getScheme().equals("lastfm")) {
-				LastFMApplication.getInstance().playRadioStation(Player.this, intent.getData().toString(), false);
+				LastFMApplication.getInstance().playRadioStation(PlayerActivity.this, intent.getData().toString(), false);
 				tuning = true;
 			}
 		}
@@ -372,7 +372,7 @@ public class Player extends BaseActivity {
 		}
 
 		if(!tuning) {
-			bindService(new Intent(Player.this,
+			bindService(new Intent(PlayerActivity.this,
 					fm.last.android.player.RadioPlayerService.class),
 					new ServiceConnection() {
 						public void onServiceConnected(ComponentName comp,
@@ -381,7 +381,7 @@ public class Player extends BaseActivity {
 									.asInterface(binder);
 							try {
 								if (player.getState() == RadioPlayerService.STATE_STOPPED) {
-									Intent i = new Intent(Player.this, Profile.class);
+									Intent i = new Intent(PlayerActivity.this, ProfileActivity.class);
 									startActivity(i);
 									finish();
 								}
@@ -411,7 +411,7 @@ public class Player extends BaseActivity {
 		public void onClick(View v) {
 			Intent i = new Intent("fm.last.android.LOVE");
 			sendBroadcast(i);
-			bindService(new Intent(Player.this,
+			bindService(new Intent(PlayerActivity.this,
 					fm.last.android.player.RadioPlayerService.class),
 					new ServiceConnection() {
 						public void onServiceConnected(ComponentName comp,
@@ -461,7 +461,7 @@ public class Player extends BaseActivity {
 			} catch (Exception e) {
 				//Google Analytics doesn't appear to be thread safe
 			}
-			bindService(new Intent(Player.this,
+			bindService(new Intent(PlayerActivity.this,
 					fm.last.android.player.RadioPlayerService.class),
 					new ServiceConnection() {
 						public void onServiceConnected(ComponentName comp,
@@ -498,7 +498,7 @@ public class Player extends BaseActivity {
 			} catch (Exception e) {
 				//Google Analytics doesn't appear to be thread safe
 			}
-			bindService(new Intent(Player.this,
+			bindService(new Intent(PlayerActivity.this,
 					fm.last.android.player.RadioPlayerService.class),
 					new ServiceConnection() {
 						public void onServiceConnected(ComponentName comp,
@@ -571,7 +571,7 @@ public class Player extends BaseActivity {
 				//Google Analytics doesn't appear to be thread safe
 			}
 
-			bindService(new Intent(Player.this,
+			bindService(new Intent(PlayerActivity.this,
 					fm.last.android.player.RadioPlayerService.class),
 					new ServiceConnection() {
 						public void onServiceConnected(ComponentName comp,
@@ -580,7 +580,7 @@ public class Player extends BaseActivity {
 									.asInterface(binder);
 							try {
 								if (player.getState() == RadioPlayerService.STATE_PAUSED)
-									LastFMApplication.getInstance().playRadioStation(Player.this, player.getStationUrl(), false);
+									LastFMApplication.getInstance().playRadioStation(PlayerActivity.this, player.getStationUrl(), false);
 								else if (player.getState() != RadioPlayerService.STATE_STOPPED)
 									player.pause();
 							} catch (RemoteException e) {
@@ -624,11 +624,11 @@ public class Player extends BaseActivity {
 				}
 				WSError error = intent.getParcelableExtra("error");
 				if (error != null) {
-					LastFMApplication.getInstance().presentError(Player.this,
+					LastFMApplication.getInstance().presentError(PlayerActivity.this,
 							error);
 				} else {
 					LastFMApplication.getInstance().presentError(
-							Player.this,
+							PlayerActivity.this,
 							getResources().getString(
 									R.string.ERROR_PLAYBACK_FAILED_TITLE),
 							getResources().getString(
@@ -719,7 +719,7 @@ public class Player extends BaseActivity {
 								if (mTuningDialog != null
 										&& player.getState() == RadioPlayerService.STATE_TUNING) {
 									mTuningDialog = ProgressDialog.show(
-											Player.this, "",
+											PlayerActivity.this, "",
 											getString(R.string.player_tuning),
 											true, false);
 									mTuningDialog
@@ -779,8 +779,8 @@ public class Player extends BaseActivity {
 							if ((pos >= 0) && (mDuration > 0)
 									&& (pos <= mDuration)) {
 								mCurrentTime.setText(makeTimeString(
-										Player.this, pos / 1000));
-								mTotalTime.setText(makeTimeString(Player.this,
+										PlayerActivity.this, pos / 1000));
+								mTotalTime.setText(makeTimeString(PlayerActivity.this,
 										mDuration / 1000));
 								mProgress
 										.setProgress((int) (1000 * pos / mDuration));
@@ -866,7 +866,7 @@ public class Player extends BaseActivity {
 
 		@Override
 		protected Station doInBackground(Void... arg0) {
-			String query = Player.this.getIntent().getStringExtra(SearchManager.QUERY);
+			String query = PlayerActivity.this.getIntent().getStringExtra(SearchManager.QUERY);
 			if(LastFMApplication.getInstance().session != null) {
 				String username = LastFMApplication.getInstance().session.getName();
 				
@@ -893,12 +893,12 @@ public class Player extends BaseActivity {
 		
 		@Override
 		public void onPostExecute(Station result) {
-			String query = Player.this.getIntent().getStringExtra(SearchManager.QUERY);
+			String query = PlayerActivity.this.getIntent().getStringExtra(SearchManager.QUERY);
 
 			if(result != null) {
-				LastFMApplication.getInstance().playRadioStation(Player.this, result.getUrl(), false);
+				LastFMApplication.getInstance().playRadioStation(PlayerActivity.this, result.getUrl(), false);
 			} else {
-				Intent i = new Intent(Player.this, Profile.class);
+				Intent i = new Intent(PlayerActivity.this, ProfileActivity.class);
 				i.putExtra(SearchManager.QUERY, query);
 				startActivity(i);
 				finish();
@@ -921,7 +921,7 @@ public class Player extends BaseActivity {
 		public Boolean doInBackground(Void... params) {
 			boolean result = false;
 			if (mArtist != null
-					&& (mArtist.equals(RadioPlayerService.UNKNOWN) || Player.this.mArtistName.getText().toString()
+					&& (mArtist.equals(RadioPlayerService.UNKNOWN) || PlayerActivity.this.mArtistName.getText().toString()
 							.compareToIgnoreCase(mArtist) != 0))
 				return false;
 
@@ -941,13 +941,13 @@ public class Player extends BaseActivity {
 		public void onPostExecute(Boolean result) {
 
 			// Check if this is a stale event request
-			if (Player.this.mArtistName.getText().toString()
+			if (PlayerActivity.this.mArtistName.getText().toString()
 					.compareToIgnoreCase(mArtist) != 0)
 				return;
 
 			if (result) {
 
-				Animation a = AnimationUtils.loadAnimation(Player.this,
+				Animation a = AnimationUtils.loadAnimation(PlayerActivity.this,
 						R.anim.tag_fadein);
 				a.setAnimationListener(new AnimationListener() {
 

@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-import fm.last.android.ui.Profile;
+import fm.last.android.ui.ProfileActivity;
 
 /**
  * Base for all non list activities.
@@ -33,7 +32,7 @@ public class BaseActivity extends SherlockFragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
-	            Intent intent = new Intent(this, Profile.class);
+	            Intent intent = new Intent(this, ProfileActivity.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;

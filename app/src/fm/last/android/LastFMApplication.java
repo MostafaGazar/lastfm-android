@@ -46,11 +46,10 @@ import fm.last.android.db.LastFmDbHelper;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
-import fm.last.android.ui.Player;
-import fm.last.android.ui.Profile;
-import fm.last.android.ui.fragment.Profile_ChartsTab;
-import fm.last.android.ui.fragment.Profile_EventsTab;
-import fm.last.android.ui.fragment.Profile_RadioTab;
+import fm.last.android.ui.PlayerActivity;
+import fm.last.android.ui.ProfileActivity;
+import fm.last.android.ui.fragment.ProfileActivityFragment;
+import fm.last.android.ui.fragment.ProfileEventsFragment;
 import fm.last.api.Session;
 import fm.last.api.WSError;
 import fm.last.util.UrlUtil;
@@ -194,7 +193,7 @@ public class LastFMApplication extends Application {
 							
 						String action = intent.getAction();
 						if (action.equals(RadioPlayerService.STATION_CHANGED)) {
-							Intent i = new Intent(LastFMApplication.this, Player.class);
+							Intent i = new Intent(LastFMApplication.this, PlayerActivity.class);
 							i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 							startActivity(i);
 						} else if (action.equals("fm.last.android.ERROR")) {
@@ -368,7 +367,7 @@ public class LastFMApplication extends Application {
 		try {
 			d.show();
 		} catch (Exception e) {
-			Intent intent = new Intent(LastFMApplication.this, Profile.class);
+			Intent intent = new Intent(LastFMApplication.this, ProfileActivity.class);
 			intent.putExtra("ERROR_TITLE", title);
 			intent.putExtra("ERROR_DESCRIPTION", description);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -377,10 +376,8 @@ public class LastFMApplication extends Application {
 	}
 	
 	public void logout() {
-		Profile_ChartsTab.username = null;
-		Profile_EventsTab.username = null;
-		Profile_RadioTab.username = null;
-		Profile_RadioTab.isAuthenticatedUser = false;
+		ProfileActivityFragment.username = null;
+		ProfileEventsFragment.username = null;
 		
 		SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 		SharedPreferences.Editor editor = settings.edit();

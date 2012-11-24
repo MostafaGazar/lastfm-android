@@ -38,6 +38,7 @@
     android:queryAfterZeroResults="true"
     android:searchSettingsDescription="@string/action_search"
     android:searchSuggestAuthority="lastfm"
-    android:searchSuggestIntentAction="android.intent.action.VIEW" >
+    android:searchSuggestIntentAction="android.intent.action.VIEW"
+    android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" >
 
 </searchable>

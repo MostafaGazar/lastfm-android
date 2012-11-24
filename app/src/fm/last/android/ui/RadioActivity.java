@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar					   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,14 +18,14 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.ui.fragment;
+package fm.last.android.ui;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import android.app.Activity;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -37,25 +37,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
-
-import com.actionbarsherlock.app.SherlockListFragment;
-
 import fm.last.android.AndroidLastFmServerFactory;
+import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
-import fm.last.android.PrivateAPIKey;
 import fm.last.android.R;
 import fm.last.android.adapter.LastFMStreamAdapter;
 import fm.last.android.adapter.SeparatedListAdapter;
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
-import fm.last.android.ui.Player;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
@@ -64,34 +57,36 @@ import fm.last.api.Tasteometer;
 import fm.last.api.User;
 import fm.last.api.WSError;
 
-public class Profile_RadioTab extends SherlockListFragment {
-	private static final String TAG = Profile_RadioTab.class.getName();
-	
-	private Activity mContext;
-	private ViewGroup viewer;
-	
+public class RadioActivity extends BaseListActivity {
+
 	private SeparatedListAdapter mMainAdapter;
 	private LastFMStreamAdapter mMyStationsAdapter;
 	private LastFMStreamAdapter mMyRecentAdapter;
 	private User mUser;
-	public static String username; // store this separate so we have access to it
+	private String mUsername; // store this separate so we have access to it
 								// before User obj is retrieved
-	public static boolean isAuthenticatedUser;
-	LastFmServer mServer = AndroidLastFmServerFactory.getServer();
+	private boolean isAuthenticatedUser;
+	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();
 
 	private IntentFilter mIntentFilter;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		viewer = (ViewGroup) inflater.inflate(R.layout.radio,
-				container, false);
-		mContext = getActivity();
+	public void onCreate(Bundle icicle) {
+		super.onCreate(icicle);
+
+		Intent intent = new Intent(this, SearchActivity.class);
+		if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null)
+			intent.putExtra(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
+		startActivity(intent);
 		
-//		username = savedInstanceState.getString("user");
-//		isAuthenticatedUser = savedInstanceState.getBoolean("authenticated", false);
+		mUsername = getIntent().getStringExtra("user");
+		isAuthenticatedUser = getIntent().getBooleanExtra("authenticated", false);
 		
-		mMyRecentAdapter = new LastFMStreamAdapter(mContext);
+		getListView().setDivider(new ColorDrawable(0xffd9d7d7));
+		getListView().setSelector(new ColorDrawable(0x00000000));
+		getListView().requestFocus();
+		
+		mMyRecentAdapter = new LastFMStreamAdapter(this);
 
 		new LoadUserTask().execute((Void) null);
 		SetupMyStations();
@@ -100,17 +95,6 @@ public class Profile_RadioTab extends SherlockListFragment {
 		mIntentFilter.addAction(RadioPlayerService.PLAYBACK_ERROR);
 		mIntentFilter.addAction(RadioPlayerService.STATION_CHANGED);
 		mIntentFilter.addAction("fm.last.android.ERROR");
-		
-		return viewer;
-	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	
-		getListView().setDivider(new ColorDrawable(0xffd9d7d7));
-		getListView().setSelector(new ColorDrawable(0x00000000));
-		getListView().requestFocus();
 	}
 	
 	private void fetchRecentStations() {
@@ -133,7 +117,8 @@ public class Profile_RadioTab extends SherlockListFragment {
 					}
 				}
 			} catch (IOException e) {
-				Log.e(TAG , e.toString());
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
@@ -153,7 +138,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 				User user = server.getUserInfo(null, session.getKey());
 				if (user != null) {
 					String subscriber = user.getSubscriber();
-					SharedPreferences settings = mContext.getSharedPreferences(LastFm.PREFS, 0);
+					SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 					SharedPreferences.Editor editor = settings.edit();
 					editor.putString("lastfm_subscriber", subscriber);
 					editor.commit();
@@ -161,22 +146,24 @@ public class Profile_RadioTab extends SherlockListFragment {
 					LastFMApplication.getInstance().session = session;
 				}
 			} catch (WSError e) {
-				Log.e(TAG, e.toString());
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (Exception e) {
-				Log.e(TAG, e.toString());
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			try {
-				if (username == null) {
+				if (mUsername == null) {
 					mUser = mServer.getUserInfo(null, session.getKey());
 				} else {
-					mUser = mServer.getUserInfo(username, null);
-					tasteometer = mServer.tasteometerCompare(username, session.getName(), 8);
+					mUser = mServer.getUserInfo(mUsername, null);
+					tasteometer = mServer.tasteometerCompare(mUsername, session.getName(), 8);
 				}
 				success = true;
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(mContext, e);
+				LastFMApplication.getInstance().presentError(RadioActivity.this, e);
 			}
 			return success;
 		}
@@ -187,7 +174,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 			if (session != null) {
 				SetupRecentStations();
 
-				if (!isAuthenticatedUser && Profile_RadioTab.this.mUser != null) {
+				if (!isAuthenticatedUser && RadioActivity.this.mUser != null) {
 					SetupCommonArtists(tasteometer);
 				}
 				mMainAdapter.notifyDataSetChanged();
@@ -211,7 +198,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 	private void RebuildMainMenu() {
 		SetupMyStations();
 		
-		mMainAdapter = new SeparatedListAdapter(mContext);
+		mMainAdapter = new SeparatedListAdapter(this);
 		mMyStationsAdapter.container = mMainAdapter;
 		mMyRecentAdapter.container = mMainAdapter;
 		if (isAuthenticatedUser) {
@@ -220,7 +207,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 				mMainAdapter.addSection(getString(R.string.profile_recentstations), mMyRecentAdapter);
 			}
 		} else {
-			mMainAdapter.addSection(getString(R.string.profile_userstations, username), mMyStationsAdapter);
+			mMainAdapter.addSection(getString(R.string.profile_userstations, mUsername), mMyStationsAdapter);
 			mMainAdapter.addSection(getString(R.string.profile_commonartists), mMyRecentAdapter);
 		}
 		if (mMyStationsAdapter != null && mMyStationsAdapter.getCount() > 0)
@@ -233,7 +220,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 
 	@Override
 	public void onResume() {
-		mContext.registerReceiver(mStatusListener, mIntentFilter);
+		registerReceiver(mStatusListener, mIntentFilter);
 
 		SetupRecentStations();
 		RebuildMainMenu();
@@ -245,8 +232,8 @@ public class Profile_RadioTab extends SherlockListFragment {
 	}
 
 	@Override
-	public void onPause() {
-		mContext.unregisterReceiver(mStatusListener);
+	protected void onPause() {
+		unregisterReceiver(mStatusListener);
 		super.onPause();
 	}
 
@@ -271,7 +258,7 @@ public class Profile_RadioTab extends SherlockListFragment {
 	private void SetupRecentStations() {
 		if (!isAuthenticatedUser)
 			return;
-		SharedPreferences settings = mContext.getSharedPreferences(LastFm.PREFS, 0);
+		SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 		List<Station> stations = null;
 		try {
 			stations = RecentStationsDao.getInstance().getRecentStations();
@@ -297,26 +284,26 @@ public class Profile_RadioTab extends SherlockListFragment {
 	}
 
 	private void SetupMyStations() {
-		SharedPreferences settings = mContext.getSharedPreferences(LastFm.PREFS, 0);
+		SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 
 		Session session = LastFMApplication.getInstance().session;
-		mMyStationsAdapter = new LastFMStreamAdapter(mContext);
+		mMyStationsAdapter = new LastFMStreamAdapter(this);
 		if (isAuthenticatedUser) {
-			mMyStationsAdapter.putStation(getString(R.string.profile_mylibrary), "lastfm://user/" + Uri.encode(username) + "/personal");
+			mMyStationsAdapter.putStation(getString(R.string.profile_mylibrary), "lastfm://user/" + Uri.encode(mUsername) + "/personal");
 			if (!settings.getBoolean("remove_loved", false) && session.getSubscriber().equals("1"))
-				mMyStationsAdapter.putStation(getString(R.string.profile_myloved), "lastfm://user/" + Uri.encode(username) + "/loved");
-			mMyStationsAdapter.putStation(getString(R.string.profile_myrecs), "lastfm://user/" + Uri.encode(username) + "/recommended");
-			mMyStationsAdapter.putStation(getString(R.string.profile_mymix), "lastfm://user/" + Uri.encode(username) + "/mix");
-			mMyStationsAdapter.putStation(getString(R.string.profile_myneighborhood), "lastfm://user/" + Uri.encode(username) + "/neighbours");
-			mMyStationsAdapter.putStation(getString(R.string.profile_myfriends), "lastfm://user/" + Uri.encode(username) + "/friends");
+				mMyStationsAdapter.putStation(getString(R.string.profile_myloved), "lastfm://user/" + Uri.encode(mUsername) + "/loved");
+			mMyStationsAdapter.putStation(getString(R.string.profile_myrecs), "lastfm://user/" + Uri.encode(mUsername) + "/recommended");
+			mMyStationsAdapter.putStation(getString(R.string.profile_mymix), "lastfm://user/" + Uri.encode(mUsername) + "/mix");
+			mMyStationsAdapter.putStation(getString(R.string.profile_myneighborhood), "lastfm://user/" + Uri.encode(mUsername) + "/neighbours");
+			mMyStationsAdapter.putStation(getString(R.string.profile_myfriends), "lastfm://user/" + Uri.encode(mUsername) + "/friends");
 		} else {
-			mMyStationsAdapter.putStation(getString(R.string.profile_userlibrary, username), "lastfm://user/" + Uri.encode(username) + "/personal");
+			mMyStationsAdapter.putStation(getString(R.string.profile_userlibrary, mUsername), "lastfm://user/" + Uri.encode(mUsername) + "/personal");
 			if (!settings.getBoolean("remove_loved", false) && session.getSubscriber().equals("1"))
-				mMyStationsAdapter.putStation(getString(R.string.profile_userloved, username), "lastfm://user/" + Uri.encode(username) + "/loved");
-			mMyStationsAdapter.putStation(getString(R.string.profile_myrecs), "lastfm://user/" + Uri.encode(username) + "/recommended");
-			mMyStationsAdapter.putStation(getString(R.string.profile_usermix, username), "lastfm://user/" + Uri.encode(username) + "/mix");
-			mMyStationsAdapter.putStation(getString(R.string.profile_userneighborhood, username), "lastfm://user/" + Uri.encode(username) + "/neighbours");
-			mMyStationsAdapter.putStation(getString(R.string.profile_userfriends, username), "lastfm://user/" + Uri.encode(username) + "/friends");
+				mMyStationsAdapter.putStation(getString(R.string.profile_userloved, mUsername), "lastfm://user/" + Uri.encode(mUsername) + "/loved");
+			mMyStationsAdapter.putStation(getString(R.string.profile_myrecs), "lastfm://user/" + Uri.encode(mUsername) + "/recommended");
+			mMyStationsAdapter.putStation(getString(R.string.profile_usermix, mUsername), "lastfm://user/" + Uri.encode(mUsername) + "/mix");
+			mMyStationsAdapter.putStation(getString(R.string.profile_userneighborhood, mUsername), "lastfm://user/" + Uri.encode(mUsername) + "/neighbours");
+			mMyStationsAdapter.putStation(getString(R.string.profile_userfriends, mUsername), "lastfm://user/" + Uri.encode(mUsername) + "/friends");
 		}
 
 		mMyStationsAdapter.updateModel();
@@ -338,15 +325,16 @@ public class Profile_RadioTab extends SherlockListFragment {
 							String current_station = player.getStationUrl();
 							if ((player.isPlaying() || player.getState() == RadioPlayerService.STATE_PAUSED) && adapter_station.equals(current_station)) {
 								if (player.getState() == RadioPlayerService.STATE_PAUSED)
-									LastFMApplication.getInstance().playRadioStation(mContext, player.getStationUrl(), false);
-								Intent intent = new Intent(mContext, Player.class);
+									LastFMApplication.getInstance().playRadioStation(RadioActivity.this, player.getStationUrl(), false);
+								Intent intent = new Intent(RadioActivity.this, PlayerActivity.class);
 								startActivity(intent);
 							} else {
 								mMainAdapter.enableLoadBar(position);
-								LastFMApplication.getInstance().playRadioStation(mContext, adapter_station, true);
+								LastFMApplication.getInstance().playRadioStation(RadioActivity.this, adapter_station, true);
 							}
 						} catch (Exception e) {
-							Log.e(TAG, e.toString());
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 						try {
 							LastFMApplication.getInstance().unbindService(this);

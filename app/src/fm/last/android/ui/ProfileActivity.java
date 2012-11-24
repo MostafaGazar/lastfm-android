@@ -50,12 +50,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import fm.last.android.AndroidLastFmServerFactory;
@@ -66,22 +66,16 @@ import fm.last.android.R;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
-import fm.last.android.ui.fragment.Profile_ChartsTab;
-import fm.last.android.ui.fragment.Profile_EventsTab;
-import fm.last.android.ui.fragment.Profile_RadioTab;
-import fm.last.android.ui.fragment.Profile_SearchTab;
-import fm.last.android.ui.interfaces.IKeyDownFragment;
+import fm.last.android.ui.fragment.ProfileActivityFragment;
+import fm.last.android.ui.fragment.ProfileEventsFragment;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.SessionInfo;
 import fm.last.api.WSError;
 
-/**
- * 
- * @edited Mostafa Gazar
- */
-public class Profile extends BaseActivity {
+public class ProfileActivity extends BaseActivity {
+	private static final String TAG = ProfileActivity.class.getSimpleName();
 	
 	private SessionInfoTask mSessionInfoTask;
 	
@@ -113,9 +107,11 @@ public class Profile extends BaseActivity {
 		mTabsAdapter = new TabsAdapter(this, mViewPager);
 		
 		Session session = LastFMApplication.getInstance().session;
-		if (session == null || session.getName() == null || (Integer.decode(Build.VERSION.SDK) >= 6 && !AccountAuthenticatorService.hasLastfmAccount(this))) {
+		if (session == null || session.getName() == null 
+				|| (Build.VERSION.SDK_INT >= 6 
+				&& !AccountAuthenticatorService.hasLastfmAccount(this))) {
 			LastFMApplication.getInstance().logout();
-			Intent intent = new Intent(Profile.this, LastFm.class);
+			Intent intent = new Intent(ProfileActivity.this, SearchActivity.class);
 			if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null)
 				intent.putExtra(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
 			startActivity(intent);
@@ -142,7 +138,9 @@ public class Profile extends BaseActivity {
 					return;
 				}
 			} else {
-				Cursor cursor = managedQuery(getIntent().getData(), null, null, null, null);
+				@SuppressWarnings("deprecation")
+				Cursor cursor = managedQuery(getIntent().getData(), null, null,
+						null, null);
 				if(cursor != null && cursor.moveToNext()) {
 					username = cursor.getString(cursor.getColumnIndex("DATA1"));
 				}
@@ -154,9 +152,10 @@ public class Profile extends BaseActivity {
 		if (username == null) {
 			username = session.getName();
 			isAuthenticatedUser = true;
-		} else
+		} else {
 			isAuthenticatedUser = false;
-
+		}
+		
 		if(intent.getStringExtra("ERROR_TITLE") != null) {
 			AlertDialog.Builder d = new AlertDialog.Builder(this);
 			d.setTitle(intent.getStringExtra("ERROR_TITLE"));
@@ -170,78 +169,53 @@ public class Profile extends BaseActivity {
 		}
 
 		if(RadioPlayerService.radioAvailable(this)) {
-			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.ui.Player"), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
+			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
 		} else {
-			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", "fm.last.android.ui.Player"), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 		}
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(false);
 		
 		if (isAuthenticatedUser) {
-			// Charts.
+			// Latest Activity.
 			Bundle chartsArgs = new Bundle();
-			Profile_ChartsTab.username = username;
+			ProfileActivityFragment.username = username;
 			chartsArgs.putString("user", username);
 			mTabsAdapter.addTab(actionBar
 		            .newTab()
 		            .setText(R.string.profile_myprofile)
-		            , Profile_ChartsTab.class, chartsArgs);
+		            , ProfileActivityFragment.class, chartsArgs);
 			
+			// Friends.
+			Bundle friendsArgs = new Bundle();
+			ProfileActivityFragment.username = username;
+			chartsArgs.putString("user", username);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText(R.string.profile_friends)
+		            , ProfileActivityFragment.class, friendsArgs);
+						
 			// Events.
 			Bundle eventsArgs = new Bundle();
-			Profile_EventsTab.username = username;
+			ProfileEventsFragment.username = username;
 			eventsArgs.putString("user", username);
 			mTabsAdapter.addTab(actionBar
 		            .newTab()
 		            .setText(R.string.profile_events)
-		            , Profile_EventsTab.class, eventsArgs);
-			
-			// Search.
-			Bundle searchArgs = new Bundle();
-			Profile_SearchTab.query = getIntent().getStringExtra(SearchManager.QUERY);
-			searchArgs.putString(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));
-			mTabsAdapter.addTab(actionBar
-		            .newTab()
-		            .setText(R.string.profile_search), 
-		            Profile_SearchTab.class, searchArgs);
-			
-			// Radio.
-			Bundle radioArgs = new Bundle();
-			Profile_RadioTab.username = username;
-			Profile_RadioTab.isAuthenticatedUser = isAuthenticatedUser;
-			radioArgs.putString("user", username);
-			radioArgs.putBoolean("authenticated", isAuthenticatedUser);
-			mTabsAdapter.addTab(actionBar
-		            .newTab()
-		            .setText(R.string.profile_myradio)
-		            , Profile_RadioTab.class, radioArgs);
-			
-			if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null) {
-				mViewPager.setCurrentItem(2);
-			}
+		            , ProfileEventsFragment.class, eventsArgs);
 		} else {
 			// Charts.
 			Bundle chartsArgs = new Bundle();
-			Profile_ChartsTab.username = username;
+			ProfileActivityFragment.username = username;
 			chartsArgs.putString("user", username);
 			mTabsAdapter.addTab(actionBar
 		            .newTab()
 		            .setText(getString(R.string.profile_userprofile, username))
-		            , Profile_ChartsTab.class, chartsArgs);
-						
-			// Radio.
-			Bundle radioArgs = new Bundle();
-			Profile_RadioTab.username = username;
-			Profile_RadioTab.isAuthenticatedUser = isAuthenticatedUser;
-			radioArgs.putString("user", username);
-			radioArgs.putBoolean("authenticated", isAuthenticatedUser);
-			mTabsAdapter.addTab(actionBar
-		            .newTab()
-		            .setText(getString(R.string.profile_userradio, username))
-		            , Profile_RadioTab.class, radioArgs);
+		            , ProfileActivityFragment.class, chartsArgs);
 		}
 
 		File f = new File(Environment.getExternalStorageDirectory() + "/lastfm-logs.zip");
@@ -278,12 +252,12 @@ public class Profile extends BaseActivity {
 							mIsPlaying = player.isPlaying();
 							mIsPaused = (player.getState() == RadioPlayerService.STATE_PAUSED);
 						} catch (RemoteException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							Log.e(TAG, e.toString());
 						}
 						try {
 							LastFMApplication.getInstance().unbindService(this);
 						} catch (IllegalArgumentException e) {
+							Log.e(TAG, e.toString());
 						}
 					}
 
@@ -306,14 +280,14 @@ public class Profile extends BaseActivity {
 	}
 
 	private void showSyncPrompts() {
-		if(Integer.decode(Build.VERSION.SDK) >= 6) {
+		if(Build.VERSION.SDK_INT >= 6) {
 			SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 			if(!settings.getBoolean("sync_nag", false) && !isHTCContactsInstalled(this)) {
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putBoolean("sync_nag", true);
 				editor.commit();
 				showContactSyncPrompt();
-			} else if(Integer.decode(Build.VERSION.SDK) >= 14 && !settings.getBoolean("sync_nag_cal", false)) {
+			} else if(Build.VERSION.SDK_INT >= 14 && !settings.getBoolean("sync_nag_cal", false)) {
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putBoolean("sync_nag_cal", true);
 				editor.commit();
@@ -329,7 +303,7 @@ public class Profile extends BaseActivity {
 			.setCancelable(false)
 			.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					AccountManager am = AccountManager.get(Profile.this);
+					AccountManager am = AccountManager.get(ProfileActivity.this);
 					Account[] accounts = am.getAccountsByType(getString(R.string.ACCOUNT_TYPE));
 					ContentResolver.setIsSyncable(accounts[0], ContactsContract.AUTHORITY, 1);
 		            ContentResolver.setSyncAutomatically(accounts[0], ContactsContract.AUTHORITY, true);
@@ -351,7 +325,7 @@ public class Profile extends BaseActivity {
 			.setCancelable(false)
 			.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					AccountManager am = AccountManager.get(Profile.this);
+					AccountManager am = AccountManager.get(ProfileActivity.this);
 					Account[] accounts = am.getAccountsByType(getString(R.string.ACCOUNT_TYPE));
 					ContentResolver.setIsSyncable(accounts[0], CalendarContract.AUTHORITY, 1);
 		            ContentResolver.setSyncAutomatically(accounts[0], CalendarContract.AUTHORITY, true);
@@ -373,35 +347,19 @@ public class Profile extends BaseActivity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-
-		// Parameters for menu.add are:
-		// group -- Not used here.
-		// id -- Used only when you want to handle and identify the click
-		// yourself.
-		// title
-		MenuItem logout = menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.action_logout));
-		logout.setIcon(R.drawable.logout);
-
-		MenuItem settings = menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.action_settings));
-		settings.setIcon(android.R.drawable.ic_menu_preferences);
-
-		//TODO: Finish the help document and then re-enable this item
-		//MenuItem help = menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.action_help));
-		//help.setIcon(android.R.drawable.ic_menu_help);
-
-		MenuItem nowPlaying = menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.action_nowplaying));
-		nowPlaying.setIcon(R.drawable.view_artwork);
-		return true;
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.profile, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		if(mIsPaused)
-			menu.findItem(3).setTitle(getString(R.string.action_nowpaused));
-		else
-			menu.findItem(3).setTitle(getString(R.string.action_nowplaying));
-		menu.findItem(3).setEnabled(mIsPlaying || mIsPaused);
+		if(mIsPaused) {
+			menu.findItem(R.id.menu_item_nowplaying).setTitle(getString(R.string.action_nowpaused));
+		} else {
+			menu.findItem(R.id.menu_item_nowplaying).setTitle(getString(R.string.action_nowplaying));
+		}
+		menu.findItem(R.id.menu_item_nowplaying).setEnabled(mIsPlaying || mIsPaused);
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -410,22 +368,26 @@ public class Profile extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
-		case 0:
+		case R.id.menu_item_search:
+			Bundle appData = new Bundle();
+			startSearch(null, false, appData, false);
+			return true;
+		case R.id.menu_item_logout:
 			LastFMApplication.getInstance().logout();
-			intent = new Intent(Profile.this, LastFm.class);
+			intent = new Intent(ProfileActivity.this, LastFm.class);
 			startActivity(intent);
 			finish();
 			break;
-		case 1:
-			intent = new Intent(Profile.this, Preferences.class);
+		case R.id.menu_item_settings:
+			intent = new Intent(ProfileActivity.this, Preferences.class);
 			startActivity(intent);
 			return true;
-		case 2:
-			intent = new Intent(Profile.this, Help.class);
-			startActivity(intent);
-			return true;
-		case 3:
-			intent = new Intent(Profile.this, Player.class);
+//		case 2:
+//			intent = new Intent(Profile.this, Help.class);
+//			startActivity(intent);
+//			return true;
+		case R.id.menu_item_nowplaying:
+			intent = new Intent(ProfileActivity.this, PlayerActivity.class);
 			startActivity(intent);
 			return true;
 		}
@@ -474,17 +436,6 @@ public class Profile extends BaseActivity {
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		int selectedTabPosition = getSupportActionBar().getSelectedTab().getPosition();
-		Fragment selectedFragment = mTabsAdapter.getItem(selectedTabPosition);
-		if (selectedFragment instanceof IKeyDownFragment) {
-			return ((IKeyDownFragment) selectedFragment).onKeyDown(keyCode, event);
-		}
-		
-		return super.onKeyDown(keyCode, event);
-	}
-	
 	public static class TabsAdapter extends FragmentPagerAdapter implements
 			ActionBar.TabListener, ViewPager.OnPageChangeListener {
 		private final Context mContext;

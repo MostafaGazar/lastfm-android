@@ -45,7 +45,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import fm.last.android.sync.AccountAuthenticatorService;
-import fm.last.android.ui.Profile;
+import fm.last.android.ui.ProfileActivity;
 import fm.last.android.ui.SignUp;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
@@ -125,7 +125,7 @@ public class LastFm extends BaseActivity {
 				}
 			} else {
 				Intent intent = getIntent();
-				intent = new Intent(LastFm.this, Profile.class);
+				intent = new Intent(LastFm.this, ProfileActivity.class);
 				startActivity(intent);
 				Intent i = new Intent("fm.last.android.scrobbler.FLUSH");
 				sendBroadcast(i);
@@ -317,7 +317,7 @@ public class LastFm extends BaseActivity {
 				} else if (getIntent().getStringExtra("station") != null) {
 					LastFMApplication.getInstance().playRadioStation(LastFm.this, getIntent().getStringExtra("station"), true);
 				} else {
-					Intent intent = new Intent(LastFm.this, Profile.class);
+					Intent intent = new Intent(LastFm.this, ProfileActivity.class);
 					intent.putExtra("lastfm.profile.new_user", mNewUser);
 					if(getIntent() != null && getIntent().getStringExtra(SearchManager.QUERY) != null)
 						intent.putExtra(SearchManager.QUERY, getIntent().getStringExtra(SearchManager.QUERY));

@@ -4,54 +4,9 @@
     android:layout_height="fill_parent" >
 
     <LinearLayout
-        android:id="@+id/SearchBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/TabBar"
-        android:background="@drawable/tab_bar_rest"
-        android:paddingTop="4dip" >
-
-        <EditText
-            android:id="@+id/station_editbox"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/station_search"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="3dip"
-            android:layout_marginLeft="7dip"
-            android:layout_marginTop="4dip"
-            android:layout_weight="1"
-            android:hint="@string/action_search"
-            android:imeOptions="actionGo"
-            android:singleLine="true"
-            android:textSize="18sp" />
-
-        <ImageButton
-            android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="9dip"
-            android:layout_marginLeft="8dip"
-            android:layout_marginRight="8dip"
-            android:layout_marginTop="7dip"
-            android:background="@drawable/black_button"
-            android:src="@drawable/search_light" />
-
-        <ImageButton
-            android:id="@+id/voice"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="9dip"
-            android:layout_marginRight="8dip"
-            android:layout_marginTop="7dip"
-            android:background="@drawable/black_button"
-            android:src="@drawable/voice" />
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/SearchBar"
+        android:layout_below="@+id/TabBar"
         android:background="#ebebeb"
         android:orientation="vertical" >
 
@@ -67,7 +22,7 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/SearchBar"
+        android:layout_below="@+id/TabBar"
         android:background="#fff"
         android:divider="#d9d7d7"
         android:listSelector="#00000000"

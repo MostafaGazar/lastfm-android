@@ -237,7 +237,7 @@ public class Metadata extends BaseActivity {
 
 		switch (item.getItemId()) {
 		case R.id.info_menu_item:
-			Intent i = new Intent(this, Player.class);
+			Intent i = new Intent(this, PlayerActivity.class);
 			startActivity(i);
 			finish();
 			break;
@@ -515,7 +515,7 @@ public class Metadata extends BaseActivity {
 				mFanList.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 						User user = (User) mFanAdapter.getItem(position);
-						Intent profileIntent = new Intent(Metadata.this, fm.last.android.ui.Profile.class);
+						Intent profileIntent = new Intent(Metadata.this, fm.last.android.ui.ProfileActivity.class);
 						profileIntent.putExtra("lastfm.profile.username", user.getName());
 						startActivity(profileIntent);
 					}

@@ -34,7 +34,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +56,6 @@ import fm.last.android.adapter.ListEntry;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.ui.Metadata;
 import fm.last.android.ui.PopupActionActivity;
-import fm.last.android.ui.Profile;
-import fm.last.android.ui.interfaces.IKeyDownFragment;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 import fm.last.android.widget.ProfileBubble;
@@ -73,7 +70,7 @@ import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
 
-public class Profile_ChartsTab extends SherlockListFragment implements IKeyDownFragment {
+public class ProfileActivityFragment extends SherlockListFragment {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int PROFILE_RECOMMENDED = 0;
@@ -434,25 +431,25 @@ public class Profile_ChartsTab extends SherlockListFragment implements IKeyDownF
 		}
 	};
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (!mViewHistory.isEmpty()) {
-				setPreviousAnimation();
-				mProfileAdapter.disableLoadBar();
-				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-				
-				return true;
-			}
-			if (event.getRepeatCount() == 0) {
-				// mContext.finish();
-				
-				return false;
-			}
-		}
-		
-		return false;
-	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			if (!mViewHistory.isEmpty()) {
+//				setPreviousAnimation();
+//				mProfileAdapter.disableLoadBar();
+//				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
+//				
+//				return true;
+//			}
+//			if (event.getRepeatCount() == 0) {
+//				// mContext.finish();
+//				
+//				return false;
+//			}
+//		}
+//		
+//		return false;
+//	}
 
 	private void setNextAnimation() {
 		mNestedViewFlipper.setInAnimation(mPushLeftIn);
@@ -607,7 +604,7 @@ public class Profile_ChartsTab extends SherlockListFragment implements IKeyDownF
 			try {
 				User user = (User) l.getAdapter().getItem(position);
 				if(user != null) {
-					Intent profileIntent = new Intent(mContext, fm.last.android.ui.Profile.class);
+					Intent profileIntent = new Intent(mContext, fm.last.android.ui.ProfileActivity.class);
 					profileIntent.putExtra("lastfm.profile.username", user.getName());
 					startActivity(profileIntent);
 				}

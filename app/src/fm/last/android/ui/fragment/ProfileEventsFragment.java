@@ -31,7 +31,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,13 +49,12 @@ import fm.last.android.R;
 import fm.last.android.adapter.EventListAdapter;
 import fm.last.android.adapter.ListAdapter;
 import fm.last.android.ui.Event.EventActivityResult;
-import fm.last.android.ui.interfaces.IKeyDownFragment;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
 
-public class Profile_EventsTab extends SherlockListFragment implements LocationListener, IKeyDownFragment {
+public class ProfileEventsFragment extends SherlockListFragment implements LocationListener {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int EVENTS_MYEVENTS = 0;
@@ -151,24 +149,24 @@ public class Profile_EventsTab extends SherlockListFragment implements LocationL
 		super.onPause();
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (!mViewHistory.isEmpty()) {
-				setPreviousAnimation();
-				mEventsAdapter.disableLoadBar();
-				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-				LocationManager lm = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
-				lm.removeUpdates(this);
-				return true;
-			}
-			if (event.getRepeatCount() == 0) {
-				// mContext.finish();
-				return false;
-			}
-		}
-		return false;
-	}
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			if (!mViewHistory.isEmpty()) {
+//				setPreviousAnimation();
+//				mEventsAdapter.disableLoadBar();
+//				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
+//				LocationManager lm = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
+//				lm.removeUpdates(this);
+//				return true;
+//			}
+//			if (event.getRepeatCount() == 0) {
+//				// mContext.finish();
+//				return false;
+//			}
+//		}
+//		return false;
+//	}
 
 	private void setNextAnimation() {
 		mNestedViewFlipper.setInAnimation(mPushLeftIn);
