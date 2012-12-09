@@ -68,6 +68,7 @@ import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
 import fm.last.android.ui.fragment.ProfileActivityFragment;
 import fm.last.android.ui.fragment.ProfileEventsFragment;
+import fm.last.android.ui.fragment.ProfileFriendsFragment;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
@@ -104,7 +105,9 @@ public class ProfileActivity extends BaseActivity {
 		setContentView(R.layout.home);
 		
 		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager.setOffscreenPageLimit(3);
 		mTabsAdapter = new TabsAdapter(this, mViewPager);
+		
 		
 		Session session = LastFMApplication.getInstance().session;
 		if (session == null || session.getName() == null 
@@ -177,10 +180,11 @@ public class ProfileActivity extends BaseActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayUseLogoEnabled(true);
-		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setDisplayHomeAsUpEnabled(false);
-		
+
 		if (isAuthenticatedUser) {
+			actionBar.setDisplayShowTitleEnabled(false);
+			
 			// Latest Activity.
 			Bundle chartsArgs = new Bundle();
 			ProfileActivityFragment.username = username;
@@ -192,12 +196,12 @@ public class ProfileActivity extends BaseActivity {
 			
 			// Friends.
 			Bundle friendsArgs = new Bundle();
-			ProfileActivityFragment.username = username;
+			ProfileFriendsFragment.username = username;
 			chartsArgs.putString("user", username);
 			mTabsAdapter.addTab(actionBar
 		            .newTab()
 		            .setText(R.string.profile_friends)
-		            , ProfileActivityFragment.class, friendsArgs);
+		            , ProfileFriendsFragment.class, friendsArgs);
 						
 			// Events.
 			Bundle eventsArgs = new Bundle();
@@ -208,14 +212,26 @@ public class ProfileActivity extends BaseActivity {
 		            .setText(R.string.profile_events)
 		            , ProfileEventsFragment.class, eventsArgs);
 		} else {
-			// Charts.
+			actionBar.setDisplayShowTitleEnabled(true);
+			actionBar.setTitle(username);
+			
+			// Latest Activity.
 			Bundle chartsArgs = new Bundle();
 			ProfileActivityFragment.username = username;
 			chartsArgs.putString("user", username);
 			mTabsAdapter.addTab(actionBar
 		            .newTab()
-		            .setText(getString(R.string.profile_userprofile, username))
+		            .setText(getString(R.string.profile_userprofile))
 		            , ProfileActivityFragment.class, chartsArgs);
+			
+			// Something.
+			Bundle xxxArgs = new Bundle();
+			ProfileActivityFragment.username = username;
+			xxxArgs.putString("user", username);
+			mTabsAdapter.addTab(actionBar
+		            .newTab()
+		            .setText("Something")
+			            , ProfileActivityFragment.class, chartsArgs);
 		}
 
 		File f = new File(Environment.getExternalStorageDirectory() + "/lastfm-logs.zip");

@@ -16,8 +16,8 @@ import android.view.View;
 import android.widget.ListView;
 import fm.last.android.BaseListActivity;
 import fm.last.android.R;
-import fm.last.android.adapter.ListAdapter;
-import fm.last.android.adapter.ListEntry;
+import fm.last.android.ui.adapter.ListAdapter;
+import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.ImageCache;
 
 /**

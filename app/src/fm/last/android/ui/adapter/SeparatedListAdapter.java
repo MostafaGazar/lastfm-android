@@ -14,7 +14,7 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ****************************************************************************/
-package fm.last.android.adapter;
+package fm.last.android.ui.adapter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

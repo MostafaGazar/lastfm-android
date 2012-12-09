@@ -49,7 +49,7 @@ import com.actionbarsherlock.view.MenuItem;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.R;
-import fm.last.android.adapter.TagListAdapter;
+import fm.last.android.ui.adapter.TagListAdapter;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.widget.TagLayout;
 import fm.last.android.widget.TagLayoutListener;

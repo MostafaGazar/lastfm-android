@@ -51,11 +51,11 @@ import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.R;
-import fm.last.android.adapter.ListAdapter;
-import fm.last.android.adapter.ListEntry;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.ui.Metadata;
 import fm.last.android.ui.PopupActionActivity;
+import fm.last.android.ui.adapter.ListAdapter;
+import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 import fm.last.android.widget.ProfileBubble;
@@ -111,7 +111,7 @@ public class ProfileActivityFragment extends SherlockListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		viewer = (ViewGroup) inflater.inflate(R.layout.charts,
+		viewer = (ViewGroup) inflater.inflate(R.layout.fragment_profile_activity,
 				container, false);
 		mContext = getActivity();
 		
@@ -258,47 +258,29 @@ public class ProfileActivityFragment extends SherlockListFragment {
 		SharedPreferences settings = mContext.getSharedPreferences(LastFm.PREFS, 0);
 
 		if(!settings.getBoolean("remove_tags", false)) {
-			if(username.equals(LastFMApplication.getInstance().session.getName()))
+			if(username.equals(LastFMApplication.getInstance().session.getName())) {
+				// this order must match the ProfileActions enum
 				mStrings = new String[] { getString(R.string.profile_myrecs), getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
 					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends), getString(R.string.profile_tags) }; // this
-																							// order
-																							// must
-																							// match
-																							// the
-																							// ProfileActions
-																							// enum
-			else
+					getString(R.string.profile_friends), getString(R.string.profile_tags) }; 
+			} else {
+				// this order must match the ProfileActions enum
 				mStrings = new String[] { getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
 					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends), getString(R.string.profile_tags) }; // this
-																							// order
-																							// must
-																							// match
-																							// the
-																							// ProfileActions
-																							// enum
+					getString(R.string.profile_friends), getString(R.string.profile_tags) };
+			}
 		} else {
-			if(username.equals(LastFMApplication.getInstance().session.getName()))
+			if(username.equals(LastFMApplication.getInstance().session.getName())) {
+				// this order must match the ProfileActions enum				
 				mStrings = new String[] { getString(R.string.profile_myrecs), getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
 					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends) }; // this
-																							// order
-																							// must
-																							// match
-																							// the
-																							// ProfileActions
-																							// enum
-			else
+					getString(R.string.profile_friends) };
+			} else {
+				// this order must match the ProfileActions enum
 				mStrings = new String[] { getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
 					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends) }; // this
-																							// order
-																							// must
-																							// match
-																							// the
-																							// ProfileActions
-																							// enum
+					getString(R.string.profile_friends) };
+			}
 		}
 		
 		mProfileAdapter = new ListAdapter(mContext, mStrings);
@@ -657,10 +639,8 @@ public class ProfileActivityFragment extends SherlockListFragment {
 				adapter.setDisabled();
 				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
 			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
+			// Save the current view
+			mViewHistory.push(mNestedViewFlipper.getDisplayedChild());
 			mNestedViewFlipper.setDisplayedChild(PROFILE_RECOMMENDED + 1);
 		}
 	}

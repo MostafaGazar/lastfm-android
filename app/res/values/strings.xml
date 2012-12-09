@@ -116,7 +116,7 @@
     <string name="profile_userradio">%1$s\'s Radio</string>
     <string name="profile_myprofile">Activity</string><!-- TODO :: Require review -->
     <string name="profile_friends">Friends</string><!-- TODO :: Require translation -->
-    <string name="profile_userprofile">%1$s\'s Profile</string>
+    <string name="profile_userprofile">Activity</string><!-- TODO :: Require review -->
     <string name="profile_tracksplayed">plays</string>
     <string name="profile_newstation">Start a New Station</string>
     <string name="profile_mytags">My Tags</string>

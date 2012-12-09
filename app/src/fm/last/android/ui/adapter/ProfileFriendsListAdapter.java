@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright 2005-2009 Last.fm Ltd.                                      *
  *   Portions contributed by Casey Link, Lukasz Wisniewski,                *
- *   Mike Jennings, and Michael Novak Jr.                                  *
+ *   Mike Jennings, Michael Novak Jr, and Mostafa Gazar.                   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,7 +18,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
-package fm.last.android.adapter;
+package fm.last.android.ui.adapter;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -43,11 +43,8 @@ import fm.last.android.utils.ImageDownloaderListener;
 /**
  * Simple adapter for presenting ArrayList of IconifiedEntries as ListView,
  * allows icon customization
- * 
- * @author Lukasz Wisniewski
- * @author Casey Link
  */
-public class ListAdapter extends BaseAdapter implements Serializable, ImageDownloaderListener {
+public class ProfileFriendsListAdapter extends BaseAdapter implements Serializable, ImageDownloaderListener {
 
 	private static final long serialVersionUID = 2679887824070220768L;
 	protected transient ImageCache mImageCache;
@@ -72,7 +69,7 @@ public class ListAdapter extends BaseAdapter implements Serializable, ImageDownl
 		}
 	}
 
-	public ListAdapter(Activity context) {
+	public ProfileFriendsListAdapter(Activity context) {
 		mContext = context;
 	}
 
@@ -82,7 +79,7 @@ public class ListAdapter extends BaseAdapter implements Serializable, ImageDownl
 	 * @param context
 	 * @param imageCache
 	 */
-	public ListAdapter(Activity context, ImageCache imageCache) {
+	public ProfileFriendsListAdapter(Activity context, ImageCache imageCache) {
 		mContext = context;
 		init(imageCache);
 	}
@@ -93,7 +90,7 @@ public class ListAdapter extends BaseAdapter implements Serializable, ImageDownl
 	 * @param context
 	 * @param data
 	 */
-	public ListAdapter(Activity context, String[] data) {
+	public ProfileFriendsListAdapter(Activity context, String[] data) {
 		mContext = context;
 		mList = new ArrayList<ListEntry>();
 		for (int i = 0; i < data.length; i++) {
