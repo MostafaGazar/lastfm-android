@@ -31,6 +31,6 @@
         android:layout_centerHorizontal="true"
         android:padding="4dp"
         android:text="New design by: Mostafa Gazar"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/dark_lastfm" />
 
 </RelativeLayout>

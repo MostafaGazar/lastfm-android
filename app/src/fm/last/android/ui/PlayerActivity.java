@@ -41,7 +41,6 @@ import android.os.PowerManager;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
@@ -113,12 +112,12 @@ public class PlayerActivity extends BaseActivity {
 		mProgress = (ProgressBar) findViewById(android.R.id.progress);
 		mProgress.setMax(1000);
 		mAlbum = (ImageView) findViewById(R.id.album);
-		LayoutParams params = mAlbum.getLayoutParams();
-		if (AdArea.adsEnabled(this)) {
-			params.width -= 54;
-			params.height -= 54;
-		}
-		mAlbum.setLayoutParams(params);
+//		LayoutParams params = mAlbum.getLayoutParams();
+//		if (AdArea.adsEnabled(this)) {
+//			params.width -= 54;
+//			params.height -= 54;
+//		}
+//		mAlbum.setLayoutParams(params);
 		mArtistName = (TextView) findViewById(R.id.track_artist);
 		mTrackName = (TextView) findViewById(R.id.track_title);
 		mTrackContext = (TextView) findViewById(R.id.track_context);

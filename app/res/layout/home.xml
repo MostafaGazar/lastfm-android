@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:lfm="http://schemas.android.com/apk/res/fm.last.android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:id="@+id/home"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000" >
-
-    <fm.last.android.widget.AdArea
-        android:id="@+id/AdArea"
-        android:layout_width="fill_parent"
-        android:layout_height="54px"
-        android:background="@drawable/adarea"
-        android:padding="6dip" />
+    android:background="#000"
+    android:orientation="vertical" >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/AdArea" />
+        android:layout_height="fill_parent" />
 
-</RelativeLayout>
+    <com.google.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/ads_key"
+        ads:loadAdOnCreate="true"
+        ads:testDevices="TEST_EMULATOR" />
+
+</LinearLayout>
