@@ -103,28 +103,17 @@ public class ProfileFriendsFragment extends SherlockFragment {
 		}
 	};
 
-	private class LoadFriendsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
+	private class LoadFriendsTask extends AsyncTaskEx<Void, Void, User[]> {
 
 		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
+		public User[] doInBackground(Void... params) {
 			try {
 				User[] friends = mServer.getFriends(username, null, "1024").getFriends();
 				if (friends.length == 0) {
 					return null;
 				}
 				
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < friends.length; i++) {
-					// Some tracks don't have images.
-					ListEntry entry = new ListEntry(friends[i],
-							R.drawable.profile_unknown, friends[i].getName(),
-							friends[i].getImages().length == 0 ? ""
-									: friends[i]
-											.getURLforImageSize("extralarge")); 
-
-					iconifiedEntries.add(entry);
-				}
-				return iconifiedEntries;
+				return friends;
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
@@ -134,17 +123,18 @@ public class ProfileFriendsFragment extends SherlockFragment {
 		}
 
 		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
+		public void onPostExecute(User[] friends) {
+			if (friends != null && friends.length != 0) {
 				ProfileFriendsListAdapter adapter = new ProfileFriendsListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
+				adapter.setSource(friends);
 				mProfileFriendsListView.setAdapter(adapter);
 			} else {
-				String[] strings = new String[] { getString(R.string.profile_nofriends) };
-				ProfileFriendsListAdapter adapter = new ProfileFriendsListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileFriendsListView.setAdapter(adapter);
+				// TODO :: Show something sais list is empty.
+//				String[] strings = new String[] { getString(R.string.profile_nofriends) };
+//				ProfileFriendsListAdapter adapter = new ProfileFriendsListAdapter(mContext, strings);
+//				adapter.disableDisclosureIcons();
+//				adapter.setDisabled();
+//				mProfileFriendsListView.setAdapter(adapter);
 			}
 		}
 	}

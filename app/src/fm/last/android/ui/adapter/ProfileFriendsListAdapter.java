@@ -39,33 +39,33 @@ import fm.last.android.R;
 import fm.last.android.utils.ImageCache;
 import fm.last.android.utils.ImageDownloader;
 import fm.last.android.utils.ImageDownloaderListener;
+import fm.last.api.User;
 
 /**
  * Simple adapter for presenting ArrayList of IconifiedEntries as ListView,
  * allows icon customization
  */
-public class ProfileFriendsListAdapter extends BaseAdapter implements Serializable, ImageDownloaderListener {
+public class ProfileFriendsListAdapter extends BaseAdapter implements
+		Serializable, ImageDownloaderListener {
 
 	private static final long serialVersionUID = 2679887824070220768L;
 	protected transient ImageCache mImageCache;
 	protected transient ImageDownloader mImageDownloader;
 	protected transient Activity mContext;
 
-	private ArrayList<ListEntry> mList;
+	private User[] mUsersArray;
 	private int mLoadingBar = -1;
-	private boolean mScaled = true;
 	private boolean mEnabled = true;
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		out.writeObject(mList);
+		out.writeObject(mUsersArray);
 	}
 
-	@SuppressWarnings("unchecked")
 	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
 		try {
-			mList = (ArrayList<ListEntry>) in.readObject();
+			mUsersArray = (User[]) in.readObject();
 		} catch (ClassCastException e) {
-			mList = null;
+			mUsersArray = null;
 		}
 	}
 
@@ -81,74 +81,36 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements Serializab
 	 */
 	public ProfileFriendsListAdapter(Activity context, ImageCache imageCache) {
 		mContext = context;
-		init(imageCache);
-	}
-
-	/**
-	 * Constructor that takes an array of strings as data
-	 * 
-	 * @param context
-	 * @param data
-	 */
-	public ProfileFriendsListAdapter(Activity context, String[] data) {
-		mContext = context;
-		mList = new ArrayList<ListEntry>();
-		for (int i = 0; i < data.length; i++) {
-			ListEntry entry = new ListEntry(data[i], -1, data[i], R.drawable.list_icon_arrow);
-			mList.add(entry);
-		}
-	}
-
-	/**
-	 * Sharable code between constructors
-	 * 
-	 * @param imageCache
-	 */
-	private void init(ImageCache imageCache) {
 		setImageCache(imageCache);
-		mList = new ArrayList<ListEntry>();
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View row = convertView;
-
+		User user = mUsersArray[position];
+		
 		ViewHolder holder;
 
-		if (row == null) {
+		if (convertView == null) {
 			LayoutInflater inflater = mContext.getLayoutInflater();
-			row = inflater.inflate(R.layout.list_row, null);
+			convertView = inflater.inflate(R.layout.list_item_profile_friend, null);
 
 			holder = new ViewHolder();
-			holder.label = (TextView) row.findViewById(R.id.row_label);
-			holder.label_second = (TextView) row.findViewById(R.id.row_label_second);
-			holder.image = (ImageView) row.findViewById(R.id.row_icon);
-			holder.disclosure = (ImageView) row.findViewById(R.id.row_disclosure_icon);
-			holder.vs = (ViewSwitcher) row.findViewById(R.id.row_view_switcher);
+			holder.label = (TextView) convertView.findViewById(R.id.row_label);
+			holder.label_second = (TextView) convertView.findViewById(R.id.row_label_second);
+			holder.image = (ImageView) convertView.findViewById(R.id.row_icon);
+			holder.disclosure = (ImageView) convertView.findViewById(R.id.row_disclosure_icon);
+			holder.vs = (ViewSwitcher) convertView.findViewById(R.id.row_view_switcher);
 
-			row.setTag(holder);
+			convertView.setTag(holder);
 		} else {
-			holder = (ViewHolder) row.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if(mList.get(position).centerIcon)
-			holder.image.setScaleType(ImageView.ScaleType.CENTER);
-		
-		holder.label.setText(mList.get(position).text);
-		if (mList.get(position).text_second != null) {
-			holder.label_second.setText(mList.get(position).text_second);
-			holder.label_second.setVisibility(View.VISIBLE);
-		} else {
-			holder.label_second.setVisibility(View.GONE);
-		}
-		if (mList.get(position).icon_id == -1)
-			holder.image.setVisibility(View.GONE);
-		else
-			holder.image.setVisibility(View.VISIBLE);
+		holder.label.setText(user.getName());
 
 		// set disclosure image (if set)
-		if (mList.get(position).disclosure_id != -1 || mLoadingBar == position) {
+		if (mLoadingBar == position) {
 			holder.vs.setVisibility(View.VISIBLE);
-			holder.disclosure.setImageResource(mList.get(position).disclosure_id);
+			holder.disclosure.setImageResource(R.drawable.play);
 		} else {
 			holder.vs.setVisibility(View.GONE);
 		}
@@ -156,27 +118,18 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements Serializab
 		holder.vs.setDisplayedChild(mLoadingBar == position ? 1 : 0);
 
 		// optionally if an URL is specified
-		if (mList.get(position).url != null) {
-			Bitmap bmp = mImageCache.get(mList.get(position).url);
+		String url = user.getImages().length == 0 ? "" : user
+				.getURLforImageSize("extralarge");
+		if (url != null) {
+			Bitmap bmp = mImageCache.get(url);
 			if (bmp != null) {
 				holder.image.setImageBitmap(bmp);
-			} else if (mList.get(position).icon_id >= 0) {
-				holder.image.setImageResource(mList.get(position).icon_id);
+			} else {
+				holder.image.setImageResource(R.drawable.profile_unknown);
 			}
-		} else if (mList.get(position).icon_id >= 0) {
-
-			holder.image.setImageResource(mList.get(position).icon_id);
-
-		} else if (mList.get(position).disclosure_id >= 0) {
-
-			holder.image.setImageResource(mList.get(position).disclosure_id);
 		}
 
-		if (!mScaled) {
-			((ImageView) row.findViewById(R.id.row_icon)).setScaleType(ImageView.ScaleType.CENTER);
-		}
-
-		return row;
+		return convertView;
 	}
 
 	@Override
@@ -198,22 +151,20 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements Serializab
 		ViewSwitcher vs;
 	}
 
-	/**
-	 * Sets list of Iconified Entires as a source for the adapter
-	 * 
-	 * @param list
-	 */
-	public void setSourceIconified(ArrayList<ListEntry> list) {
-		mList = list;
-		if (list == null)
+	public void setSource(User[] usersArray) {
+		mUsersArray = usersArray;
+		if (usersArray == null) {
 			return;
-		Iterator<ListEntry> it = list.iterator();
-		while (it.hasNext()) {
-			ListEntry entry = it.next();
-			if (entry.url != null) {
+		}
+		
+		for(User user : usersArray) {
+			String url = user.getImages().length == 0 ? "" : user
+					.getURLforImageSize("extralarge");
+			
+			if (url != null) {
 				try {
-					if (mImageDownloader.getAsyncTaskEx(entry.url) == null) {
-						mImageDownloader.getImage(entry.url);
+					if (mImageDownloader.getAsyncTaskEx(url) == null) {
+						mImageDownloader.getImage(url);
 					}
 				} catch (java.util.concurrent.RejectedExecutionException e) {
 					e.printStackTrace();
@@ -222,34 +173,9 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements Serializab
 		}
 	}
 
-	public void setIconsUnscaled() {
-		// some icons shouldn't be scaled :(
-		// this is indeed dirty, class needs separating out
-		mScaled = false;
-	}
-
-	public void asynOperationEnded() {
-		this.notifyDataSetChanged();
-
-		// if(mListener != null){
-		// mListener.end();
-		// }
-	}
-
 	public void imageDownloaded(String url) {
 		this.notifyDataSetChanged();
 	}
-
-	public void asynOperationStarted() {
-		// TODO mDownloading = true;
-		// if(mListener != null){
-		// mListener.started();
-		// }
-	}
-
-	// public void setListener(PreparationListener mListener) {
-	// this.mListener = mListener;
-	// }
 
 	/**
 	 * Enables load bar at given position, at the same time only one can be
@@ -274,18 +200,18 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements Serializab
 	}
 
 	public int getCount() {
-		if (mList != null)
-			return mList.size();
+		if (mUsersArray != null)
+			return mUsersArray.length;
 		else
 			return 0;
 	}
 
 	public Object getItem(int position) {
-		return mList.get(position).value;
+		return mUsersArray[position];
 	}
 	
-	public ListEntry getEntry(int position) {
-		return mList.get(position);
+	public User getEntry(int position) {
+		return mUsersArray[position];
 	}
 
 	public long getItemId(int position) {
@@ -307,12 +233,12 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements Serializab
 	}
 
 	public void refreshList() {
-		setSourceIconified(mList);
+		setSource(mUsersArray);
 	}
 
-	public void disableDisclosureIcons() {
-		for (ListEntry l : mList)
-			l.disclosure_id = -1;
-	}
+//	public void disableDisclosureIcons() {
+//		for (User user : mUsersArray)
+//			user.getdisclosure_id = -1;
+//	}
 
 }

@@ -10,7 +10,6 @@
         android:layout_height="fill_parent"
         android:background="#fff"
         android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
+        android:listSelector="#00000000" />
 
 </LinearLayout>
