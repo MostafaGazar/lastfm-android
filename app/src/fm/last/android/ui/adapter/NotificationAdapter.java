@@ -20,6 +20,7 @@
  ***************************************************************************/
 package fm.last.android.ui.adapter;
 
+import fm.last.neu.R;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-import fm.last.android.R;
 
 /**
  * This adapter is not representing any particular data however may be used to

@@ -269,7 +269,26 @@ final class LastFmServerImpl implements LastFmServer {
 		if (limit != null) {
 			params.put("limit", limit);
 		}
-		return FriendFunctions.getFriends(baseUrl, params);
+		Friends friends = FriendFunctions.getFriends(baseUrl, params);
+
+		// Add images to recent tracks.
+		Artist artist;
+		if (recenttracks != null) {
+			User[] users = friends.getFriends();
+			for (User friend : users) {
+				try {
+					artist = getArtistInfo(friend.getRecentTrack().getArtist().getName(), null, null, null);
+					
+					if (artist != null) {
+						friend.setRecentTrackImages(artist.getImages());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return friends;
 	}
 
 	public Track getTrackInfo(String artist, String track, String mbid) throws IOException, WSError {

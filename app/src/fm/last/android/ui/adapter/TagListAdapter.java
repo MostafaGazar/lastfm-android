@@ -22,12 +22,13 @@ package fm.last.android.ui.adapter;
 
 import java.util.ArrayList;
 
+import fm.last.neu.R;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import fm.last.android.R;
 
 /**
  * Adapter class for tags used within TagActivity, implements specific behavior

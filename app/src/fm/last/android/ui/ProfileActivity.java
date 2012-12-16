@@ -62,7 +62,6 @@ import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
-import fm.last.android.R;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
@@ -74,6 +73,7 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.SessionInfo;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class ProfileActivity extends BaseActivity {
 	private static final String TAG = ProfileActivity.class.getSimpleName();
@@ -172,9 +172,9 @@ public class ProfileActivity extends BaseActivity {
 		}
 
 		if(RadioPlayerService.radioAvailable(this)) {
-			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
+			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.neu", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
 		} else {
-			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.android", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+			getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.neu", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 		}
 
 		ActionBar actionBar = getSupportActionBar();

@@ -18,6 +18,7 @@ import fm.last.api.Tag;
 import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class SearchProvider extends ContentProvider {
 

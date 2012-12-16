@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="transparent_lastfm">#CCda001c</color>
     <color name="solid_lastfm">#FFda001c</color>
     <color name="pressed_lastfm">#CCf4001c</color>
     <color name="dark_lastfm">#FF8E0012</color>
+    
+    <color name="dark_red">#FFda001c</color>
+    
+    <color name="transparent_gray">#CC3f3f3f</color>
+    
+    <color name="light_gray">#FF3f3f3f</color>
+    <color name="dark_gray">#FF181818</color>
 
 </resources>

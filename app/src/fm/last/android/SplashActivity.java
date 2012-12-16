@@ -1,5 +1,6 @@
 package fm.last.android;
 
+import fm.last.neu.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

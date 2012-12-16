@@ -20,6 +20,7 @@
  ***************************************************************************/
 package fm.last.android.widget;
 
+import fm.last.neu.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -27,7 +28,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import fm.last.android.R;
 
 // TODO usage of NinePath
 /**

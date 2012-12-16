@@ -10,8 +10,8 @@ import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
-import fm.last.android.R;
 import fm.last.android.utils.AsyncTaskEx;
+import fm.last.neu.R;
 import fm.last.util.UrlUtil;
 
 /**

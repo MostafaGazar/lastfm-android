@@ -22,11 +22,10 @@ package fm.last.android.ui.adapter;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +33,11 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
-import fm.last.android.R;
 import fm.last.android.utils.ImageCache;
 import fm.last.android.utils.ImageDownloader;
 import fm.last.android.utils.ImageDownloaderListener;
 import fm.last.api.User;
+import fm.last.neu.R;
 
 /**
  * Simple adapter for presenting ArrayList of IconifiedEntries as ListView,
@@ -54,8 +52,6 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements
 	protected transient Activity mContext;
 
 	private User[] mUsersArray;
-	private int mLoadingBar = -1;
-	private boolean mEnabled = true;
 
 	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
 		out.writeObject(mUsersArray);
@@ -94,61 +90,70 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements
 			convertView = inflater.inflate(R.layout.list_item_profile_friend, null);
 
 			holder = new ViewHolder();
-			holder.label = (TextView) convertView.findViewById(R.id.row_label);
-			holder.label_second = (TextView) convertView.findViewById(R.id.row_label_second);
-			holder.image = (ImageView) convertView.findViewById(R.id.row_icon);
-			holder.disclosure = (ImageView) convertView.findViewById(R.id.row_disclosure_icon);
-			holder.vs = (ViewSwitcher) convertView.findViewById(R.id.row_view_switcher);
+			holder.user_name = (TextView) convertView.findViewById(R.id.user_name);
+			holder.user_details = (TextView) convertView.findViewById(R.id.user_details);
+			holder.user_icon = (ImageView) convertView.findViewById(R.id.user_icon);
+			
+			holder.progress_bar = convertView.findViewById(R.id.progress_bar);
+			holder.user_last_track = (ImageView) convertView.findViewById(R.id.user_last_track);
+			holder.user_last_track_title = (TextView) convertView.findViewById(R.id.user_last_track_title);
+			holder.user_last_track_artist = (TextView) convertView.findViewById(R.id.user_last_track_artist);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.label.setText(user.getName());
-
-		// set disclosure image (if set)
-		if (mLoadingBar == position) {
-			holder.vs.setVisibility(View.VISIBLE);
-			holder.disclosure.setImageResource(R.drawable.play);
-		} else {
-			holder.vs.setVisibility(View.GONE);
+		holder.user_name.setText(user.getName());
+		StringBuffer userDetailsBuffer = new StringBuffer();
+		if (!TextUtils.isEmpty(user.getAge())) {
+			userDetailsBuffer.append(user.getAge());
 		}
-
-		holder.vs.setDisplayedChild(mLoadingBar == position ? 1 : 0);
-
-		// optionally if an URL is specified
+		if (!TextUtils.isEmpty(user.getGender().toString())) {
+			if (!TextUtils.isEmpty(user.getAge())) {
+				userDetailsBuffer.append(", ");				
+			}
+			userDetailsBuffer.append(user.getGender().toString().toLowerCase());
+		}
+		if (user.getCountry() != null && !TextUtils.isEmpty(user.getCountry().getDisplayCountry())) {
+			if (!TextUtils.isEmpty(user.getAge())
+					|| !TextUtils.isEmpty(user.getGender().toString())) {
+				userDetailsBuffer.append(", ");
+			}
+			userDetailsBuffer.append(user.getCountry().getDisplayCountry());
+		}
+		holder.user_details.setText(userDetailsBuffer.toString());
 		String url = user.getImages().length == 0 ? "" : user
 				.getURLforImageSize("extralarge");
 		if (url != null) {
 			Bitmap bmp = mImageCache.get(url);
 			if (bmp != null) {
-				holder.image.setImageBitmap(bmp);
+				holder.user_icon.setImageBitmap(bmp);
 			} else {
-				holder.image.setImageResource(R.drawable.profile_unknown);
+				holder.user_icon.setImageResource(R.drawable.profile_unknown);
 			}
+		}
+		
+		if (user.getRecentTrack() != null) {
+			int length = user.getRecentTrack().getImages().length;
+			url = length == 0 ? "" : user.getRecentTrack().getImages()[length - 1].getUrl();
+			if (url != null) {
+				Bitmap bmp = mImageCache.get(url);
+				if (bmp != null) {
+					holder.user_last_track.setImageBitmap(bmp);
+					holder.progress_bar.setVisibility(View.GONE);
+				} else {
+					holder.user_last_track.setImageResource(R.color.transparent_lastfm);
+				}
+			} else {
+				holder.progress_bar.setVisibility(View.GONE);
+			}
+			
+			holder.user_last_track_title.setText(user.getRecentTrack().getName());
+			holder.user_last_track_artist.setText(user.getRecentTrack().getArtist().getName());
 		}
 
 		return convertView;
-	}
-
-	@Override
-	public boolean isEnabled(int position) {
-		return mEnabled;
-	}
-
-	/**
-	 * Holder pattern implementation, performance boost
-	 * 
-	 * @author Lukasz Wisniewski
-	 * @author Casey Link
-	 */
-	static class ViewHolder {
-		TextView label;
-		TextView label_second;
-		ImageView image;
-		ImageView disclosure;
-		ViewSwitcher vs;
 	}
 
 	public void setSource(User[] usersArray) {
@@ -160,7 +165,6 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements
 		for(User user : usersArray) {
 			String url = user.getImages().length == 0 ? "" : user
 					.getURLforImageSize("extralarge");
-			
 			if (url != null) {
 				try {
 					if (mImageDownloader.getAsyncTaskEx(url) == null) {
@@ -170,30 +174,25 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements
 					e.printStackTrace();
 				}
 			}
+			
+			if (user.getRecentTrack() != null) {
+				int length = user.getRecentTrack().getImages().length;
+				url = length == 0 ? "" : user.getRecentTrack().getImages()[length - 1].getUrl();
+				if (url != null) {
+					try {
+						if (mImageDownloader.getAsyncTaskEx(url) == null) {
+							mImageDownloader.getImage(url);
+						}
+					} catch (java.util.concurrent.RejectedExecutionException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 	}
 
 	public void imageDownloaded(String url) {
 		this.notifyDataSetChanged();
-	}
-
-	/**
-	 * Enables load bar at given position, at the same time only one can be
-	 * launched per adapter
-	 * 
-	 * @param position
-	 */
-	public void enableLoadBar(int position) {
-		this.mLoadingBar = position;
-		notifyDataSetChanged();
-	}
-
-	/**
-	 * Disables load bar
-	 */
-	public void disableLoadBar() {
-		this.mLoadingBar = -1;
-		notifyDataSetChanged();
 	}
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -224,10 +223,6 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements
 		mImageCache = imageCache;
 	}
 
-	public void setDisabled() {
-		mEnabled = false;
-	}
-
 	public void setContext(Activity context) {
 		mContext = context;
 	}
@@ -236,9 +231,15 @@ public class ProfileFriendsListAdapter extends BaseAdapter implements
 		setSource(mUsersArray);
 	}
 
-//	public void disableDisclosureIcons() {
-//		for (User user : mUsersArray)
-//			user.getdisclosure_id = -1;
-//	}
+	static class ViewHolder {
+		TextView user_name;
+		TextView user_details;
+		ImageView user_icon;
+		
+		View progress_bar;
+		ImageView user_last_track;
+		TextView user_last_track_title;
+		TextView user_last_track_artist;
+	}
 
 }

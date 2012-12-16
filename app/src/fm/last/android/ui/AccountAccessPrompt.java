@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import fm.last.android.BaseActivity;
-import fm.last.android.R;
 import fm.last.api.LastFmServer;
 import fm.last.api.LastFmServerFactory;
 import fm.last.api.Session;
+import fm.last.neu.R;
 
 /**
  * @author sam

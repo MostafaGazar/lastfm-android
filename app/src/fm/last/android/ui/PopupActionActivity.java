@@ -20,13 +20,13 @@ import fm.last.android.Amazon;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.ImageCache;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 /**
  * @author sam

@@ -29,8 +29,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import fm.last.android.R;
 import fm.last.api.User;
+import fm.last.neu.R;
 
 public class ProfileBubble extends LinearLayout {
 

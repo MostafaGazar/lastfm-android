@@ -79,7 +79,6 @@ import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFMMediaButtonHandler;
 import fm.last.android.LastFm;
-import fm.last.android.R;
 import fm.last.android.RadioWidgetProvider;
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.scrobbler.ScrobblerService;
@@ -93,6 +92,7 @@ import fm.last.api.RadioTrack;
 import fm.last.api.Session;
 import fm.last.api.Station;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 import fm.last.util.UrlUtil;
 
 public class RadioPlayerService extends Service implements MusicFocusable {

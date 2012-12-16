@@ -36,12 +36,12 @@ import android.widget.TextView;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.widget.AlbumArt;
 import fm.last.api.ImageUrl;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class Event extends BaseActivity {
 

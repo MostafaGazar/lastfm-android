@@ -19,13 +19,14 @@ package fm.last.android.ui.adapter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import fm.last.neu.R;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import fm.last.android.R;
 
 public class SeparatedListAdapter extends BaseAdapter {
 	public final Map<String, Adapter> sections = new LinkedHashMap<String, Adapter>();

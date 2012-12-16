@@ -45,7 +45,6 @@ import com.actionbarsherlock.app.SherlockListFragment;
 
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.ui.Event.EventActivityResult;
 import fm.last.android.ui.adapter.EventListAdapter;
 import fm.last.android.ui.adapter.ListAdapter;
@@ -53,6 +52,7 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class ProfileEventsFragment extends SherlockListFragment implements LocationListener {
 	// Java doesn't let you treat enums as ints easily, so we have to have this

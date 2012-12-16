@@ -14,73 +14,115 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/station_row"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/list_entry_fullwidth"
-    android:orientation="horizontal" >
+    android:layout_height="128dp"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp" >
 
     <ImageView
-        android:id="@+id/row_icon"
-        android:layout_width="44dip"
-        android:layout_height="44dip"
-        android:layout_gravity="center_vertical|left"
-        android:adjustViewBounds="false"
-        android:scaleType="centerCrop" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="4dip"
-        android:layout_weight="1"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/row_label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="left|center_vertical"
-            android:textColor="@drawable/list_entry_color"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/row_label_second"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="left|center_vertical"
-            android:textColor="@drawable/list_entry_color"
-            android:textSize="10sp"
-            android:visibility="gone" />
-    </LinearLayout>
-
-    <ViewSwitcher
-        android:id="@+id/row_view_switcher"
+        android:id="@+id/user_last_track"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@color/transparent_lastfm" />
+    
+    <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" >
+        android:layout_centerInParent="true" />
 
-        <ImageView
-            android:id="@+id/row_disclosure_icon"
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/overlay_gray"
+        android:orientation="horizontal"
+        android:padding="8dp" >
+
+        <FrameLayout
+            android:layout_width="52dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:paddingLeft="2dip"
-            android:src="@drawable/list_icon_arrow" />
+            android:background="@drawable/picture_frame" >
 
-        <ProgressBar
-            android:layout_width="30dip"
-            android:layout_height="30dip"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="2dip"
-            android:indeterminate="true"
-            android:indeterminateDrawable="@drawable/spinner_small" />
-    </ViewSwitcher>
+            <ImageView
+                android:id="@+id/user_icon"
+                android:layout_width="48dip"
+                android:layout_height="48dip"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile_unknown" />
+        </FrameLayout>
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp" >
+
+            <LinearLayout
+                android:id="@+id/user_details_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="name"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/user_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="details"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@+id/user_details_container"
+                android:gravity="right"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/user_last_track_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="title"
+                    android:textColor="@color/dark_red"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/user_last_track_artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="artist"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

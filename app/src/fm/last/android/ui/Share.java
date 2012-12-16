@@ -32,7 +32,6 @@ import android.widget.Toast;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.ui.adapter.NotificationAdapter;
@@ -42,6 +41,7 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.User;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 /**
  * Activity for sharing tracks with Last.fm users and address book entries

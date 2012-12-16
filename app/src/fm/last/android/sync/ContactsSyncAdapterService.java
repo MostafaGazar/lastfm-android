@@ -33,13 +33,13 @@ import android.provider.ContactsContract.RawContacts;
 import android.provider.ContactsContract.RawContacts.Entity;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.api.Friends;
 import fm.last.api.LastFmServer;
 import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 import fm.last.util.UrlUtil;
 
 /**

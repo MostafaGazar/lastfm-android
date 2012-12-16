@@ -34,12 +34,12 @@ import com.actionbarsherlock.app.ActionBar;
 
 import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.SearchProvider;
 import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
+import fm.last.neu.R;
 
 public class SearchActivity extends BaseListActivity {
 	

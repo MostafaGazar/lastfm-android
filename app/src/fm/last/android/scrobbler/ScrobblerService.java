@@ -52,7 +52,6 @@ import android.widget.Toast;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
-import fm.last.android.R;
 import fm.last.android.RadioWidgetProvider;
 import fm.last.android.db.ScrobblerQueueDao;
 import fm.last.android.db.TrackDurationCacheDao;
@@ -62,6 +61,7 @@ import fm.last.api.RadioTrack;
 import fm.last.api.Session;
 import fm.last.api.Track;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 /**
  * A Last.fm scrobbler for Android

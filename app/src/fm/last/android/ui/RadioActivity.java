@@ -43,7 +43,6 @@ import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
-import fm.last.android.R;
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
@@ -56,6 +55,7 @@ import fm.last.api.Station;
 import fm.last.api.Tasteometer;
 import fm.last.api.User;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class RadioActivity extends BaseListActivity {
 

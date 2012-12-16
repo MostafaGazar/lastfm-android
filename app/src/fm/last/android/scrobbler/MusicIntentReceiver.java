@@ -29,12 +29,12 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.db.ScrobblerQueueDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
+import fm.last.neu.R;
 
 /**
  * @author sam

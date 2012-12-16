@@ -57,15 +57,14 @@ import fm.last.android.Amazon;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.utils.AsyncTaskEx;
-import fm.last.android.widget.AdArea;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.Station;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class PlayerActivity extends BaseActivity {
 

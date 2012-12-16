@@ -20,8 +20,6 @@
  ***************************************************************************/
 package fm.last.android.ui.fragment;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,15 +35,14 @@ import com.actionbarsherlock.app.SherlockFragment;
 
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.player.RadioPlayerService;
-import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.ui.adapter.ProfileFriendsListAdapter;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
 import fm.last.api.LastFmServer;
 import fm.last.api.User;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class ProfileFriendsFragment extends SherlockFragment {
 
@@ -108,7 +105,7 @@ public class ProfileFriendsFragment extends SherlockFragment {
 		@Override
 		public User[] doInBackground(Void... params) {
 			try {
-				User[] friends = mServer.getFriends(username, null, "1024").getFriends();
+				User[] friends = mServer.getFriends(username, "1", "1024").getFriends();
 				if (friends.length == 0) {
 					return null;
 				}
@@ -136,6 +133,8 @@ public class ProfileFriendsFragment extends SherlockFragment {
 //				adapter.setDisabled();
 //				mProfileFriendsListView.setAdapter(adapter);
 			}
+			
+			mProfileFriendsListView.setVisibility(View.VISIBLE);
 		}
 	}
 

@@ -77,6 +77,9 @@ public class Track implements Serializable {
 	public ImageUrl[] getImages() {
 		return images;
 	}
+	public void setImages(ImageUrl[] images) {
+		this.images = images;
+	}
 
 	public String getDuration() {
 		return duration;

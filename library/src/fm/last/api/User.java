@@ -93,6 +93,12 @@ public class User implements Serializable {
 	public Track getRecentTrack() {
 		return recentTrack;
 	}
+	
+	public void setRecentTrackImages(ImageUrl[] images) {
+		if (recentTrack != null) {
+			recentTrack.setImages(images);
+		}
+	}
 
 	public String getURLforImageSize(String size) {
 		for (ImageUrl image : images) {
@@ -102,7 +108,7 @@ public class User implements Serializable {
 		}
 		return null;
 	}
-
+	
 	private final String name;
 	private final String url;
 	private final ImageUrl[] images;

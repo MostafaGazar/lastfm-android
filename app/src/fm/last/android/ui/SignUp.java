@@ -30,11 +30,11 @@ import android.widget.TextView;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
-import fm.last.android.R;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.WSError;
+import fm.last.neu.R;
 
 public class SignUp extends BaseActivity {
 	protected Button mSignUpButton;
