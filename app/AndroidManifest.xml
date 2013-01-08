@@ -228,7 +228,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="fm.last.android.ui.Metadata" >
+        <activity android:name="fm.last.android.ui.ArtistActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
