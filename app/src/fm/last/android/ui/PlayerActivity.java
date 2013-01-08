@@ -532,7 +532,7 @@ public class PlayerActivity extends BaseActivity {
 
 	private void showMetadataIntent(boolean gotoEventsTab) {
 		Intent metaIntent = new Intent(this,
-				fm.last.android.ui.Metadata.class);
+				fm.last.android.ui.ArtistActivity.class);
 		metaIntent.putExtra("artist", mArtistName.getText());
 		metaIntent.putExtra("track", mTrackName.getText());
 		if (gotoEventsTab)

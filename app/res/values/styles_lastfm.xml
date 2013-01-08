@@ -68,6 +68,9 @@
         <item name="android:listViewStyle">@style/ListViewTheme.lastfm</item>
         <item name="android:listViewWhiteStyle">@style/ListViewTheme.lastfm.White</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemTheme.lastfm</item>
+        
+        <!-- Tabs -->
+        <item name="vpiTitlePageIndicatorStyle">@style/Widget.SociappTitlePageIndicator</item>
     </style>
 
     <style name="lastfm_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
@@ -120,4 +123,15 @@
         <item name="android:dropDownListViewStyle">@style/lastfm_DropDownListView</item>
     </style>
 
+    <style name="Widget.SociappTitlePageIndicator">
+        <item name="android:background">#FF333333</item>
+        <item name="footerColor">@color/solid_lastfm</item>
+        <item name="footerLineHeight">1dp</item>
+        <item name="footerIndicatorHeight">3dp</item>
+        <item name="footerIndicatorStyle">underline</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="selectedColor">#FFFFFFFF</item>
+        <item name="selectedBold">true</item>
+    </style>
+    
 </resources>

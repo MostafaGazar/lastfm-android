@@ -3,7 +3,7 @@
     xmlns:lfm="http://schemas.android.com/apk/res/fm.last.android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#eee"
+    android:background="@drawable/white_tile_bg"
     android:orientation="vertical" >
 
     <fm.last.android.widget.AlbumArt
@@ -13,7 +13,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="8dip"
+        android:layout_marginBottom="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="8dip"
         android:background="@drawable/no_artwork"
         android:gravity="center" />
 
@@ -49,7 +52,10 @@
         android:layout_width="75dip"
         android:layout_height="81dip"
         android:layout_below="@id/poster"
-        android:layout_margin="8dip"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="4dip"
         android:background="@drawable/event_calendar_sheet"
         android:orientation="vertical" >
 
@@ -106,9 +112,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dip"
+        android:layout_marginBottom="16dip"
         android:layout_marginLeft="8dip"
-        android:background="@drawable/show_map_button"
         android:text="@string/event_showmap"
         android:textColor="#fff"
         android:textSize="18sp"
@@ -121,7 +126,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/showmap"
         android:layout_marginLeft="8dip"
-        android:background="@drawable/show_map_button"
         android:text="@string/event_buytickets"
         android:textColor="#fff"
         android:textSize="18sp"
@@ -135,8 +139,7 @@
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:layout_marginTop="26dip"
-        android:layout_toRightOf="@id/title"
-        android:background="#fff" >
+        android:layout_toRightOf="@id/title" >
 
         <RadioButton
             android:id="@+id/attending"
@@ -171,7 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dip"
+        android:layout_marginBottom="16dip"
         android:layout_marginRight="8dip" >
 
         <Button
@@ -179,7 +182,7 @@
             android:layout_width="130dip"
             android:layout_height="38dip"
             android:layout_marginRight="10dip"
-            android:background="@drawable/black_button"
+            style="@style/ButtonBlack"
             android:text="@string/common_cancel"
             android:textColor="#fff"
             android:textStyle="bold" >
@@ -190,7 +193,7 @@
             android:layout_width="130dip"
             android:layout_height="38dip"
             android:layout_marginLeft="10dip"
-            android:background="@drawable/black_button"
+            style="@style/ButtonBlack"
             android:text="@string/common_ok"
             android:textColor="#fff"
             android:textStyle="bold" >

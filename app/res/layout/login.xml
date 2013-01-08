@@ -44,8 +44,8 @@
             android:layout_width="200dip"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dip"
-            android:background="@drawable/sign_in_button"
             android:text="@string/main_login"
+            style="@style/ButtonBlack"
             android:textColor="#fff"
             android:textStyle="bold" />
 
@@ -61,7 +61,6 @@
             android:layout_width="200dip"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dip"
-            android:background="@drawable/sign_up_button"
             android:text="@string/main_signup"
             android:textColor="#fff"
             android:textStyle="bold" />

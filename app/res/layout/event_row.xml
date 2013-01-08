@@ -17,10 +17,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_entry_fullwidth"
     android:gravity="left|center_vertical"
     android:orientation="vertical" >
-
+	<!-- android:background="@drawable/list_entry_fullwidth" -->
+	
     <TextView
         android:id="@+id/ExtendedRowBiggerText"
         android:layout_width="wrap_content"

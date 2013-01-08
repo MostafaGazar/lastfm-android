@@ -134,7 +134,7 @@ public class ProfileActivity extends BaseActivity {
 					List<String> segments = getIntent().getData().getPathSegments();
 					username = Uri.decode(segments.get(segments.size() - 1));
 				} else {
-					i = new Intent(this, Metadata.class);
+					i = new Intent(this, ArtistActivity.class);
 					i.setData(intent.getData());
 					startActivity(i);
 					finish();
@@ -180,10 +180,10 @@ public class ProfileActivity extends BaseActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayUseLogoEnabled(true);
-		actionBar.setDisplayHomeAsUpEnabled(false);
 
 		if (isAuthenticatedUser) {
 			actionBar.setDisplayShowTitleEnabled(false);
+			actionBar.setDisplayHomeAsUpEnabled(false);
 			
 			// Latest Activity.
 			Bundle chartsArgs = new Bundle();
@@ -213,6 +213,7 @@ public class ProfileActivity extends BaseActivity {
 		            , ProfileEventsFragment.class, eventsArgs);
 		} else {
 			actionBar.setDisplayShowTitleEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setTitle(username);
 			
 			// Latest Activity.

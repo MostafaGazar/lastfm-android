@@ -3,12 +3,12 @@
  */
 package fm.last.android;
 
-import fm.last.neu.R;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import fm.last.neu.R;
 
 /**
  * @author sam

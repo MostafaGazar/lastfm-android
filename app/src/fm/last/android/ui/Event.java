@@ -89,6 +89,7 @@ public class Event extends BaseActivity {
 
 		mTitle = (TextView) findViewById(R.id.title);
 		mTitle.setText(getIntent().getStringExtra("lastfm.event.title"));
+		getSupportActionBar().setTitle(getIntent().getStringExtra("lastfm.event.title"));
 
 		mArtists = (TextView) findViewById(R.id.artists);
 		mArtists.setText(getIntent().getStringExtra("lastfm.event.artists"));

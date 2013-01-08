@@ -1,42 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fm.last.android.widget.SafeViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/NestedViewFlipper"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#f0efef" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_tile_bg" >
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
-    <ListView
-        android:id="@+id/myevents_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
+    <ScrollView
+        android:id="@+id/listsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" >
 
-    <ListView
-        android:id="@+id/recommended_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/nearme_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
+            <TextView
+                android:id="@+id/myevents_header"
+                android:layout_width="fill_parent"
+                android:layout_height="36dip"
+                android:background="@drawable/events_list_header"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="16dip"
+                android:singleLine="false"
+                android:text="@string/profile_myevents"
+                android:textColor="@color/pressed_lastfm"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+            <ListView
+                android:id="@+id/myevents_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/event_row"
+                android:layout_marginBottom="4dp" >
+            </ListView>
 
-</fm.last.android.widget.SafeViewFlipper>
+            <TextView
+                android:id="@+id/recommended_header"
+                android:layout_width="fill_parent"
+                android:layout_height="36dip"
+                android:background="@drawable/events_list_header"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="16dip"
+                android:singleLine="false"
+                android:text="@string/profile_events_recommended"
+                android:textColor="@color/pressed_lastfm"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+            <ListView
+                android:id="@+id/recommended_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp" >
+            </ListView>
+
+            <TextView
+                android:id="@+id/nearme_header"
+                android:layout_width="fill_parent"
+                android:layout_height="36dip"
+                android:background="@drawable/events_list_header"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="16dip"
+                android:singleLine="false"
+                android:text="@string/profile_events_nearby"
+                android:textColor="@color/pressed_lastfm"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+            <ListView
+                android:id="@+id/nearme_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

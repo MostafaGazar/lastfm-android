@@ -30,9 +30,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-
-import com.actionbarsherlock.app.SherlockFragment;
-
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.player.RadioPlayerService;
@@ -44,7 +41,7 @@ import fm.last.api.User;
 import fm.last.api.WSError;
 import fm.last.neu.R;
 
-public class ProfileFriendsFragment extends SherlockFragment {
+public class ProfileFriendsFragment extends BaseFragment {
 
 	private Activity mContext;
 	private ViewGroup viewer;

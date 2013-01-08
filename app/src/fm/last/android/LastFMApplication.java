@@ -92,7 +92,7 @@ public class LastFMApplication extends Application {
 		// Populate our Session object
 		SharedPreferences settings = getSharedPreferences(LastFm.PREFS, 0);
 		String username = settings.getString("lastfm_user", "");
-		String session_key = settings.getString("lastfm_session_key", "");
+		String session_key = "UA-37099838-1";// settings.getString("lastfm_session_key", "");
 		String subscriber = settings.getString("lastfm_subscriber", "0");
 		
 		session = new Session(username, session_key, subscriber);

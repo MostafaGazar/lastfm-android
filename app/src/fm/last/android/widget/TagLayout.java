@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-import fm.last.neu.R;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
@@ -37,6 +35,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import fm.last.neu.R;
 
 /**
  * Layout/container for TagButtons

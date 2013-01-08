@@ -44,14 +44,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-
-import com.actionbarsherlock.app.SherlockListFragment;
-
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.player.RadioPlayerService;
-import fm.last.android.ui.Metadata;
+import fm.last.android.ui.ArtistActivity;
 import fm.last.android.ui.PopupActionActivity;
 import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
@@ -70,7 +67,7 @@ import fm.last.api.User;
 import fm.last.api.WSError;
 import fm.last.neu.R;
 
-public class ProfileActivityFragment extends SherlockListFragment {
+public class ProfileActivityFragment extends BaseListFragment {
 	// Java doesn't let you treat enums as ints easily, so we have to have this
 	// mess
 	private static final int PROFILE_RECOMMENDED = 0;
@@ -516,7 +513,7 @@ public class ProfileActivityFragment extends SherlockListFragment {
 			try {
 				Artist artist = (Artist) l.getAdapter().getItem(position);
 				if(artist != null) {
-					Intent i = new Intent(mContext, Metadata.class);
+					Intent i = new Intent(mContext, ArtistActivity.class);
 					i.putExtra("artist", artist.getName());
 					startActivity(i);
 				}

@@ -128,7 +128,7 @@ public class PopupActionActivity extends BaseListActivity {
 		
 		switch (i) {
 		case R.drawable.info_dark:
-			intent = new Intent(this, Metadata.class);
+			intent = new Intent(this, ArtistActivity.class);
 			intent.putExtra("artist", mArtistName);
 			intent.putExtra("track", mTrackName);
 			startActivity(intent);
