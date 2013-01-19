@@ -49,6 +49,7 @@ public class ProfileFriendsFragment extends BaseFragment {
 	public static String username; // store this separate so we have access to it before User obj is retrieved
 	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();
 
+	private View mProgressBar;
 	private ListView mProfileFriendsListView;
 
 	private ImageCache mImageCache = null;
@@ -64,6 +65,8 @@ public class ProfileFriendsFragment extends BaseFragment {
 		
 //		username = savedInstanceState.getString("user");
 
+		mProgressBar = viewer.findViewById(R.id.progress_bar);
+		
 		mProfileFriendsListView = (ListView) viewer.findViewById(R.id.profile_friends_list);
 		mProfileFriendsListView.setOnItemClickListener(mFriendsItemClickListener);
 
@@ -100,6 +103,14 @@ public class ProfileFriendsFragment extends BaseFragment {
 	private class LoadFriendsTask extends AsyncTaskEx<Void, Void, User[]> {
 
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			
+			mProgressBar.setVisibility(View.VISIBLE);
+			mProfileFriendsListView.setVisibility(View.GONE);
+		}
+		
+		@Override
 		public User[] doInBackground(Void... params) {
 			try {
 				User[] friends = mServer.getFriends(username, "1", "1024").getFriends();
@@ -131,6 +142,7 @@ public class ProfileFriendsFragment extends BaseFragment {
 //				mProfileFriendsListView.setAdapter(adapter);
 			}
 			
+			mProgressBar.setVisibility(View.GONE);
 			mProfileFriendsListView.setVisibility(View.VISIBLE);
 		}
 	}
