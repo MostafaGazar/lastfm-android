@@ -2,28 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:lfm="http://schemas.android.com/apk/res/fm.last.android"
     android:layout_width="fill_parent"
-    android:layout_height="70dip"
-    android:background="@drawable/tab_bar_rest"
-    android:gravity="top"
+    android:layout_height="92dip"
+	android:background="@drawable/overlay_gray_top"
     android:orientation="horizontal"
-    android:paddingBottom="6dip"
-    android:paddingRight="11dip"
-    android:paddingTop="6dip" >
+    android:padding="16dp" >
 
     <QuickContactBadge
         android:id="@+id/profile_avatar"
         style="@*android:style/Widget.QuickContactBadge.WindowSmall"
         android:layout_width="64dip"
         android:layout_height="60dip"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
+        android:layout_marginRight="8dip"
         android:gravity="center" />
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:gravity="top"
         android:orientation="vertical" >
 
         <TextView

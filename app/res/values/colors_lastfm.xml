@@ -2,6 +2,10 @@
 <resources>
 
     <color name="transparent_lastfm">#CCda001c</color>
+    <color name="transparent_lastfm_2">#CCEC3A00</color>
+    <color name="transparent_lastfm_3">#CCEC7B00</color>
+    <color name="transparent_lastfm_4">#CCECAA00</color>
+    
     <color name="solid_lastfm">#FFda001c</color>
     <color name="pressed_lastfm">#CCf4001c</color>
     <color name="dark_lastfm">#FF8E0012</color>
