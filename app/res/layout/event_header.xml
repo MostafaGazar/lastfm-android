@@ -18,7 +18,7 @@
     android:id="@+id/list_header_title"
     android:layout_width="fill_parent"
     android:layout_height="36dip"
-    android:background="@drawable/events_list_header"
+    android:background="@drawable/header_bg"
     android:gravity="left|center_vertical"
     android:paddingLeft="16dip"
     android:singleLine="false"

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:top="34dp" android:drawable="@color/pressed_lastfm"></item>
+
+</layer-list>
