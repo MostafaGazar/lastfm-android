@@ -22,6 +22,7 @@ import fm.last.api.WSError;
 import fm.last.neu.R;
 
 public class ArtistSimilarFragment extends BaseArtistFragment {
+	@SuppressWarnings("unused")
 	private static final String TAG = ArtistSimilarFragment.class.getSimpleName();
 	
 	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();

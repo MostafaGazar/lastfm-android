@@ -376,6 +376,7 @@ public class LastFMApplication extends Application {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void logout() {
 		ProfileActivityFragment.username = null;
 		ProfileEventsFragment.username = null;

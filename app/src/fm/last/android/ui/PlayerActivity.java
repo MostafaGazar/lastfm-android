@@ -342,6 +342,7 @@ public class PlayerActivity extends BaseActivity {
 		super.onPause();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onResume() {
 		super.onResume();

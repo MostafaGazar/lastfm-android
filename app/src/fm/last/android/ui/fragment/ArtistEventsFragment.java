@@ -23,6 +23,7 @@ import fm.last.api.WSError;
 import fm.last.neu.R;
 
 public class ArtistEventsFragment extends BaseArtistFragment {
+	@SuppressWarnings("unused")
 	private static final String TAG = ArtistEventsFragment.class.getSimpleName();
 	
 	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();

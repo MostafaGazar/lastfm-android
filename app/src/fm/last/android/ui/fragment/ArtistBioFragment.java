@@ -25,6 +25,7 @@ import fm.last.api.WSError;
 import fm.last.neu.R;
 
 public class ArtistBioFragment extends BaseArtistFragment {
+	@SuppressWarnings("unused")
 	private static final String TAG = ArtistBioFragment.class.getSimpleName();
 	
 	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();

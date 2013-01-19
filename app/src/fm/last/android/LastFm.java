@@ -70,6 +70,7 @@ public class LastFm extends BaseActivity {
 	String authInfo;
 
 	/** Called when the activity is first created. */
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);

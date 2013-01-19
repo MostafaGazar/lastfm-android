@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import fm.last.android.utils.ImageCache;
 
 public class BaseArtistFragment extends BaseFragment {
+	@SuppressWarnings("unused")
 	private static final String TAG = BaseArtistFragment.class.getSimpleName();
 	
 	private ImageCache mImageCache;

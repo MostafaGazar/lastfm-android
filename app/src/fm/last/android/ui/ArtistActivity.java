@@ -34,7 +34,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -70,8 +69,6 @@ public class ArtistActivity extends BaseActivity {
 
 	private boolean mIsPlaying = false;
 
-	private TextView mTextView;
-	
 	private FragmentStatePagerAdapter mAdapter;
 	private ViewPager mTabPager;
 	private PageIndicator mIndicator;

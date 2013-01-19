@@ -27,6 +27,7 @@ import fm.last.neu.R;
 public class Preferences extends SherlockPreferenceActivity {
 	private boolean shouldForceSync = false;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);

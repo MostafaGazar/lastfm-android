@@ -40,6 +40,7 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 		mMax = attrs.getAttributeIntValue(androidns,"max", 100);
 
 	}
+	@SuppressWarnings("deprecation")
 	@Override
 		protected View onCreateDialogView() {
 			LinearLayout.LayoutParams params;

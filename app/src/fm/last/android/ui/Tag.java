@@ -242,7 +242,7 @@ public class Tag extends SherlockActivity {
 	/**
 	 * Restores already added tags when orientation is changed
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	private void restoreMe() {
 		mTopTagListAdapter = new TagListAdapter(this);
 		mUserTagListAdapter = new TagListAdapter(this);
