@@ -1,4 +1,4 @@
 lastfm-android
 ==============
 
-A redesign to the official Last.fm Android application
+A redesign of the official Last.fm Android application
