@@ -128,7 +128,7 @@ public interface LastFmServer {
 	 * @return An array of artists
 	 * @throws IOException
 	 */
-	public Artist[] getUserTopArtists(String user, String period) throws IOException, WSError;
+	public Artist[] getUserTopArtists(String user, String period, int limit) throws IOException, WSError;
 
 	public Artist[] getUserRecommendedArtists(String user, String period) throws IOException, WSError;
 
@@ -141,7 +141,7 @@ public interface LastFmServer {
 	 * @return An array of albums
 	 * @throws IOException
 	 */
-	public Album[] getUserTopAlbums(String user, String period) throws IOException, WSError;
+	public Album[] getUserTopAlbums(String user, String period, int limit) throws IOException, WSError;
 
 	/**
 	 * See http://www.lastfm.pl/api/show?service=301
@@ -152,7 +152,7 @@ public interface LastFmServer {
 	 * @return An array of tracks
 	 * @throws IOException
 	 */
-	public Track[] getUserTopTracks(String user, String period) throws IOException, WSError;
+	public Track[] getUserTopTracks(String user, String period, int limit) throws IOException, WSError;
 
 	/**
 	 * See http://www.lastfm.pl/api/show?service=278

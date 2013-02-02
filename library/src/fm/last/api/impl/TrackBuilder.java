@@ -60,13 +60,14 @@ public class TrackBuilder extends XMLBuilder<Track> {
 		}
 
 		List<Node> imageNodes;
-		ImageUrl[] images;
+		ImageUrl[] images = null;
 
 		Node albumNode = getChildNode("album");
 		if(albumNode != null) {
 			Album album = new AlbumBuilder().build(albumNode);
 			images = album.getImages();
-		} else {
+		} 
+		if (images == null || images != null && images.length == 0){
 			imageNodes = getChildNodes("image");
 			images = new ImageUrl[imageNodes.size()];
 			int i = 0;

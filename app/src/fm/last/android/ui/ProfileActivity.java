@@ -83,6 +83,8 @@ public class ProfileActivity extends BaseActivity {
 	private boolean mIsPlaying = false;
 	private boolean mIsPaused = false;
 	
+	private boolean mIsAuthenticatedUser = false;
+	
 	private ViewPager mViewPager;
 	private TabsAdapter mTabsAdapter;
 	
@@ -99,7 +101,6 @@ public class ProfileActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		String username = "";
-		boolean isAuthenticatedUser = false;
 
 		super.onCreate(icicle);
 		setContentView(R.layout.home);
@@ -107,7 +108,6 @@ public class ProfileActivity extends BaseActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setOffscreenPageLimit(3);
 		mTabsAdapter = new TabsAdapter(this, mViewPager);
-		
 		
 		Session session = LastFMApplication.getInstance().session;
 		if (session == null || session.getName() == null 
@@ -154,9 +154,9 @@ public class ProfileActivity extends BaseActivity {
 
 		if (username == null) {
 			username = session.getName();
-			isAuthenticatedUser = true;
+			mIsAuthenticatedUser = true;
 		} else {
-			isAuthenticatedUser = false;
+			mIsAuthenticatedUser = false;
 		}
 		
 		if(intent.getStringExtra("ERROR_TITLE") != null) {
@@ -181,7 +181,7 @@ public class ProfileActivity extends BaseActivity {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayUseLogoEnabled(true);
 
-		if (isAuthenticatedUser) {
+		if (mIsAuthenticatedUser) {
 			actionBar.setDisplayShowTitleEnabled(false);
 			actionBar.setDisplayHomeAsUpEnabled(false);
 			
@@ -216,6 +216,8 @@ public class ProfileActivity extends BaseActivity {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setTitle(username);
 			
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			
 			// Latest Activity.
 			Bundle chartsArgs = new Bundle();
 			ProfileActivityFragment.username = username;
@@ -224,15 +226,6 @@ public class ProfileActivity extends BaseActivity {
 		            .newTab()
 		            .setText(getString(R.string.profile_userprofile))
 		            , ProfileActivityFragment.class, chartsArgs);
-			
-			// Something.
-			Bundle xxxArgs = new Bundle();
-			ProfileActivityFragment.username = username;
-			xxxArgs.putString("user", username);
-			mTabsAdapter.addTab(actionBar
-		            .newTab()
-		            .setText("Something")
-			            , ProfileActivityFragment.class, chartsArgs);
 		}
 
 		File f = new File(Environment.getExternalStorageDirectory() + "/lastfm-logs.zip");
@@ -385,6 +378,12 @@ public class ProfileActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			if (mIsAuthenticatedUser) {
+				return false;
+			} else {
+				return super.onOptionsItemSelected(item);
+			}
 		case R.id.menu_item_search:
 			Bundle appData = new Bundle();
 			startSearch(null, false, appData, false);
@@ -408,6 +407,7 @@ public class ProfileActivity extends BaseActivity {
 			startActivity(intent);
 			return true;
 		}
+		
 		return false;
 	}
 	

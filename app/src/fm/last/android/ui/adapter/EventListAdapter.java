@@ -45,7 +45,10 @@ public class EventListAdapter extends SeparatedListAdapter {
 	public EventListAdapter(Activity context) {
 		super(context);
 		mContext = context;
-		headers = new ArrayAdapter<String>(context, R.layout.event_header);
+		
+		if (context != null) {
+			headers = new ArrayAdapter<String>(context, R.layout.event_header);
+		}
 	}
 
 	/**

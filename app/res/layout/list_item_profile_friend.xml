@@ -15,10 +15,8 @@
      limitations under the License.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/station_row"
     android:layout_width="fill_parent"
     android:layout_height="128dp"
-    android:orientation="horizontal"
     android:paddingBottom="8dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
@@ -78,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="name"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/solid_gray"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -88,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="details"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/solid_gray"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -119,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="artist"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/solid_gray"
                     android:textSize="12sp" />
             </LinearLayout>
         </RelativeLayout>

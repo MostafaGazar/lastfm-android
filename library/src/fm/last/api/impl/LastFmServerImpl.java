@@ -672,13 +672,16 @@ final class LastFmServerImpl implements LastFmServer {
 		post(baseUrl, params);
 	}
 
-	public Artist[] getUserTopArtists(String user, String period) throws IOException {
+	public Artist[] getUserTopArtists(String user, String period, int limit) throws IOException {
 		Map<String, String> params = createParams("user.getTopArtists");
 		if (user != null) {
 			params.put("user", user);
 		}
 		if (period != null) {
 			params.put("period", period);
+		}
+		if (limit > 0) {
+			params.put("limit", String.valueOf(limit));
 		}
 		List<Artist> artists = new Parser<Artist>().getList(baseUrl, params, "topartists", "artist", new ArtistBuilder());
 		return artists.toArray(new Artist[artists.size()]);
@@ -695,7 +698,7 @@ final class LastFmServerImpl implements LastFmServer {
 		return artists.toArray(new Artist[artists.size()]);
 	}
 
-	public Album[] getUserTopAlbums(String user, String period) throws IOException {
+	public Album[] getUserTopAlbums(String user, String period, int limit) throws IOException {
 		Map<String, String> params = createParams("user.getTopAlbums");
 		if (user != null) {
 			params.put("user", user);
@@ -703,17 +706,23 @@ final class LastFmServerImpl implements LastFmServer {
 		if (period != null) {
 			params.put("period", period);
 		}
+		if (limit > 0) {
+			params.put("limit", String.valueOf(limit));
+		}
 		List<Album> albums = new Parser<Album>().getList(baseUrl, params, "topalbums", "album", new AlbumBuilder());
 		return albums.toArray(new Album[albums.size()]);
 	}
 
-	public Track[] getUserTopTracks(String user, String period) throws IOException {
+	public Track[] getUserTopTracks(String user, String period, int limit) throws IOException {
 		Map<String, String> params = createParams("user.getTopTracks");
 		if (user != null) {
 			params.put("user", user);
 		}
 		if (period != null) {
 			params.put("period", period);
+		}
+		if (limit > 0) {
+			params.put("limit", String.valueOf(limit));
 		}
 		List<Track> tracks = new Parser<Track>().getList(baseUrl, params, "toptracks", "track", new TrackBuilder());
 		return tracks.toArray(new Track[tracks.size()]);
@@ -724,8 +733,9 @@ final class LastFmServerImpl implements LastFmServer {
 		if (user != null) {
 			params.put("user", user);
 		}
-		if (nowPlaying != null && nowPlaying.length() > 0)
+		if (nowPlaying != null && nowPlaying.length() > 0) {
 			params.put("nowPlaying", nowPlaying);
+		}
 		if (limit > 0) {
 			params.put("limit", String.valueOf(limit));
 		}

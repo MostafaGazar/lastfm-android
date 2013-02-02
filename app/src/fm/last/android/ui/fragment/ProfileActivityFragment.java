@@ -20,91 +20,64 @@
  ***************************************************************************/
 package fm.last.android.ui.fragment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
-import fm.last.android.LastFm;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.ui.ArtistActivity;
 import fm.last.android.ui.PopupActionActivity;
-import fm.last.android.ui.adapter.ListAdapter;
-import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.AsyncTaskEx;
-import fm.last.android.utils.ImageCache;
-import fm.last.android.widget.ProfileBubble;
 import fm.last.android.widget.QuickContactProfileBubble;
 import fm.last.api.Album;
 import fm.last.api.Artist;
-import fm.last.api.ImageUrl;
 import fm.last.api.LastFmServer;
-import fm.last.api.Session;
-import fm.last.api.Tag;
 import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
 import fm.last.neu.R;
 
-public class ProfileActivityFragment extends BaseListFragment {
-	// Java doesn't let you treat enums as ints easily, so we have to have this
-	// mess
-	private static final int PROFILE_RECOMMENDED = 0;
-	private static final int PROFILE_TOPARTISTS = 1;
-	private static final int PROFILE_TOPALBUMS = 2;
-	private static final int PROFILE_TOPTRACKS = 3;
-	private static final int PROFILE_RECENTLYPLAYED = 4;
-	private static final int PROFILE_FRIENDS = 5;
-	private static final int PROFILE_TAGS = 6;
+public class ProfileActivityFragment extends BaseFragment {
 
 	private Activity mContext;
 	private ViewGroup viewer;
 	
-	private ListAdapter mProfileAdapter;
 	public static String username; // store this separate so we have access to it before User obj is retrieved
 	private LastFmServer mServer = AndroidLastFmServerFactory.getServer();
 
-	private ViewFlipper mNestedViewFlipper;
-	private Stack<Integer> mViewHistory = new Stack<Integer>();
-
-	private View previousSelectedView = null;
-
-	// Animations
-	private Animation mPushRightIn;
-	private Animation mPushRightOut;
-	private Animation mPushLeftIn;
-	private Animation mPushLeftOut;
-
-	private ListView[] mProfileLists = new ListView[7];
-
-	private ImageCache mImageCache = null;
-
 	private IntentFilter mIntentFilter;
 	
-	private ProfileBubble mProfileBubble;
+	private QuickContactProfileBubble mProfileBubble;
 	
-	@SuppressWarnings("deprecation")
+	private ImageView mLastTrackImg1;
+	private ImageView mLastTrackImg2;
+	private ImageView mLastTrackImg3;
+	
+	private View mTopArtisitsContainer;
+	private ImageView mTopArtistImg1;
+	private ImageView mTopArtistImg2;
+	private ImageView mTopArtistImg3;
+	
+	private View mTopAlbumsContainer;
+	private ImageView mTopAlbumImg1;
+	private ImageView mTopAlbumImg2;
+	private ImageView mTopAlbumImg3;
+	
+	private View mTopTracksContainer;
+	private ImageView mTopTrackImg1;
+	private ImageView mTopTrackImg2;
+	private ImageView mTopTrackImg3;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -114,120 +87,41 @@ public class ProfileActivityFragment extends BaseListFragment {
 		
 //		username = savedInstanceState.getString("user");
 		
-		try {
-			mProfileBubble = new QuickContactProfileBubble(mContext);
-		} catch (java.lang.VerifyError e) {
-			mProfileBubble = new ProfileBubble(mContext);
-		} catch (Exception e) {
-			mProfileBubble = new ProfileBubble(mContext);
-		}
-		mProfileBubble.setTag("header");
+		mProfileBubble = (QuickContactProfileBubble) viewer.findViewById(R.id.user_profile_bubble);
 		mProfileBubble.setClickable(false);
 
+		mLastTrackImg1 = (ImageView) viewer.findViewById(R.id.user_last_track_1);
+		mLastTrackImg1.setOnClickListener(mTrackClickListener);
+		mLastTrackImg2 = (ImageView) viewer.findViewById(R.id.user_last_track_2);
+		mLastTrackImg2.setOnClickListener(mTrackClickListener);
+		mLastTrackImg3 = (ImageView) viewer.findViewById(R.id.user_last_track_3);
+		mLastTrackImg3.setOnClickListener(mTrackClickListener);
+		
+		mTopArtisitsContainer = viewer.findViewById(R.id.user_top_artisits_container);
+		mTopArtistImg1 = (ImageView) viewer.findViewById(R.id.user_top_artist_1);
+		mTopArtistImg1.setOnClickListener(mArtistClickListener);
+		mTopArtistImg2 = (ImageView) viewer.findViewById(R.id.user_top_artist_2);
+		mTopArtistImg2.setOnClickListener(mArtistClickListener);
+		mTopArtistImg3 = (ImageView) viewer.findViewById(R.id.user_top_artist_3);
+		mTopArtistImg3.setOnClickListener(mArtistClickListener);
+		
+		mTopAlbumsContainer = viewer.findViewById(R.id.user_top_albums_container);
+		mTopAlbumImg1 = (ImageView) viewer.findViewById(R.id.user_top_album_1);
+		mTopAlbumImg1.setOnClickListener(mAlbumClickListener);
+		mTopAlbumImg2 = (ImageView) viewer.findViewById(R.id.user_top_album_2);
+		mTopAlbumImg2.setOnClickListener(mAlbumClickListener);
+		mTopAlbumImg3 = (ImageView) viewer.findViewById(R.id.user_top_album_3);
+		mTopAlbumImg3.setOnClickListener(mAlbumClickListener);
+		
+		mTopTracksContainer = viewer.findViewById(R.id.user_top_tracks_container);
+		mTopTrackImg1 = (ImageView) viewer.findViewById(R.id.user_top_track_1);
+		mTopTrackImg1.setOnClickListener(mTrackClickListener);
+		mTopTrackImg2 = (ImageView) viewer.findViewById(R.id.user_top_track_2);
+		mTopTrackImg2.setOnClickListener(mTrackClickListener);
+		mTopTrackImg3 = (ImageView) viewer.findViewById(R.id.user_top_track_3);
+		mTopTrackImg3.setOnClickListener(mTrackClickListener);
+		
 		new LoadUserTask().execute((Void)null);
-
-		mNestedViewFlipper = (ViewFlipper) viewer.findViewById(R.id.NestedViewFlipper);
-		mNestedViewFlipper.setAnimateFirstView(false);
-		mNestedViewFlipper.setAnimationCacheEnabled(false);
-		
-		// TODO should be functions and not member variables, caching is evil
-		mProfileLists[PROFILE_RECOMMENDED] = (ListView) viewer.findViewById(R.id.recommended_list_view);
-		mProfileLists[PROFILE_RECOMMENDED].setOnItemClickListener(mArtistListItemClickListener);
-		TextView title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_myrecs));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_RECOMMENDED].addHeaderView(title);
-		
-		
-		mProfileLists[PROFILE_TOPARTISTS] = (ListView) viewer.findViewById(R.id.topartists_list_view);
-		mProfileLists[PROFILE_TOPARTISTS].setOnItemClickListener(mArtistListItemClickListener);
-		title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_topartists));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_TOPARTISTS].addHeaderView(title);
-
-		mProfileLists[PROFILE_TOPALBUMS] = (ListView) viewer.findViewById(R.id.topalbums_list_view);
-		mProfileLists[PROFILE_TOPALBUMS].setOnItemClickListener(mAlbumListItemClickListener);
-		title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_topalbums));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_TOPALBUMS].addHeaderView(title);
-
-		mProfileLists[PROFILE_TOPTRACKS] = (ListView) viewer.findViewById(R.id.toptracks_list_view);
-		mProfileLists[PROFILE_TOPTRACKS].setOnItemClickListener(mTrackListItemClickListener);
-		title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_toptracks));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_TOPTRACKS].addHeaderView(title);
-
-		mProfileLists[PROFILE_RECENTLYPLAYED] = (ListView) viewer.findViewById(R.id.recenttracks_list_view);
-		mProfileLists[PROFILE_RECENTLYPLAYED].setOnItemClickListener(mTrackListItemClickListener);
-		title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_recentlyplayed));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_RECENTLYPLAYED].addHeaderView(title);
-
-		mProfileLists[PROFILE_FRIENDS] = (ListView) viewer.findViewById(R.id.profilefriends_list_view);
-		mProfileLists[PROFILE_FRIENDS].setOnItemClickListener(mUserItemClickListener);
-		title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_friends));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_FRIENDS].addHeaderView(title);
-
-		mProfileLists[PROFILE_TAGS] = (ListView) viewer.findViewById(R.id.profiletags_list_view);
-		mProfileLists[PROFILE_TAGS].setOnItemClickListener(mTagListItemClickListener);
-		title = new TextView(mContext);
-		title.setBackgroundDrawable(getResources().getDrawable(R.drawable.tab_bar_rest));
-		title.setText(getString(R.string.profile_tags));
-		title.setPadding(6, 6, 6, 6);
-		title.setTextSize(16);
-		title.setTextColor(0xFFFFFFFF);
-		title.setGravity(Gravity.CENTER);
-		title.setTypeface(Typeface.DEFAULT_BOLD);
-		title.setShadowLayer(4, 4, 4, 0xFF000000);
-		mProfileLists[PROFILE_TAGS].addHeaderView(title);
-
-		// Loading animations
-		mPushLeftIn = AnimationUtils.loadAnimation(mContext, R.anim.push_left_in);
-		mPushLeftOut = AnimationUtils.loadAnimation(mContext, R.anim.push_left_out);
-		mPushRightIn = AnimationUtils.loadAnimation(mContext, R.anim.push_right_in);
-		mPushRightOut = AnimationUtils.loadAnimation(mContext, R.anim.push_right_out);
 
 		mIntentFilter = new IntentFilter();
 		mIntentFilter.addAction(RadioPlayerService.PLAYBACK_ERROR);
@@ -235,53 +129,6 @@ public class ProfileActivityFragment extends BaseListFragment {
 		mIntentFilter.addAction("fm.last.android.ERROR");
 		
 		return viewer;
-	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		
-		onRestoreInstanceState(savedInstanceState);
-		
-		getListView().addHeaderView(mProfileBubble, null, false);
-		getListView().requestFocus();
-		
-		RebuildChartsMenu();
-	}
-	
-	private void RebuildChartsMenu() {
-		String[] mStrings;
-		
-		SharedPreferences settings = mContext.getSharedPreferences(LastFm.PREFS, 0);
-
-		if(!settings.getBoolean("remove_tags", false)) {
-			if(username.equals(LastFMApplication.getInstance().session.getName())) {
-				// this order must match the ProfileActions enum
-				mStrings = new String[] { getString(R.string.profile_myrecs), getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
-					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends), getString(R.string.profile_tags) }; 
-			} else {
-				// this order must match the ProfileActions enum
-				mStrings = new String[] { getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
-					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends), getString(R.string.profile_tags) };
-			}
-		} else {
-			if(username.equals(LastFMApplication.getInstance().session.getName())) {
-				// this order must match the ProfileActions enum				
-				mStrings = new String[] { getString(R.string.profile_myrecs), getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
-					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends) };
-			} else {
-				// this order must match the ProfileActions enum
-				mStrings = new String[] { getString(R.string.profile_topartists), getString(R.string.profile_topalbums),
-					getString(R.string.profile_toptracks), getString(R.string.profile_recentlyplayed),
-					getString(R.string.profile_friends) };
-			}
-		}
-		
-		mProfileAdapter = new ListAdapter(mContext, mStrings);
-		getListView().setAdapter(mProfileAdapter);
 	}
 	
 	private class LoadUserTask extends AsyncTaskEx<Void, Void, Boolean> {
@@ -304,214 +151,85 @@ public class ProfileActivityFragment extends BaseListFragment {
 		public void onPostExecute(Boolean result) {
 			if(result) {
 				mProfileBubble.setUser(mUser);
-			}
-		}
-	}
-
-	// FIXME :: uncomment.
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		outState.putInt("displayed_view", mNestedViewFlipper.getDisplayedChild());
-		outState.putSerializable("view_history", mViewHistory);
-
-		HashMap<Integer, ListAdapter> adapters = new HashMap<Integer, ListAdapter>(mProfileLists.length);
-		for (int i = 0; i < mProfileLists.length; i++) {
-			ListView lv = mProfileLists[i];
-			if (lv.getAdapter() == null)
-				continue;
-			if (lv.getAdapter().getClass() == ListAdapter.class)
-				adapters.put(i, (ListAdapter) lv.getAdapter());
-		}
-
-		outState.putSerializable("adapters", adapters);
-	}
-
-	public void onRestoreInstanceState(Bundle state) {
-		if (state != null ) {
-			mNestedViewFlipper.setDisplayedChild(state.getInt("displayed_view"));
-	
-			if (state.containsKey("view_history"))
-				try {
-					Object viewHistory = state.getSerializable("view_history");
-					if (viewHistory instanceof Stack)
-						mViewHistory = (Stack<Integer>) viewHistory;
-					else {
-						// For some reason when the process gets killed and then
-						// resumed,
-						// the serializable becomes an ArrayList
-						for (Integer i : (ArrayList<Integer>) state.getSerializable("view_history"))
-							mViewHistory.push(i);
-					}
-				} catch (ClassCastException e) {
-	
-				}
-	
-			// Restore the adapters and disable the spinner for all the profile
-			// lists
-			HashMap<Integer, ListAdapter> adapters = (HashMap<Integer, ListAdapter>) state.getSerializable("adapters");
-	
-			for (int key : adapters.keySet()) {
-				ListAdapter adapter = adapters.get(key);
-				if (adapter != null) {
-					adapter.setContext(mContext);
-					adapter.setImageCache(getImageCache());
-					adapter.disableLoadBar();
-					adapter.refreshList();
-					mProfileLists[key].setAdapter(adapter);
-				}
-		}
-		}
-	}
-
-	@Override
-	public void onResume() {
-		mContext.registerReceiver(mStatusListener, mIntentFilter);
-
-		getListView().setEnabled(true);
-
-		for (ListView list : mProfileLists) {
-			try {
-				((ListAdapter) list.getAdapter()).disableLoadBar();
-			} catch (Exception e) {
-				// FIXME: this is ugly, but sometimes adapters aren't the
-				// shape we expect.
-			}
-		}
-
-		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		mContext.unregisterReceiver(mStatusListener);
-		super.onPause();
-	}
-
-	private BroadcastReceiver mStatusListener = new BroadcastReceiver() {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-			String action = intent.getAction();
-			if (action.equals(RadioPlayerService.PLAYBACK_ERROR) || action.equals("fm.last.android.ERROR")) {
-				for (ListView list : mProfileLists) {
-					if (list.getAdapter() != null && list.getAdapter().getClass().equals(ListAdapter.class))
-						((ListAdapter) list.getAdapter()).disableLoadBar();
-				}
-			} else if(action.equals(RadioPlayerService.STATION_CHANGED)) {
-				RebuildChartsMenu();
 				
-				if (!mViewHistory.isEmpty()) {
-					setPreviousAnimation();
-					mProfileAdapter.disableLoadBar();
-					mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-				}
+				new LoadRecentTracksTask().execute((Void)null);
 			}
 		}
-	};
+	}
 
-//	@Override
-//	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		if (keyCode == KeyEvent.KEYCODE_BACK) {
-//			if (!mViewHistory.isEmpty()) {
-//				setPreviousAnimation();
-//				mProfileAdapter.disableLoadBar();
-//				mNestedViewFlipper.setDisplayedChild(mViewHistory.pop());
-//				
-//				return true;
+//	public void onListItemClick(ListView l, View v, int position, long id) {
+//		setNextAnimation();
+//		mProfileAdapter.enableLoadBar(position-1);
+//		if(!username.equals(LastFMApplication.getInstance().session.getName()))
+//			position++;
+//		switch (position-1) {
+//		case PROFILE_RECOMMENDED: // "Top Artists"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/RecommendedArtists");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
 //			}
-//			if (event.getRepeatCount() == 0) {
-//				// mContext.finish();
-//				
-//				return false;
+//			new LoadRecommendedArtistsTask().execute((Void) null);
+//			break;
+//		case PROFILE_TOPARTISTS: // "Top Artists"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/TopArtists");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
 //			}
+//			new LoadTopArtistsTask().execute((Void) null);
+//			break;
+//		case PROFILE_TOPALBUMS: // "Top Albums"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/TopAlbums");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
+//			}
+//			new LoadTopAlbumsTask().execute((Void) null);
+//			break;
+//		case PROFILE_TOPTRACKS: // "Top Tracks"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/TopTracks");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
+//			}
+//			new LoadTopTracksTask().execute((Void) null);
+//			break;
+//		case PROFILE_RECENTLYPLAYED: // "Recently Played"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/Recent");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
+//			}
+//			new LoadRecentTracksTask().execute((Void) null);
+//			break;
+//		case PROFILE_FRIENDS: // "Friends"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Friends");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
+//			}
+//			new LoadFriendsTask().execute((Void) null);
+//			break;
+//		case PROFILE_TAGS: // "Tags"
+//			try {
+//				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Tags");
+//			} catch (Exception e) {
+//				//Google Analytics doesn't appear to be thread safe
+//			}
+//			new LoadTagsTask().execute((Void) null);
+//			break;
+//		default:
+//			break;
+//
 //		}
-//		
-//		return false;
 //	}
 
-	private void setNextAnimation() {
-		mNestedViewFlipper.setInAnimation(mPushLeftIn);
-		mNestedViewFlipper.setOutAnimation(mPushLeftOut);
-	}
-
-	private void setPreviousAnimation() {
-		mNestedViewFlipper.setInAnimation(mPushRightIn);
-		mNestedViewFlipper.setOutAnimation(mPushRightOut);
-	}
-
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		setNextAnimation();
-		mProfileAdapter.enableLoadBar(position-1);
-		if(!username.equals(LastFMApplication.getInstance().session.getName()))
-			position++;
-		switch (position-1) {
-		case PROFILE_RECOMMENDED: // "Top Artists"
+	private OnClickListener mArtistClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
 			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/RecommendedArtists");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadRecommendedArtistsTask().execute((Void) null);
-			break;
-		case PROFILE_TOPARTISTS: // "Top Artists"
-			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/TopArtists");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadTopArtistsTask().execute((Void) null);
-			break;
-		case PROFILE_TOPALBUMS: // "Top Albums"
-			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/TopAlbums");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadTopAlbumsTask().execute((Void) null);
-			break;
-		case PROFILE_TOPTRACKS: // "Top Tracks"
-			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/TopTracks");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadTopTracksTask().execute((Void) null);
-			break;
-		case PROFILE_RECENTLYPLAYED: // "Recently Played"
-			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Charts/Recent");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadRecentTracksTask().execute((Void) null);
-			break;
-		case PROFILE_FRIENDS: // "Friends"
-			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Friends");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadFriendsTask().execute((Void) null);
-			break;
-		case PROFILE_TAGS: // "Tags"
-			try {
-				LastFMApplication.getInstance().tracker.trackPageView("/Profile/Tags");
-			} catch (Exception e) {
-				//Google Analytics doesn't appear to be thread safe
-			}
-			new LoadTagsTask().execute((Void) null);
-			break;
-		default:
-			break;
-
-		}
-	}
-
-	private OnItemClickListener mArtistListItemClickListener = new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-			try {
-				Artist artist = (Artist) l.getAdapter().getItem(position);
+				Artist artist = (Artist) v.getTag();
 				if(artist != null) {
 					Intent i = new Intent(mContext, ArtistActivity.class);
 					i.putExtra("artist", artist.getName());
@@ -521,13 +239,13 @@ public class ProfileActivityFragment extends BaseListFragment {
 				// fine.
 			}
 		}
-
 	};
 
-	private OnItemClickListener mAlbumListItemClickListener = new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+	private OnClickListener mAlbumClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
 			try {
-				Album album = (Album) l.getAdapter().getItem(position);
+				Album album = (Album) v.getTag();
 				if(album != null) {
 					Intent i = new Intent(mContext, PopupActionActivity.class);
 					i.putExtra("lastfm.artist", album.getArtist());
@@ -542,10 +260,11 @@ public class ProfileActivityFragment extends BaseListFragment {
 
 	};
 
-	private OnItemClickListener mTrackListItemClickListener = new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+	private OnClickListener mTrackClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
 			try {
-				Track track = (Track) l.getAdapter().getItem(position);
+				Track track = (Track) v.getTag();
 				if(track != null) {
 					Intent i = new Intent(mContext, PopupActionActivity.class);
 					i.putExtra("lastfm.artist", track.getArtist().getName());
@@ -560,110 +279,149 @@ public class ProfileActivityFragment extends BaseListFragment {
 
 	};
 
-	private OnItemClickListener mTagListItemClickListener = new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-			try {
-				Session session = LastFMApplication.getInstance().session;
-				Tag tag = (Tag) l.getAdapter().getItem(position);
-				if(tag != null) {
-					if (session.getSubscriber().equals("1"))
-						LastFMApplication.getInstance().playRadioStation(mContext, "lastfm://usertags/" + username + "/" + Uri.encode(tag.getName()), true);
-					else
-						LastFMApplication.getInstance().playRadioStation(mContext, "lastfm://globaltags/" + Uri.encode(tag.getName()), true);
-				}
-			} catch (ClassCastException e) {
-				// when the list item is not a tag
-			}
-		}
+//	private OnItemClickListener mTagClickListener = new OnItemClickListener() {
+//		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+//			try {
+//				Session session = LastFMApplication.getInstance().session;
+//				Tag tag = (Tag) l.getAdapter().getItem(position);
+//				if(tag != null) {
+//					if (session.getSubscriber().equals("1"))
+//						LastFMApplication.getInstance().playRadioStation(mContext, "lastfm://usertags/" + username + "/" + Uri.encode(tag.getName()), true);
+//					else
+//						LastFMApplication.getInstance().playRadioStation(mContext, "lastfm://globaltags/" + Uri.encode(tag.getName()), true);
+//				}
+//			} catch (ClassCastException e) {
+//				// when the list item is not a tag
+//			}
+//		}
+//
+//	};
 
-	};
+//	private OnItemClickListener mUserClickListener = new OnItemClickListener() {
+//		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+//			try {
+//				User user = (User) l.getAdapter().getItem(position);
+//				if(user != null) {
+//					Intent profileIntent = new Intent(mContext, fm.last.android.ui.ProfileActivity.class);
+//					profileIntent.putExtra("lastfm.profile.username", user.getName());
+//					startActivity(profileIntent);
+//				}
+//			} catch (ClassCastException e) {
+//				// when the list item is not a User
+//			}
+//		}
+//	};
 
-	private OnItemClickListener mUserItemClickListener = new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-			try {
-				User user = (User) l.getAdapter().getItem(position);
-				if(user != null) {
-					Intent profileIntent = new Intent(mContext, fm.last.android.ui.ProfileActivity.class);
-					profileIntent.putExtra("lastfm.profile.username", user.getName());
-					startActivity(profileIntent);
-				}
-			} catch (ClassCastException e) {
-				// when the list item is not a User
-			}
-		}
-	};
+//	private class LoadRecommendedArtistsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
+//
+//		@Override
+//		public ArrayList<ListEntry> doInBackground(Void... params) {
+//
+//			try {
+//				Artist[] recartists = mServer.getUserRecommendedArtists(username, LastFMApplication.getInstance().session.getKey());
+//				if (recartists.length == 0)
+//					return null;
+//				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
+//				for (int i = 0; i < ((recartists.length < 10) ? recartists.length : 10); i++) {
+//					String url = null;
+//					try {
+//						ImageUrl[] urls = recartists[i].getImages();
+//						url = urls[0].getUrl();
+//					} catch (ArrayIndexOutOfBoundsException e) {
+//					}
+//
+//					ListEntry entry = new ListEntry(recartists[i], R.drawable.artist_icon, recartists[i].getName(), url);
+//					iconifiedEntries.add(entry);
+//				}
+//				return iconifiedEntries;
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} catch (WSError e) {
+//				LastFMApplication.getInstance().presentError(mContext, e);
+//			}
+//			return null;
+//		}
+//
+//		@Override
+//		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
+//			if (iconifiedEntries != null) {
+//				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
+//				adapter.setSourceIconified(iconifiedEntries);
+//				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
+//			} else {
+//				String[] strings = new String[] { getString(R.string.profile_notopartists) };
+//				ListAdapter adapter = new ListAdapter(mContext, strings);
+//				adapter.disableDisclosureIcons();
+//				adapter.setDisabled();
+//				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
+//			}
+//			// Save the current view
+//			mViewHistory.push(mNestedViewFlipper.getDisplayedChild());
+//			mNestedViewFlipper.setDisplayedChild(PROFILE_RECOMMENDED + 1);
+//		}
+//	}
 
-	private class LoadRecommendedArtistsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
+	private class LoadTopArtistsTask extends AsyncTaskEx<Void, Void, Artist[]> {
 
 		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
+		public Artist[] doInBackground(Void... params) {
 
 			try {
-				Artist[] recartists = mServer.getUserRecommendedArtists(username, LastFMApplication.getInstance().session.getKey());
-				if (recartists.length == 0)
-					return null;
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < ((recartists.length < 10) ? recartists.length : 10); i++) {
-					String url = null;
-					try {
-						ImageUrl[] urls = recartists[i].getImages();
-						url = urls[0].getUrl();
-					} catch (ArrayIndexOutOfBoundsException e) {
+				return mServer.getUserTopArtists(username, "overall", 3);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} catch (WSError e) {
+				LastFMApplication.getInstance().presentError(mContext, e);
+			}
+			return null;
+		}
+
+		@Override
+		public void onPostExecute(Artist[] topArtists) {
+			new LoadTopAlbumsTask().execute((Void)null);
+			
+			if (topArtists != null && topArtists.length > 0) {
+				int size = topArtists.length;
+				Artist artist = topArtists[0];
+				mTopArtistImg1.setTag(artist);
+				String url = artist.getImages().length == 0 ? "" : artist
+						.getURLforImageSize("extralarge");
+				if (!TextUtils.isEmpty(url)) {
+					UrlImageViewHelper.setUrlDrawable(mTopArtistImg1, url, R.color.transparent_lastfm_2);
+				}
+				
+				if (size > 1) {
+					artist = topArtists[1];
+					mTopArtistImg2.setTag(artist);
+					url = artist.getImages().length == 0 ? "" : artist
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mTopArtistImg2, url, R.color.transparent_lastfm_2);
 					}
-
-					ListEntry entry = new ListEntry(recartists[i], R.drawable.artist_icon, recartists[i].getName(), url);
-					iconifiedEntries.add(entry);
 				}
-				return iconifiedEntries;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(mContext, e);
-			}
-			return null;
-		}
-
-		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
-			} else {
-				String[] strings = new String[] { getString(R.string.profile_notopartists) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_RECOMMENDED].setAdapter(adapter);
-			}
-			// Save the current view
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild());
-			mNestedViewFlipper.setDisplayedChild(PROFILE_RECOMMENDED + 1);
-		}
-	}
-
-	private class LoadTopArtistsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
-
-		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
-
-			try {
-				Artist[] topartists = mServer.getUserTopArtists(username, "overall");
-				if (topartists.length == 0)
-					return null;
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < ((topartists.length < 10) ? topartists.length : 10); i++) {
-					String url = null;
-					try {
-						ImageUrl[] urls = topartists[i].getImages();
-						url = urls[0].getUrl();
-					} catch (ArrayIndexOutOfBoundsException e) {
+				
+				if (size > 2) {
+					artist = topArtists[2];
+					mTopArtistImg3.setTag(artist);
+					url = artist.getImages().length == 0 ? "" : artist
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mTopArtistImg3, url, R.color.transparent_lastfm_2);
 					}
-
-					ListEntry entry = new ListEntry(topartists[i], R.drawable.artist_icon, topartists[i].getName(), url);
-					iconifiedEntries.add(entry);
 				}
-				return iconifiedEntries;
+			} else {
+				mTopArtisitsContainer.setVisibility(View.GONE);
+			}
+		}
+	}
+
+	private class LoadTopAlbumsTask extends AsyncTaskEx<Void, Void, Album[]> {
+
+		@Override
+		public Album[] doInBackground(Void... params) {
+
+			try {
+				return mServer.getUserTopAlbums(username, "overall", 3);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
@@ -673,48 +431,50 @@ public class ProfileActivityFragment extends BaseListFragment {
 		}
 
 		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_TOPARTISTS].setAdapter(adapter);
-			} else {
-				String[] strings = new String[] { getString(R.string.profile_notopartists) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_TOPARTISTS].setAdapter(adapter);
-			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
-			mNestedViewFlipper.setDisplayedChild(PROFILE_TOPARTISTS + 1);
-		}
-	}
-
-	private class LoadTopAlbumsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
-
-		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
-
-			try {
-				Album[] topalbums = mServer.getUserTopAlbums(username, "overall");
-				if (topalbums.length == 0)
-					return null;
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < ((topalbums.length < 10) ? topalbums.length : 10); i++) {
-					String url = null;
-					try {
-						ImageUrl[] urls = topalbums[i].getImages();
-						url = urls[urls.length > 1 ? 1 : 0].getUrl();
-					} catch (ArrayIndexOutOfBoundsException e) {
+		public void onPostExecute(Album[] topAlbums) {
+			new LoadTopTracksTask().execute((Void)null);
+			
+			if (topAlbums != null && topAlbums.length > 0) {
+				int size = topAlbums.length;
+				Album album = topAlbums[0];
+				mTopAlbumImg1.setTag(album);
+				String url = album.getImages().length == 0 ? "" : album
+						.getURLforImageSize("extralarge");
+				if (!TextUtils.isEmpty(url)) {
+					UrlImageViewHelper.setUrlDrawable(mTopAlbumImg1, url, R.color.transparent_lastfm_3);
+				}
+				
+				if (size > 1) {
+					album = topAlbums[1];
+					mTopAlbumImg2.setTag(album);
+					url = album.getImages().length == 0 ? "" : album
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mTopAlbumImg2, url, R.color.transparent_lastfm_3);
 					}
-
-					ListEntry entry = new ListEntry(topalbums[i], R.drawable.no_artwork, topalbums[i].getTitle(), url, topalbums[i].getArtist());
-					iconifiedEntries.add(entry);
 				}
-				return iconifiedEntries;
+				
+				if (size > 2) {
+					album = topAlbums[2];
+					mTopAlbumImg3.setTag(album);
+					url = album.getImages().length == 0 ? "" : album
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mTopAlbumImg3, url, R.color.transparent_lastfm_3);
+					}
+				}
+			} else {
+				mTopAlbumsContainer.setVisibility(View.GONE);
+			}
+		}
+	}
+
+	private class LoadTopTracksTask extends AsyncTaskEx<Void, Void, Track[]> {
+
+		@Override
+		public Track[] doInBackground(Void... params) {
+			try {
+				return mServer.getUserTopTracks(username, "overall", 3);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
@@ -724,92 +484,48 @@ public class ProfileActivityFragment extends BaseListFragment {
 		}
 
 		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_TOPALBUMS].setAdapter(adapter);
+		public void onPostExecute(Track[] topTracks) {
+			if (topTracks != null && topTracks.length > 0) {
+				int size = topTracks.length;
+				Track track = topTracks[0];
+				mTopTrackImg1.setTag(track);
+				String url = track.getImages().length == 0 ? "" : track
+						.getURLforImageSize("extralarge");
+				if (!TextUtils.isEmpty(url)) {
+					UrlImageViewHelper.setUrlDrawable(mTopTrackImg1, url, R.color.transparent_lastfm_4);
+				}
+				
+				if (size > 1) {
+					track = topTracks[1];
+					mTopTrackImg2.setTag(track);
+					url = track.getImages().length == 0 ? "" : track
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mTopTrackImg2, url, R.color.transparent_lastfm_4);
+					}
+				}
+				
+				if (size > 2) {
+					track = topTracks[2];
+					mTopTrackImg3.setTag(track);
+					url = track.getImages().length == 0 ? "" : track
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mTopTrackImg3, url, R.color.transparent_lastfm_4);
+					}
+				}
 			} else {
-				String[] strings = new String[] { getString(R.string.profile_notopalbums) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_TOPALBUMS].setAdapter(adapter);
+				mTopTracksContainer.setVisibility(View.GONE);
 			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
-			mNestedViewFlipper.setDisplayedChild(PROFILE_TOPALBUMS + 1);
 		}
 	}
 
-	private class LoadTopTracksTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
+	private class LoadRecentTracksTask extends AsyncTaskEx<Void, Void, Track[]> {
 
 		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
+		public Track[] doInBackground(Void... params) {
 			try {
-				Track[] toptracks = mServer.getUserTopTracks(username, "overall");
-				if (toptracks.length == 0)
-					return null;
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < ((toptracks.length < 10) ? toptracks.length : 10); i++) {
-					ListEntry entry = new ListEntry(toptracks[i], R.drawable.song_icon, toptracks[i].getName(), toptracks[i].getImages().length == 0 ? ""
-							: toptracks[i].getURLforImageSize("extralarge"), // some
-																	// tracks
-																	// don't
-																	// have
-																	// images
-							toptracks[i].getArtist().getName());
-					iconifiedEntries.add(entry);
-				}
-				return iconifiedEntries;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(mContext, e);
-			}
-			return null;
-		}
-
-		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_TOPTRACKS].setAdapter(adapter);
-			} else {
-				String[] strings = new String[] { getString(R.string.profile_notoptracks) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_TOPTRACKS].setAdapter(adapter);
-			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
-			mNestedViewFlipper.setDisplayedChild(PROFILE_TOPTRACKS + 1);
-		}
-	}
-
-	private class LoadRecentTracksTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
-
-		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
-			try {
-				Track[] recenttracks = mServer.getUserRecentTracks(username, "true", 10);
-				if (recenttracks.length == 0)
-					return null;
-
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (Track track : recenttracks) {
-					ListEntry entry = new ListEntry(track, R.drawable.song_icon, track.getName(), track.getImages().length == 0 ? "" : track.getImages()[0]
-							.getUrl(), // some tracks don't have images
-							track.getArtist().getName());
-					iconifiedEntries.add(entry);
-				}
-				return iconifiedEntries;
+				return mServer.getUserRecentTracks(username, "true", 3);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (WSError e) {
@@ -818,123 +534,134 @@ public class ProfileActivityFragment extends BaseListFragment {
 		}
 
 		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_RECENTLYPLAYED].setAdapter(adapter);
-			} else {
-				String[] strings = new String[] { getString(R.string.profile_norecenttracks) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_RECENTLYPLAYED].setAdapter(adapter);
-			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
-			mNestedViewFlipper.setDisplayedChild(PROFILE_RECENTLYPLAYED + 1);
-		}
-	}
-
-	private class LoadTagsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
-
-		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
-			try {
-				Tag[] tags = mServer.getUserTopTags(username, 10);
-				if (tags.length == 0)
-					return null;
-
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < ((tags.length < 10) ? tags.length : 10); i++) {
-					ListEntry entry = new ListEntry(tags[i], -1, tags[i].getName(), R.drawable.list_icon_station);
-					iconifiedEntries.add(entry);
+		public void onPostExecute(Track[] recentTracks) {
+			new LoadTopArtistsTask().execute((Void)null);
+			
+			if (recentTracks != null && recentTracks.length > 0) {
+				int size = recentTracks.length;
+				Track track = recentTracks[0];
+				mLastTrackImg1.setTag(track);
+				String url = track.getImages().length == 0 ? "" : track
+						.getURLforImageSize("extralarge");
+				if (!TextUtils.isEmpty(url)) {
+					UrlImageViewHelper.setUrlDrawable(mLastTrackImg1, url, R.color.transparent_lastfm);
 				}
-				return iconifiedEntries;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(mContext, e);
-			}
-			return null;
-		}
-
-		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_TAGS].setAdapter(adapter);
-			} else {
-				String[] strings = new String[] { getString(R.string.profile_notags) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_TAGS].setAdapter(adapter);
-			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
-			mNestedViewFlipper.setDisplayedChild(PROFILE_TAGS + 1);
-		}
-	}
-
-	private class LoadFriendsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
-
-		@Override
-		public ArrayList<ListEntry> doInBackground(Void... params) {
-			try {
-				User[] friends = mServer.getFriends(username, null, "1024").getFriends();
-				if (friends.length == 0)
-					return null;
-				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
-				for (int i = 0; i < friends.length; i++) {
-					ListEntry entry = new ListEntry(friends[i], R.drawable.profile_unknown, friends[i].getName(), friends[i].getImages().length == 0 ? ""
-							: friends[i].getURLforImageSize("extralarge")); // some
-																	// tracks
-																	// don't
-																	// have
-																	// images
-					iconifiedEntries.add(entry);
+				
+				if (size > 1) {
+					track = recentTracks[1];
+					mLastTrackImg2.setTag(track);
+					url = track.getImages().length == 0 ? "" : track
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mLastTrackImg2, url, R.color.transparent_lastfm);
+					}
 				}
-				return iconifiedEntries;
-			} catch (Exception e) {
-				e.printStackTrace();
-			} catch (WSError e) {
-				LastFMApplication.getInstance().presentError(mContext, e);
-			}
-			return null;
-		}
-
-		@Override
-		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
-			if (iconifiedEntries != null) {
-				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
-				adapter.setSourceIconified(iconifiedEntries);
-				mProfileLists[PROFILE_FRIENDS].setAdapter(adapter);
+				
+				if (size > 2) {
+					track = recentTracks[2];
+					mLastTrackImg3.setTag(track);
+					url = track.getImages().length == 0 ? "" : track
+							.getURLforImageSize("extralarge");
+					if (!TextUtils.isEmpty(url)) {
+						UrlImageViewHelper.setUrlDrawable(mLastTrackImg3, url, R.color.transparent_lastfm);
+					}
+				}
 			} else {
-				String[] strings = new String[] { getString(R.string.profile_nofriends) };
-				ListAdapter adapter = new ListAdapter(mContext, strings);
-				adapter.disableDisclosureIcons();
-				adapter.setDisabled();
-				mProfileLists[PROFILE_FRIENDS].setAdapter(adapter);
+				// XXX :: Do nothing for now.
 			}
-			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
-																		// the
-																		// current
-																		// view
-			mNestedViewFlipper.setDisplayedChild(PROFILE_FRIENDS + 1);
 		}
 	}
 
-	private ImageCache getImageCache() {
-		if (mImageCache == null) {
-			mImageCache = new ImageCache();
-		}
-		return mImageCache;
-	}
+//	private class LoadTagsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
+//
+//		@Override
+//		public ArrayList<ListEntry> doInBackground(Void... params) {
+//			try {
+//				Tag[] tags = mServer.getUserTopTags(username, 10);
+//				if (tags.length == 0)
+//					return null;
+//
+//				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
+//				for (int i = 0; i < ((tags.length < 10) ? tags.length : 10); i++) {
+//					ListEntry entry = new ListEntry(tags[i], -1, tags[i].getName(), R.drawable.list_icon_station);
+//					iconifiedEntries.add(entry);
+//				}
+//				return iconifiedEntries;
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} catch (WSError e) {
+//				LastFMApplication.getInstance().presentError(mContext, e);
+//			}
+//			return null;
+//		}
+//
+//		@Override
+//		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
+//			if (iconifiedEntries != null) {
+//				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
+//				adapter.setSourceIconified(iconifiedEntries);
+//				mProfileLists[PROFILE_TAGS].setAdapter(adapter);
+//			} else {
+//				String[] strings = new String[] { getString(R.string.profile_notags) };
+//				ListAdapter adapter = new ListAdapter(mContext, strings);
+//				adapter.disableDisclosureIcons();
+//				adapter.setDisabled();
+//				mProfileLists[PROFILE_TAGS].setAdapter(adapter);
+//			}
+//			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
+//																		// the
+//																		// current
+//																		// view
+//			mNestedViewFlipper.setDisplayedChild(PROFILE_TAGS + 1);
+//		}
+//	}
+
+//	private class LoadFriendsTask extends AsyncTaskEx<Void, Void, ArrayList<ListEntry>> {
+//
+//		@Override
+//		public ArrayList<ListEntry> doInBackground(Void... params) {
+//			try {
+//				User[] friends = mServer.getFriends(username, null, "1024").getFriends();
+//				if (friends.length == 0)
+//					return null;
+//				ArrayList<ListEntry> iconifiedEntries = new ArrayList<ListEntry>();
+//				for (int i = 0; i < friends.length; i++) {
+//					ListEntry entry = new ListEntry(friends[i], R.drawable.profile_unknown, friends[i].getName(), friends[i].getImages().length == 0 ? ""
+//							: friends[i].getURLforImageSize("extralarge")); // some
+//																	// tracks
+//																	// don't
+//																	// have
+//																	// images
+//					iconifiedEntries.add(entry);
+//				}
+//				return iconifiedEntries;
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} catch (WSError e) {
+//				LastFMApplication.getInstance().presentError(mContext, e);
+//			}
+//			return null;
+//		}
+//
+//		@Override
+//		public void onPostExecute(ArrayList<ListEntry> iconifiedEntries) {
+//			if (iconifiedEntries != null) {
+//				ListAdapter adapter = new ListAdapter(mContext, getImageCache());
+//				adapter.setSourceIconified(iconifiedEntries);
+//				mProfileLists[PROFILE_FRIENDS].setAdapter(adapter);
+//			} else {
+//				String[] strings = new String[] { getString(R.string.profile_nofriends) };
+//				ListAdapter adapter = new ListAdapter(mContext, strings);
+//				adapter.disableDisclosureIcons();
+//				adapter.setDisabled();
+//				mProfileLists[PROFILE_FRIENDS].setAdapter(adapter);
+//			}
+//			mViewHistory.push(mNestedViewFlipper.getDisplayedChild()); // Save
+//																		// the
+//																		// current
+//																		// view
+//			mNestedViewFlipper.setDisplayedChild(PROFILE_FRIENDS + 1);
+//		}
+//	}
 
 }

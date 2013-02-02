@@ -1,86 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fm.last.android.widget.SafeViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/NestedViewFlipper"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<!--
+    Copyright (C) 2012 Mostafa Gazar <eng.mostafa.gazar@gmail.com>
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/white_tile_bg" >
 
-    <!-- Profile tab -->
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-    <!-- Recommended Artists list -->
-    <ListView
-        android:id="@+id/recommended_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
-    
-    <!-- Top Artists list -->
-    <ListView
-        android:id="@+id/topartists_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
-    
-    <!-- Top Albums list -->
-    <ListView
-        android:id="@+id/topalbums_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
-    
-    <!-- Top Tracks list -->
-    <ListView
-        android:id="@+id/toptracks_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
-    
-    <!-- Recently Played list -->
-    <ListView
-        android:id="@+id/recenttracks_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
-    
-    <!-- User's Friends list -->
-    <ListView
-        android:id="@+id/profilefriends_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
-    
-    <!-- User's Tags list -->
-    <ListView
-        android:id="@+id/profiletags_list_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#fff"
-        android:divider="#d9d7d7"
-        android:listSelector="#00000000" >
-    </ListView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-</fm.last.android.widget.SafeViewFlipper>
+            <ImageView
+                android:id="@+id/user_last_track_1"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                android:src="@color/transparent_lastfm" />
+
+            <fm.last.android.widget.QuickContactProfileBubble
+                android:id="@+id/user_profile_bubble"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_last_track_1"
+                android:layout_marginTop="2dp" >
+
+                <ImageView
+                    android:id="@+id/user_last_track_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@color/transparent_lastfm" />
+
+                <ImageView
+                    android:id="@+id/user_last_track_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="1dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@color/transparent_lastfm" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/user_top_artisits_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="36dip"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/header_bg"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="@string/profile_activity_top_artisits"
+                android:textColor="@color/pressed_lastfm"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/container1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="2dp" >
+
+                    <ImageView
+                        android:id="@+id/user_top_artist_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@color/transparent_lastfm_2" />
+
+                    <ImageView
+                        android:id="@+id/user_top_artist_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="1dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@color/transparent_lastfm_2" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/user_top_artist_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_below="@+id/container1"
+                    android:scaleType="centerCrop"
+                    android:src="@color/transparent_lastfm_2" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/user_top_albums_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="36dip"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/header_bg"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="@string/profile_activity_top_albums"
+                android:textColor="@color/pressed_lastfm"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/container2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="2dp" >
+
+                    <ImageView
+                        android:id="@+id/user_top_album_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@color/transparent_lastfm_3" />
+
+                    <ImageView
+                        android:id="@+id/user_top_album_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="1dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@color/transparent_lastfm_3" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/user_top_album_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_below="@+id/container2"
+                    android:scaleType="centerCrop"
+                    android:src="@color/transparent_lastfm_3" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/user_top_tracks_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="36dip"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/header_bg"
+                android:enabled="false"
+                android:gravity="left|center_vertical"
+                android:singleLine="true"
+                android:text="@string/profile_activity_top_tracks"
+                android:textColor="@color/pressed_lastfm"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/container3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="2dp" >
+
+                    <ImageView
+                        android:id="@+id/user_top_track_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="1dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@color/transparent_lastfm_4" />
+
+                    <ImageView
+                        android:id="@+id/user_top_track_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="1dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@color/transparent_lastfm_4" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/user_top_track_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_below="@+id/container3"
+                    android:scaleType="centerCrop"
+                    android:src="@color/transparent_lastfm_4" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

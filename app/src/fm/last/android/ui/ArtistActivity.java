@@ -213,9 +213,9 @@ public class ArtistActivity extends BaseActivity {
 		@Override
 		public Fragment getItem(int position) {
 			if (position == 0) {
-				return mArtistBioFragment;
-			} else if (position == 1) {
 				return mArtistSimilarFragment;
+			} else if (position == 1) {
+				return mArtistBioFragment;
 			} else if (position == 2) {
 				return mArtistTagsFragment;
 			} else if (position == 3) {
@@ -235,9 +235,9 @@ public class ArtistActivity extends BaseActivity {
 		@Override
 		public CharSequence getPageTitle(int position) {
 			if (position == 0) {
-				return getString(R.string.metadata_bio);
+				return getString(R.string.metadata_similar);				
 			} else if (position == 1) {
-				return getString(R.string.metadata_similar);
+				return getString(R.string.metadata_bio);
 			} else if (position == 2) {
 				return getString(R.string.metadata_tags);
 			} else if (position == 3) {

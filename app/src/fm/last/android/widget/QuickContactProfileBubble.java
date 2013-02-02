@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.QuickContactBadge;
@@ -32,6 +33,17 @@ public class QuickContactProfileBubble extends ProfileBubble {
 	 */
 	public QuickContactProfileBubble(Context context) {
 		super(context);
+		
+		sharedConstractor(context);
+	}
+	
+	public QuickContactProfileBubble(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		
+		sharedConstractor(context);
+	}
+	
+	private void sharedConstractor(Context context) {
 		if(ProfileActivity.isHTCContactsInstalled(context)) {
 			throw new java.lang.VerifyError(); //Fall back to the non-quickcontact version if HTC SenseUI is running
 		}

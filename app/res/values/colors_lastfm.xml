@@ -13,6 +13,7 @@
     <color name="dark_red">#FFda001c</color>
     
     <color name="transparent_gray">#CC3f3f3f</color>
+    <color name="solid_gray">#FF3f3f3f</color>
     
     <color name="light_gray">#FF3f3f3f</color>
     <color name="dark_gray">#FF181818</color>
