@@ -92,7 +92,7 @@ import fm.last.api.RadioTrack;
 import fm.last.api.Session;
 import fm.last.api.Station;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 public class RadioPlayerService extends Service implements MusicFocusable {

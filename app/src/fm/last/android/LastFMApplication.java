@@ -52,7 +52,7 @@ import fm.last.android.ui.fragment.ProfileActivityFragment;
 import fm.last.android.ui.fragment.ProfileEventsFragment;
 import fm.last.api.Session;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 public class LastFMApplication extends Application {
@@ -81,7 +81,7 @@ public class LastFMApplication extends Application {
 
 		String version;
 		try {
-			version = "/" + LastFMApplication.getInstance().getPackageManager().getPackageInfo("fm.last.neu", 0).versionName;
+			version = "/" + LastFMApplication.getInstance().getPackageManager().getPackageInfo("com.meg7.lastfm_neu", 0).versionName;
 		} catch (Exception e) {
 			version = "";
 		}
@@ -101,7 +101,7 @@ public class LastFMApplication extends Application {
 		
 		version = "0.1";
 		try {
-			version = getPackageManager().getPackageInfo("fm.last.neu", 0).versionName;
+			version = getPackageManager().getPackageInfo("com.meg7.lastfm_neu", 0).versionName;
 		} catch (NameNotFoundException e) {
 		}
 	}

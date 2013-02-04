@@ -55,7 +55,7 @@ import fm.last.api.Station;
 import fm.last.api.Tasteometer;
 import fm.last.api.User;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class RadioActivity extends BaseListActivity {
 

@@ -41,7 +41,7 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.User;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * Activity for sharing tracks with Last.fm users and address book entries

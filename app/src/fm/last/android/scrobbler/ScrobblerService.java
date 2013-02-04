@@ -61,7 +61,7 @@ import fm.last.api.RadioTrack;
 import fm.last.api.Session;
 import fm.last.api.Track;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * A Last.fm scrobbler for Android

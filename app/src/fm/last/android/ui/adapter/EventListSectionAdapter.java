@@ -28,7 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import fm.last.api.Event;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * ListView adapter for Events (section)

@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 // TODO usage of NinePath
 /**

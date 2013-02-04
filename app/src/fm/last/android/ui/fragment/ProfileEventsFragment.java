@@ -45,7 +45,7 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class ProfileEventsFragment extends BaseFragment implements LocationListener {
 	// Java doesn't let you treat enums as ints easily, so we have to have this

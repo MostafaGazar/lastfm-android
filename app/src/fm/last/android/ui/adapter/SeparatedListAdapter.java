@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class SeparatedListAdapter extends BaseAdapter {
 	public final Map<String, Adapter> sections = new LinkedHashMap<String, Adapter>();

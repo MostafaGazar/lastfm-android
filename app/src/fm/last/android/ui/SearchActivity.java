@@ -39,7 +39,7 @@ import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class SearchActivity extends BaseListActivity {
 	

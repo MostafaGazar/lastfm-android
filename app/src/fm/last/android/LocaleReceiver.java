@@ -20,9 +20,9 @@ public class LocaleReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if(RadioPlayerService.radioAvailable(context)) {
-			context.getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.neu", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
+			context.getPackageManager().setComponentEnabledSetting(new ComponentName("com.meg7.lastfm_neu", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, PackageManager.DONT_KILL_APP);
 		} else {
-			context.getPackageManager().setComponentEnabledSetting(new ComponentName("fm.last.neu", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+			context.getPackageManager().setComponentEnabledSetting(new ComponentName("com.meg7.lastfm_neu", PlayerActivity.class.getName()), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 		}
 	}
 

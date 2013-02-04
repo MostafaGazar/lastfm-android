@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import fm.last.android.BaseActivity;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class Help extends BaseActivity {
 	WebView mWebView;

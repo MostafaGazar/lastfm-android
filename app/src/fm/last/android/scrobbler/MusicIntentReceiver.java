@@ -34,7 +34,7 @@ import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

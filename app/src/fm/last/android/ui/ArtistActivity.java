@@ -50,7 +50,7 @@ import fm.last.android.ui.fragment.ArtistEventsFragment;
 import fm.last.android.ui.fragment.ArtistFansFragment;
 import fm.last.android.ui.fragment.ArtistSimilarFragment;
 import fm.last.android.ui.fragment.ArtistTagsFragment;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author Jono Cole <jono@last.fm>

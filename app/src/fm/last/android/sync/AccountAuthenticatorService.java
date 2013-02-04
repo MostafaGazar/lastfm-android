@@ -24,7 +24,7 @@ import fm.last.android.LastFm;
 import fm.last.android.ui.AccountAccessPrompt;
 import fm.last.android.ui.AccountFailActivity;
 import fm.last.api.MD5;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

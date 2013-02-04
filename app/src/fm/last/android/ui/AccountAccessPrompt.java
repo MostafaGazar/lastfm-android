@@ -15,7 +15,7 @@ import fm.last.android.BaseActivity;
 import fm.last.api.LastFmServer;
 import fm.last.api.LastFmServerFactory;
 import fm.last.api.Session;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

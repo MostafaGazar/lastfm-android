@@ -20,7 +20,7 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class ArtistEventsFragment extends BaseArtistFragment {
 	@SuppressWarnings("unused")

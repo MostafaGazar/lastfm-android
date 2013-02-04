@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * This adapter is not representing any particular data however may be used to

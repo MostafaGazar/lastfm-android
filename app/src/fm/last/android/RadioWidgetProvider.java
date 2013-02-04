@@ -30,14 +30,14 @@ import fm.last.android.ui.ProfileActivity;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Session;
 import fm.last.api.Station;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam
  * 
  */
 public class RadioWidgetProvider extends AppWidgetProvider {
-	static final ComponentName THIS_APPWIDGET = new ComponentName("fm.last.neu", "fm.last.android.RadioWidgetProvider");
+	static final ComponentName THIS_APPWIDGET = new ComponentName("com.meg7.lastfm_neu", "fm.last.android.RadioWidgetProvider");
 
 	private static RadioWidgetProvider sInstance;
 	private static PendingIntent mAlarmIntent = null;

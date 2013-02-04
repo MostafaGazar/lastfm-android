@@ -34,7 +34,7 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class SignUp extends BaseActivity {
 	protected Button mSignUpButton;

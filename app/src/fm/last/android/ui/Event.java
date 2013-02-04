@@ -41,7 +41,7 @@ import fm.last.android.widget.AlbumArt;
 import fm.last.api.ImageUrl;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 public class Event extends BaseActivity {
 

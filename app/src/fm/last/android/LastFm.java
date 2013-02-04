@@ -53,7 +53,7 @@ import fm.last.api.MD5;
 import fm.last.api.Session;
 import fm.last.api.SessionInfo;
 import fm.last.api.WSError;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 public class LastFm extends BaseActivity {
@@ -373,7 +373,7 @@ public class LastFm extends BaseActivity {
 			boolean success = false;
 
 			try {
-				URL url = new URL("http://cdn.last.fm/client/android/" + getPackageManager().getPackageInfo("fm.last.neu", 0).versionName + ".txt");
+				URL url = new URL("http://cdn.last.fm/client/android/" + getPackageManager().getPackageInfo("com.meg7.lastfm_neu", 0).versionName + ".txt");
 				mUpdateURL = UrlUtil.doGet(url);
 				if (mUpdateURL.startsWith("market://") || mUpdateURL.startsWith("http://")) {
 					success = true;

@@ -6,7 +6,7 @@ package fm.last.android.ui;
 import android.accounts.AccountAuthenticatorActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

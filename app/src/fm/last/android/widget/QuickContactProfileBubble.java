@@ -19,7 +19,7 @@ import android.widget.TextView;
 import fm.last.android.ui.ProfileActivity;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.User;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 /**

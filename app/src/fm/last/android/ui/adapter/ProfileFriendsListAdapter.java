@@ -37,7 +37,7 @@ import fm.last.android.utils.ImageCache;
 import fm.last.android.utils.ImageDownloader;
 import fm.last.android.utils.ImageDownloaderListener;
 import fm.last.api.User;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * Simple adapter for presenting ArrayList of IconifiedEntries as ListView,

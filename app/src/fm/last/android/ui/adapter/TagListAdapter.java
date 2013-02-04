@@ -27,7 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * Adapter class for tags used within TagActivity, implements specific behavior

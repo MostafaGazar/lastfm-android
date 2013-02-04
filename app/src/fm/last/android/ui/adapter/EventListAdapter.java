@@ -29,7 +29,7 @@ import java.util.TreeMap;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 import fm.last.api.Event;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * ListView adapter for Events

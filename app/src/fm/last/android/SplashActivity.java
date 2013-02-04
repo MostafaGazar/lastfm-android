@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import fm.last.neu.R;
+import com.meg7.lastfm_neu.R;
 
 /**
  * @author Mostafa Gazar
