@@ -8,5 +8,4 @@ LastFmAuthTest/gen
 library/bin
 library/gen
 library/local.properties
-*.apk
 *.keystore
