@@ -1,4 +1,4 @@
-### Last.fm Neu ![Flattr Last.fm Neu v1.0](http://api.flattr.com/button/flattr-badge-large.png)
+### Last.fm Neu [![Flattr Last.fm Neu v1.0](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/1140886/Last-fm-Neu)
 Modern Holo looking last.fm Android app based on the official app.
 
 ### Downloads
