@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.meg7.lastfm_neu.R;
 
 import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
@@ -39,7 +40,6 @@ import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.android.utils.ImageCache;
-import com.meg7.lastfm_neu.R;
 
 public class SearchActivity extends BaseListActivity {
 	

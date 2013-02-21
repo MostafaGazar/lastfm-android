@@ -49,6 +49,9 @@ import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.widget.Toast;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
@@ -61,7 +64,6 @@ import fm.last.api.RadioTrack;
 import fm.last.api.Session;
 import fm.last.api.Track;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 /**
  * A Last.fm scrobbler for Android

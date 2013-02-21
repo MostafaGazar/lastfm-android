@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.ui.ArtistActivity;
 import fm.last.android.ui.adapter.ListAdapter;
@@ -19,7 +22,6 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Artist;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class ArtistSimilarFragment extends BaseArtistFragment {
 	@SuppressWarnings("unused")

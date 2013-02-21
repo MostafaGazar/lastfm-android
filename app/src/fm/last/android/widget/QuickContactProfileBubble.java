@@ -16,10 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.ui.ProfileActivity;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.User;
-import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 /**

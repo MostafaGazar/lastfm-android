@@ -2,8 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:background="@drawable/white_tile_bg" >
+    android:background="@drawable/white_tile_bg"
+    android:fillViewport="true" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -15,12 +15,20 @@
             android:id="@+id/ImageView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dip"
+            android:layout_marginBottom="8dip"
             android:layout_marginLeft="48dip"
             android:layout_marginRight="48dip"
             android:layout_marginTop="36dip"
             android:background="@drawable/sign_in_logo" >
         </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dip"
+            android:gravity="center"
+            android:text="If you already using the original Last.fm app, please sign out first"
+            android:textColor="@color/solid_lastfm" />
 
         <EditText
             android:id="@+id/username"
@@ -42,11 +50,11 @@
 
         <Button
             android:id="@+id/sign_in_button"
+            style="@style/ButtonBlack"
             android:layout_width="200dip"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dip"
             android:text="@string/main_login"
-            style="@style/ButtonBlack"
             android:textColor="#fff"
             android:textStyle="bold" />
 

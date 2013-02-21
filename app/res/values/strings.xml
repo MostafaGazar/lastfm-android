@@ -4,6 +4,9 @@
     <string name="app_name">Last.fm Neu</string>
     <string name="ACCOUNT_TYPE">fm.last.android.account</string>
 
+    <!-- Need translation -->
+    <string name="loading">Loading...</string>
+    
     <!-- all actions not specific to an activity -->
     <string name="action_viewinfo">View Info</string>
     <string name="action_logout">Logout</string>

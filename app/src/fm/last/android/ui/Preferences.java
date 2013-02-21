@@ -11,11 +11,11 @@ import android.os.Bundle;
 import android.preference.Preference;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.meg7.lastfm_neu.R;
 
 import fm.last.android.LastFMApplication;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.android.sync.AccountAuthenticatorService;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

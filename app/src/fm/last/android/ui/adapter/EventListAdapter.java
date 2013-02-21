@@ -28,8 +28,10 @@ import java.util.TreeMap;
 
 import android.app.Activity;
 import android.widget.ArrayAdapter;
-import fm.last.api.Event;
+
 import com.meg7.lastfm_neu.R;
+
+import fm.last.api.Event;
 
 /**
  * ListView adapter for Events

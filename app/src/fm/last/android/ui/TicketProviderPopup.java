@@ -14,11 +14,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.BaseListActivity;
 import fm.last.android.ui.adapter.ListAdapter;
 import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.ImageCache;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

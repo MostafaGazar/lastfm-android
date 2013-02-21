@@ -22,6 +22,9 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.db.RecentStationsDao;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
@@ -30,7 +33,6 @@ import fm.last.android.ui.ProfileActivity;
 import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Session;
 import fm.last.api.Station;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

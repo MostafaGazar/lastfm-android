@@ -20,8 +20,6 @@
  ***************************************************************************/
 package fm.last.android.ui.fragment;
 
-import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -29,9 +27,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.player.RadioPlayerService;
@@ -45,7 +47,6 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class ProfileActivityFragment extends BaseFragment {
 

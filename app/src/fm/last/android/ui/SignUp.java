@@ -27,6 +27,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
@@ -34,7 +37,6 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class SignUp extends BaseActivity {
 	protected Button mSignUpButton;

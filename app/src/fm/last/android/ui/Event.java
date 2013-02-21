@@ -33,6 +33,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
 import fm.last.android.LastFMApplication;
@@ -41,7 +44,6 @@ import fm.last.android.widget.AlbumArt;
 import fm.last.api.ImageUrl;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class Event extends BaseActivity {
 

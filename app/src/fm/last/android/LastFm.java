@@ -44,6 +44,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.sync.AccountAuthenticatorService;
 import fm.last.android.ui.ProfileActivity;
 import fm.last.android.ui.SignUp;
@@ -53,7 +56,6 @@ import fm.last.api.MD5;
 import fm.last.api.Session;
 import fm.last.api.SessionInfo;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 public class LastFm extends BaseActivity {

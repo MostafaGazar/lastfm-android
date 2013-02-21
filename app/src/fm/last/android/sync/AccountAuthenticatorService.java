@@ -19,12 +19,14 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFm;
 import fm.last.android.ui.AccountAccessPrompt;
 import fm.last.android.ui.AccountFailActivity;
 import fm.last.api.MD5;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

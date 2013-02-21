@@ -36,9 +36,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
-import com.meg7.lastfm_neu.R;
 
 /**
  * This activity is displayed when the system attempts to start an Intent for

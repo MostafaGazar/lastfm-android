@@ -36,10 +36,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.LastFMApplication;
 import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
-import com.meg7.lastfm_neu.R;
 
 /** The adapter for radio streams, uses non-full-width list entry graphics */
 public class LastFMStreamAdapter extends BaseAdapter {

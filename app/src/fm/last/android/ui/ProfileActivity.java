@@ -57,6 +57,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.meg7.lastfm_neu.R;
 
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseActivity;
@@ -73,7 +74,6 @@ import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.SessionInfo;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class ProfileActivity extends BaseActivity {
 	private static final String TAG = ProfileActivity.class.getSimpleName();

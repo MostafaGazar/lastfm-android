@@ -11,6 +11,9 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.text.TextUtils;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.api.Album;
 import fm.last.api.Artist;
 import fm.last.api.LastFmServer;
@@ -18,11 +21,10 @@ import fm.last.api.Tag;
 import fm.last.api.Track;
 import fm.last.api.User;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class SearchProvider extends ContentProvider {
 
-    public static String AUTHORITY = "lastfm";
+    public static String AUTHORITY = "lastfm_neu";
     public static Uri SUGGESTIONS_URI = Uri.parse("content://lastfm/search_suggest_query/");
     
     private static final int SEARCH_SUGGEST = 0;

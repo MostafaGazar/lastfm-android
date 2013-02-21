@@ -39,6 +39,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.ListView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseListActivity;
 import fm.last.android.LastFMApplication;
@@ -55,7 +58,6 @@ import fm.last.api.Station;
 import fm.last.api.Tasteometer;
 import fm.last.api.User;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class RadioActivity extends BaseListActivity {
 

@@ -16,6 +16,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.Amazon;
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.BaseListActivity;
@@ -26,7 +29,6 @@ import fm.last.android.ui.adapter.ListEntry;
 import fm.last.android.utils.ImageCache;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

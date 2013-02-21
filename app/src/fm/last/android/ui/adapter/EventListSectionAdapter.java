@@ -27,8 +27,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import fm.last.api.Event;
+
 import com.meg7.lastfm_neu.R;
+
+import fm.last.api.Event;
 
 /**
  * ListView adapter for Events (section)

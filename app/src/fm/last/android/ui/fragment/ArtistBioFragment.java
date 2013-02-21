@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.player.RadioPlayerService;
@@ -22,7 +25,6 @@ import fm.last.api.Event;
 import fm.last.api.ImageUrl;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class ArtistBioFragment extends BaseArtistFragment {
 	@SuppressWarnings("unused")
@@ -182,16 +184,8 @@ public class ArtistBioFragment extends BaseArtistFragment {
 		public void onPostExecute(Boolean result) {
 			if (result) {
 				try {
-					mWebView.loadDataWithBaseURL(null, new String(mBio.getBytes(), "utf-8"), // need
-																								// to
-																								// do
-																								// this,
-																								// but
-																								// is
-																								// there
-																								// a
-																								// better
-																								// way?
+					// Need to do this, but is there a better way?
+					mWebView.loadDataWithBaseURL(null, new String(mBio.getBytes(), "utf-8"), 
 							"text/html", "utf-8", null);
 					// request focus to make the web view immediately scrollable
 					mWebView.requestFocus();

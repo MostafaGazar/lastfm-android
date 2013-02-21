@@ -27,6 +27,9 @@ import android.net.ConnectivityManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.db.ScrobblerQueueDao;
@@ -34,7 +37,6 @@ import fm.last.android.player.IRadioPlayer;
 import fm.last.android.player.RadioPlayerService;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

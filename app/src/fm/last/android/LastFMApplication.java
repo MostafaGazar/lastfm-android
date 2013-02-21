@@ -41,6 +41,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.meg7.lastfm_neu.R;
 
 import fm.last.android.db.LastFmDbHelper;
 import fm.last.android.player.IRadioPlayer;
@@ -52,7 +53,6 @@ import fm.last.android.ui.fragment.ProfileActivityFragment;
 import fm.last.android.ui.fragment.ProfileEventsFragment;
 import fm.last.api.Session;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 public class LastFMApplication extends Application {

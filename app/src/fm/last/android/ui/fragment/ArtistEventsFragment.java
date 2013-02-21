@@ -1,6 +1,9 @@
 package fm.last.android.ui.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.ui.Event.EventActivityResult;
@@ -20,7 +25,6 @@ import fm.last.android.utils.AsyncTaskEx;
 import fm.last.api.Event;
 import fm.last.api.LastFmServer;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 public class ArtistEventsFragment extends BaseArtistFragment {
 	@SuppressWarnings("unused")
@@ -32,12 +36,12 @@ public class ArtistEventsFragment extends BaseArtistFragment {
 	private EventActivityResult mOnEventActivityResult;
 	
 	private BaseAdapter mEventAdapter;
-	
+
+	private ProgressDialog mProgressDialog;
 	private View mProgressBarContainer;
 	
 	private ViewGroup mViewer;
 	private ListView mEventList;
-	private ListView mTagList;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +54,6 @@ public class ArtistEventsFragment extends BaseArtistFragment {
 		// Initiate controls.
 //		mProgressBarContainer = viewer.findViewById(R.id.progressBarContainer);
 		mEventList = (ListView) mViewer.findViewById(R.id.events_list_view);
-		mTagList = (ListView) mViewer.findViewById(R.id.tags_list_view);
 		
 		new LoadEventsTask().execute((Void) null);
 		
@@ -99,7 +102,10 @@ public class ArtistEventsFragment extends BaseArtistFragment {
 			}
 
 			if (!result) {
-				mNewEventAdapter = new NotificationAdapter(ArtistEventsFragment.this.getActivity(), NotificationAdapter.INFO_MODE, getString(R.string.metadata_noevents));
+				mNewEventAdapter = new NotificationAdapter(
+						getActivity(),
+						NotificationAdapter.INFO_MODE,
+						getString(R.string.metadata_noevents));
 				mEventList.setOnItemClickListener(null);
 			}
 
@@ -126,8 +132,14 @@ public class ArtistEventsFragment extends BaseArtistFragment {
 		
 		@Override
 		public void onPreExecute() {
-			mTagList.setAdapter(new NotificationAdapter(ArtistEventsFragment.this.getActivity(), NotificationAdapter.LOAD_MODE, getString(R.string.common_loading)));
-			mTagList.setOnItemClickListener(null);
+			mProgressDialog = ProgressDialog.show(getActivity(), null, getString(R.string.loading), true, true, new OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					mProgressDialog.dismiss();
+					mProgressDialog = null;
+					ShowEventTask.this.cancel(true);					
+				}
+			});
 		}
 
 		@Override
@@ -154,14 +166,17 @@ public class ArtistEventsFragment extends BaseArtistFragment {
 
 		@Override
 		public void onPostExecute(Intent intent) {
-			mOnEventActivityResult = new EventActivityResult() {
-				public void onEventStatus(int status) {
-					event.setStatus(String.valueOf(status));
-					mOnEventActivityResult = null;
-				}
-			};
+			if (mProgressDialog != null) {
+				mOnEventActivityResult = new EventActivityResult() {
+					public void onEventStatus(int status) {
+						event.setStatus(String.valueOf(status));
+						mOnEventActivityResult = null;
+					}
+				};
+				startActivityForResult(intent, 0);
 
-			startActivityForResult(intent, 0);
+				mProgressDialog.dismiss();
+			}
 		}
 	}
 	

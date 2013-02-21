@@ -1,64 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:background="@drawable/white_tile_bg" >
+    android:background="@drawable/white_tile_bg"
+    android:fillViewport="true" >
 
-    <ImageView
-        android:id="@+id/ImageView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dip"
-        android:layout_marginLeft="24dip"
-        android:layout_marginRight="24dip"
-        android:layout_marginTop="12dip"
-        android:background="@drawable/sign_in_logo" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-    </ImageView>
+        <ImageView
+            android:id="@+id/ImageView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dip"
+            android:layout_marginLeft="24dip"
+            android:layout_marginRight="24dip"
+            android:layout_marginTop="12dip"
+            android:background="@drawable/sign_in_logo" />
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="200dip"
-        android:layout_height="wrap_content"
-        android:hint="@string/main_username"
-        android:singleLine="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:gravity="center"
+            android:text="If you already using the original Last.fm app, please sign out first"
+            android:textColor="@color/solid_lastfm" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="200dip"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/main_password"
-        android:maxLines="1"
-        android:password="true"
-        android:singleLine="true" />
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:hint="@string/main_username"
+            android:singleLine="true" />
 
-    <Button
-        android:id="@+id/sign_in_button"
-        android:layout_width="200dip"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dip"
-        style="@style/ButtonBlack"
-        android:text="@string/main_login"
-        android:textColor="#fff"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/main_password"
+            android:maxLines="1"
+            android:password="true"
+            android:singleLine="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="54dip"
-        android:text="@string/main_newaccount" >
-    </TextView>
+        <Button
+            android:id="@+id/sign_in_button"
+            style="@style/ButtonBlack"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dip"
+            android:text="@string/main_login"
+            android:textColor="#fff"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/sign_up_button"
-        android:layout_width="200dip"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dip"
-        android:text="@string/main_signup"
-        android:textColor="#fff"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dip"
+            android:text="@string/main_newaccount" >
+        </TextView>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/sign_up_button"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dip"
+            android:text="@string/main_signup"
+            android:textColor="#fff"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</ScrollView>

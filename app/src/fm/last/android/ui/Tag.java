@@ -45,6 +45,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.meg7.lastfm_neu.R;
 
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
@@ -55,7 +56,6 @@ import fm.last.android.widget.TagLayoutListener;
 import fm.last.api.LastFmServer;
 import fm.last.api.Session;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 
 /**
  * Activity for tagging albums, artists and songs

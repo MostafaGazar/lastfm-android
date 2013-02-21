@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+
 import com.meg7.lastfm_neu.R;
 
 public class SeparatedListAdapter extends BaseAdapter {

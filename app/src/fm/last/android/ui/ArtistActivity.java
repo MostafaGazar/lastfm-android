@@ -38,6 +38,7 @@ import android.support.v4.view.ViewPager;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.meg7.lastfm_neu.R;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
 
@@ -50,7 +51,6 @@ import fm.last.android.ui.fragment.ArtistEventsFragment;
 import fm.last.android.ui.fragment.ArtistFansFragment;
 import fm.last.android.ui.fragment.ArtistSimilarFragment;
 import fm.last.android.ui.fragment.ArtistTagsFragment;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author Jono Cole <jono@last.fm>

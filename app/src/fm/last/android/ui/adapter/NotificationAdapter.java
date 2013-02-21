@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
 import com.meg7.lastfm_neu.R;
 
 /**

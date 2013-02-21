@@ -33,11 +33,13 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.utils.ImageCache;
 import fm.last.android.utils.ImageDownloader;
 import fm.last.android.utils.ImageDownloaderListener;
 import fm.last.api.User;
-import com.meg7.lastfm_neu.R;
 
 /**
  * Simple adapter for presenting ArrayList of IconifiedEntries as ListView,

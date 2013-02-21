@@ -6,8 +6,10 @@ package fm.last.android.ui;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import fm.last.android.BaseActivity;
+
 import com.meg7.lastfm_neu.R;
+
+import fm.last.android.BaseActivity;
 
 public class Help extends BaseActivity {
 	WebView mWebView;

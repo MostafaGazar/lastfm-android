@@ -35,6 +35,7 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
 import com.meg7.lastfm_neu.R;
 
 /**

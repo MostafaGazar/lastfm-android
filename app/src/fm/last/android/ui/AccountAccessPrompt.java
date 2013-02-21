@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.BaseActivity;
 import fm.last.api.LastFmServer;
 import fm.last.api.LastFmServerFactory;
 import fm.last.api.Session;
-import com.meg7.lastfm_neu.R;
 
 /**
  * @author sam

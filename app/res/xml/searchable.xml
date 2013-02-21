@@ -37,7 +37,7 @@
     android:label="@string/app_name"
     android:queryAfterZeroResults="true"
     android:searchSettingsDescription="@string/action_search"
-    android:searchSuggestAuthority="lastfm"
+    android:searchSuggestAuthority="lastfm_neu"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
     android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" >
 

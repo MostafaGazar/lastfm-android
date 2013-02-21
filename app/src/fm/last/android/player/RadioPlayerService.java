@@ -75,6 +75,9 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.widget.RemoteViews;
+
+import com.meg7.lastfm_neu.R;
+
 import fm.last.android.AndroidLastFmServerFactory;
 import fm.last.android.LastFMApplication;
 import fm.last.android.LastFMMediaButtonHandler;
@@ -92,7 +95,6 @@ import fm.last.api.RadioTrack;
 import fm.last.api.Session;
 import fm.last.api.Station;
 import fm.last.api.WSError;
-import com.meg7.lastfm_neu.R;
 import fm.last.util.UrlUtil;
 
 public class RadioPlayerService extends Service implements MusicFocusable {
