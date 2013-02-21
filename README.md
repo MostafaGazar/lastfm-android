@@ -4,9 +4,9 @@ Modern Holo looking last.fm Android app based on the official app.
 _Subscribe to Last.fm Neu release updates newsletter:_ [http://mailchimp.com/lastfm_neu](http://eepurl.com/vnPNr)
 
 ### Downloads
-[https://raw.github.com/MostafaGazar/lastfm-android/master/Last.fm_Neu_v1.0.apk](https://raw.github.com/MostafaGazar/lastfm-android/master/Last.fm_Neu_v1.0.apk)
+[https://play.google.com/store/apps/details?id=com.meg7.lastfm_neu](https://play.google.com/store/apps/details?id=com.meg7.lastfm_neu)
 
-![Download Last.fm Neu v1.0](https://raw.github.com/MostafaGazar/lastfm-android/master/qrcode_v1.0.png)
+![Download Last.fm Neu v1.1](https://raw.github.com/MostafaGazar/lastfm-android/master/market_qrcode.png)
 ### Screens
 ![Log-in](https://raw.github.com/MostafaGazar/lastfm-android/master/screens/1_login.png)
 ![Register, landscape](https://raw.github.com/MostafaGazar/lastfm-android/master/screens/1_register_land.png)
