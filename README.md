@@ -21,3 +21,7 @@ Screens
 Developed By
 ============
 * Mostafa Gazar - <eng.mostafa.gazar@gmail.com>
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/MostafaGazar/lastfm-android/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
