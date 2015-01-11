@@ -2,6 +2,8 @@ Last.fm Neu
 ============
 Modern Holo looking last.fm Android app based on the official app.
 
+[![Android Weekly](http://img.shields.io/badge/AndroidDev%20Weekly-%2346-2CB3E5.svg?style=flat)](http://androiddevweekly.com/2013/02/18/Issue-46.html)
+
 _Subscribe to Last.fm Neu release updates newsletter:_ [http://mailchimp.com/lastfm_neu](http://eepurl.com/vnPNr)
 Downloads
 ============
